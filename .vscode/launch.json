@@ -5,19 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Optimize",
+            "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "app/optimization/optimize.py",
+            "program": "${file}",
             "console": "integratedTerminal",
-            "justMyCode": true,
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            },
-            "args": [
-                "feature_selection_1",
-                "10"
-            ]
+            "justMyCode": true
         }
     ]
 }
