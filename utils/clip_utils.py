@@ -1,5 +1,6 @@
 import clip
 import torch
+import numpy as np
 from torchvision import transforms
 
 def asses_clip_performance(model, preprocess, data_loader, text_descriptions, dataset_name="Dataset"):
@@ -32,4 +33,4 @@ def asses_clip_performance(model, preprocess, data_loader, text_descriptions, da
         text_probs = (100.0 * image_features @ text_features.T).softmax(dim=-1)
         running_corrects += torch.sum(text_probs.argmax(axis=1) == ground_truth_label.cuda()).item()
 
-    print(f"{dataset_name} accuracy: ", 100.0 * running_corrects / nr_of_images)
+    print(f"{dataset_name} accuracy: {100.0 * running_corrects / nr_of_images}%")
