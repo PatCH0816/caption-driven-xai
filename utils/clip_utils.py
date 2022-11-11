@@ -51,8 +51,12 @@ def asses_clip_performance(model, preprocess, data_loader, text_descriptions, da
         with torch.no_grad():
             image_features = model.encode_image(image_input).float()
             text_features = model.encode_text(text_tokens).float()
-            
+        
+        # compute cosine similarity
+        image_features /= image_features.norm(dim=-1, keepdim=True)
+        text_features /= text_features.norm(dim=-1, keepdim=True)    
         text_probs = (100.0 * image_features @ text_features.T).softmax(dim=-1)
+        
         running_corrects += torch.sum(text_probs.argmax(axis=1) == ground_truth_label.cuda()).item()
 
     print(f"{dataset_name} accuracy: {100.0 * running_corrects / nr_of_images}%")
