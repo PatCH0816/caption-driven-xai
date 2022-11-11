@@ -61,7 +61,7 @@ class DatasetMNIST(datasets.VisionDataset):
 
     self.prepare_colored_mnist()
     if env in ['train', 'val', 'test']:
-      self.data_label_tuples = torch.load(os.path.join(self.root, 'mnist', env) + '.pt')
+      self.data_label_tuples = torch.load(os.path.join(self.root, 'mnist', f"{self.prefix}{env}.pt"))
     else:
       raise RuntimeError(f'{env} env unknown. Valid envs are train, val and test')
 
