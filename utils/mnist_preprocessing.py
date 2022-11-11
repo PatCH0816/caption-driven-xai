@@ -134,6 +134,7 @@ class DatasetMNIST(datasets.VisionDataset):
           else:
             # 3d grayscale mnist
             new_image = grayscale_3d_arr(np.array(im))
+            color_label = 0
             
           # create dataset with:
           # image (tensor format)
