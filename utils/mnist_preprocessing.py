@@ -42,16 +42,17 @@ def grayscale_3d_arr(arr):
   return arr
 
 
-class DatasetMNIST(datasets.VisionDataset, color=True):
+class DatasetMNIST(datasets.VisionDataset):
   """
   Downloads the grayscale MNIST dataset and transforms it into a colored MNIST dataset.
   Digits smaller than 5 are colored red for the train and validation set. Numbers larger
   than 5 are colored green for the train and validation set. The colors of the digits have
   a 50% probability to be flipped.
   """
-  def __init__(self, root='./data', env='train', transform=None, target_transform=None):
+  def __init__(self, root='./data', env='train', transform=None, target_transform=None, color=True):
     super(DatasetMNIST, self).__init__(root, transform=transform,
-                                target_transform=target_transform)
+                                target_transform=target_transform,
+                                color=color)
     self.color = color
     
     if self.color:
