@@ -51,8 +51,7 @@ class DatasetMNIST(datasets.VisionDataset):
   """
   def __init__(self, root='./data', env='train', transform=None, target_transform=None, color=True):
     super(DatasetMNIST, self).__init__(root, transform=transform,
-                                target_transform=target_transform,
-                                color=color)
+                                target_transform=target_transform)
     self.color = color
     
     if self.color:
