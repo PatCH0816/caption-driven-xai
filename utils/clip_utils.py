@@ -25,41 +25,59 @@ def clip_inference(model, preprocessed_images, texts, probabilities=False):
         res = (100.0 * res).softmax(dim=-1)
     return res
 
-def asses_clip_performance(model, preprocess, data_loader, text_descriptions, dataset_name="Dataset"):
-    # build text tokens
-    text_tokens = clip.tokenize(text_descriptions).cuda()
 
-    # variables
-    running_corrects = 0
-    nr_of_images = 0
+def text_feature_generator(clip_version, model, classnames, class_template):
+    """
+    Generates the text-feature matrix from given template sentences and classes and place it on the GPU.
+    """
+    with torch.no_grad():
+        text_features = []
+        for classname in classnames:
+            texts = [class_template.format(template) for template in classname] # generate texts using templates with classes
+            texts = clip_version.tokenize(texts).cuda() # generate text-tokens
+            class_embeddings = model.encode_text(texts) # generate text embeddings -> torch.Size([nr_templates x 1024])
+            class_embeddings /= class_embeddings.norm(dim=-1, keepdim=True) # normalize feature vector -> torch.Size([nr_templates x 1024])
+            class_embedding = class_embeddings.mean(dim=0) # average over all template sentences
+            class_embedding /= class_embedding.norm() # normalize feature vector -> torch.Size([1024])
+            text_features.append(class_embedding) # generate feature matrix -> torch.Size([nr_classes x 1024])
+        text_features = torch.stack(text_features, dim=1).cuda()
+    return text_features
 
-    # transformation
+
+def assess_performance(clip_version, model, preprocess, class_labels, class_template, dataset_loader, dataset_name="Dataset name"):
     transform = transforms.ToPILImage()
+    
+    # building text features
+    text_features = text_feature_generator(clip_version, model, class_labels, class_template)
+    
+    with torch.no_grad():
+        top1, top3, n = 0., 0., 0.
+        for images, ground_truth_label, _, _ in dataset_loader:
+            
+            # preprocess images
+            images_new = []
+            for img in images:
+                images_new.append(preprocess(transform(img)))
 
-    # preprocess images in batches
-    for img_batch, ground_truth_label, _, _ in data_loader:
-        images_new = []
-        for img in img_batch:
-            # process a batch of images
-            images_new.append(preprocess(transform(img)))
-            nr_of_images += 1
-        
-        # building image features
-        image_input = torch.tensor(np.stack(images_new)).cuda()
+            # building image features
+            images = torch.tensor(np.stack(images_new)).cuda()
+            
+            # predict
+            image_features = model.encode_image(images)
+            image_features /= image_features.norm(dim=-1, keepdim=True)
+            similarities = image_features @ text_features
 
-        # inference
-        with torch.no_grad():
-            image_features = model.encode_image(image_input).float()
-            text_features = model.encode_text(text_tokens).float()
-        
-        # compute cosine similarity
-        image_features /= image_features.norm(dim=-1, keepdim=True)
-        text_features /= text_features.norm(dim=-1, keepdim=True)    
-        text_probs = (100.0 * image_features @ text_features.T).softmax(dim=-1)
-        
-        running_corrects += torch.sum(text_probs.argmax(axis=1) == ground_truth_label.cuda()).item()
+            # measure accuracy
+            acc1, acc3 = clip_accuracy(similarities, ground_truth_label.cuda(), topk=(1, 3))
+            top1 += acc1
+            top3 += acc3
+            n += images.size(0)
 
-    print(f"{dataset_name} accuracy: {100.0 * running_corrects / nr_of_images}%")
+    top1 = (top1 / n) * 100
+    top3 = (top3 / n) * 100 
+
+    print(f"{dataset_name} -> Top-1 accuracy: {top1:.2f}")
+    print(f"{dataset_name} -> Top-3 accuracy: {top3:.2f}")
 
 
 def show_cosine_similarities(similarity, original_images, texts):
@@ -106,3 +124,33 @@ def show_text_img_probs(original_images, top_probs, top_labels, texts):
     plt.subplots_adjust(wspace=0.5)
     plt.tight_layout()
     plt.show()
+    
+
+def text_feature_generator(clip_version, model, classnames, class_template):
+    """
+    Generates the text-feature matrix from given template sentences and classes and place it on the GPU.
+    """
+    with torch.no_grad():
+        text_features = []
+        for classname in classnames:
+            texts = [class_template.format(template) for template in classname] # generate texts using templates with classes
+            texts = clip_version.tokenize(texts).cuda() # generate text-tokens
+            class_embeddings = model.encode_text(texts) # generate text embeddings -> torch.Size([nr_templates x 1024])
+            class_embeddings /= class_embeddings.norm(dim=-1, keepdim=True) # normalize feature vector -> torch.Size([nr_templates x 1024])
+            class_embedding = class_embeddings.mean(dim=0) # average over all template sentences
+            class_embedding /= class_embedding.norm() # normalize feature vector -> torch.Size([1024])
+            text_features.append(class_embedding) # generate feature matrix -> torch.Size([nr_classes x 1024])
+        text_features = torch.stack(text_features, dim=1).cuda()
+    return text_features
+    
+    
+def clip_similarities(clip_version, model, preprocess, test_loader_color, descriptions, dataset_name="Dataset name"):
+    return 42
+    
+def clip_accuracy(output, target, topk=(1,)):
+    """
+    Compute top-k accuracy of a classifier given the predictions (logits) and the ground-truth labels (target).
+    """
+    pred = output.topk(max(topk), 1, True, True)[1].t()
+    correct = pred.eq(target.view(1, -1).expand_as(pred))
+    return [float(correct[:k].reshape(-1).float().sum(0, keepdim=True).cpu().numpy()) for k in topk]
