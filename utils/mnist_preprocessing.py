@@ -53,6 +53,7 @@ class DatasetMNIST(datasets.VisionDataset):
     super(DatasetMNIST, self).__init__(root, transform=transform,
                                 target_transform=target_transform)
     self.color = color
+    self.env = env
     
     if self.color:
       self.prefix = 'color_'
