@@ -49,11 +49,12 @@ class DatasetMNIST(datasets.VisionDataset):
   than 5 are colored green for the train and validation set. The colors of the digits have
   a 50% probability to be flipped.
   """
-  def __init__(self, root='./data', env='train', transform=None, target_transform=None, color=True):
+  def __init__(self, root='./data', env='train', transform=None, target_transform=None, color=True, filter=range(10)):
     super(DatasetMNIST, self).__init__(root, transform=transform,
                                 target_transform=target_transform)
     self.color = color
     self.env = env
+    self._filter = filter
     
     if self.color:
       self.prefix = 'color_'
@@ -108,47 +109,48 @@ class DatasetMNIST(datasets.VisionDataset):
         datasource = train_mnist if (dataset == 'train_ds') else test_mnist
         
         for idx, (im, ground_truth) in enumerate(datasource):
-          # determine train, validation, test phase/split
-          if dataset == 'train_ds':
-            if idx < 50000:
-              phase = 'train'
-            else:
-              phase = 'validation'
-          elif dataset == 'test_ds':
-            phase = 'test'
-          
-          # progress bar
-          conversion_progress(idx, datasource, phase)
-                
-          # Assign binary digit label for small and large numbers
-          low_high_label = 1 if ground_truth > 4 else 0
+          if ground_truth in filter:
+            # determine train, validation, test phase/split
+            if dataset == 'train_ds':
+              if idx < 50000:
+                phase = 'train'
+              else:
+                phase = 'validation'
+            elif dataset == 'test_ds':
+              phase = 'test'
+            
+            # progress bar
+            conversion_progress(idx, datasource, phase)
+                  
+            # Assign binary digit label for small and large numbers
+            low_high_label = 1 if ground_truth > 4 else 0
 
-          if self.color:
-            # Assign random color labels to test set
-            if phase == 'test':
-              color_label = np.random.choice([0,1])
+            if self.color:
+              # Assign random color labels to test set
+              if phase == 'test':
+                color_label = np.random.choice([0,1])
+              else:
+                color_label = low_high_label
+              
+              # Color the digit
+              new_image = color_grayscale_arr(np.array(im), green=color_label)
             else:
-              color_label = low_high_label
-            
-            # Color the digit
-            new_image = color_grayscale_arr(np.array(im), green=color_label)
-          else:
-            # 3d grayscale mnist
-            new_image = grayscale_3d_arr(np.array(im))
-            color_label = 0
-            
-          # create dataset with:
-          # image (tensor format)
-          # ground truth label (displayed number)
-          # low_high_label (0 for low numbers, 1 for high numbers)
-          # color_label (potentially mixed up label for test dataset)
-          if phase == 'train':
-            train_set.append((Image.fromarray(new_image), ground_truth, low_high_label, color_label))
-          elif phase == 'validation':
-            validation_set.append((Image.fromarray(new_image), ground_truth, low_high_label, color_label))
-          else:
-            test_set.append((Image.fromarray(new_image), ground_truth, low_high_label, color_label))
-            
+              # 3d grayscale mnist
+              new_image = grayscale_3d_arr(np.array(im))
+              color_label = 0
+              
+            # create dataset with:
+            # image (tensor format)
+            # ground truth label (displayed number)
+            # low_high_label (0 for low numbers, 1 for high numbers)
+            # color_label (potentially mixed up label for test dataset)
+            if phase == 'train':
+              train_set.append((Image.fromarray(new_image), ground_truth, low_high_label, color_label))
+            elif phase == 'validation':
+              validation_set.append((Image.fromarray(new_image), ground_truth, low_high_label, color_label))
+            else:
+              test_set.append((Image.fromarray(new_image), ground_truth, low_high_label, color_label))
+              
       return train_set, validation_set, test_set
       
     
