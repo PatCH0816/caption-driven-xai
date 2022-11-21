@@ -49,12 +49,13 @@ class DatasetMNIST(datasets.VisionDataset):
   than 5 are colored green for the train and validation set. The colors of the digits have
   a 50% probability to be flipped.
   """
-  def __init__(self, root='./data', env='train', transform=None, target_transform=None, color=True, filter=range(10)):
+  def __init__(self, root='./data', env='train', transform=None, target_transform=None, color=True, filter=range(10), color_split=5):
     super(DatasetMNIST, self).__init__(root, transform=transform,
                                 target_transform=target_transform)
     self.color = color
     self.env = env
     self._filter = filter
+    self._color_split = color_split
     
     if self.color:
       self.prefix = 'color_'
@@ -123,7 +124,7 @@ class DatasetMNIST(datasets.VisionDataset):
             conversion_progress(idx, datasource, phase)
                   
             # Assign binary digit label for small and large numbers
-            low_high_label = 1 if ground_truth > 4 else 0
+            low_high_label = 1 if ground_truth > self._color_split else 0
 
             if self.color:
               # Assign random color labels to test set
