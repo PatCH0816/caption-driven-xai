@@ -4,6 +4,8 @@ import numpy as np
 from torchvision import transforms
 import matplotlib.pyplot as plt
 
+#TODO merge assess_performance, clip_inference and harmonize show_examples_0_to_9
+
 def clip_inference(model, preprocessed_images, texts, probabilities=False):
     """
     Returns either cosine similarity or probabilities
