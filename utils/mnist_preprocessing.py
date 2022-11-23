@@ -57,7 +57,6 @@ class DatasetMNIST(datasets.VisionDataset):
     self._filter = filter
     self._color_split = color_split
     
-    
     if self.color:
       self.prefix = 'color_'
     else:
@@ -94,10 +93,6 @@ class DatasetMNIST(datasets.VisionDataset):
     """
     
     def mnist_grayscale_to_color():
-      def conversion_progress(idx, datasource, phase='train'):
-        if ((idx % 5000-1) == 0):
-            print(f'Converting {phase} image {idx+1}/{len(datasource)}')
-        
       # http://yann.lecun.com/exdb/mnist/
       # try balanced emnist: https://www.nist.gov/itl/products-and-services/emnist-dataset
       print('Preparing Colored MNIST')
@@ -130,6 +125,10 @@ class DatasetMNIST(datasets.VisionDataset):
             
       for phase in environment.keys():        
         for idx, (im, ground_truth) in enumerate(environment[phase]["dataset"]):   
+          # progress bar
+          if ((idx % 5000) == 0):
+              print(f'Scanning {phase} image {idx}/{len(environment[phase]["dataset"])}')
+                
           # turn training data into train/validation datasets
           if (phase == "train" and idx >= train_size):
             continue
@@ -139,10 +138,7 @@ class DatasetMNIST(datasets.VisionDataset):
           # apply filter
           if ground_truth not in self._filter:
             continue
-            
-          # progress bar
-          conversion_progress(idx, environment[phase]["dataset"], phase)
-                
+                    
           # Assign binary digit label for small=0 and large=1 numbers
           low_high_label = 1 if ground_truth > self._color_split else 0
         
@@ -179,12 +175,7 @@ class DatasetMNIST(datasets.VisionDataset):
             test_set.append((Image.fromarray((new_image * 255).astype(np.uint8)), ground_truth, low_high_label, color_label))
           elif phase == 'test_fool':
             test_fool_set.append((Image.fromarray((new_image * 255).astype(np.uint8)), ground_truth, low_high_label, color_label))
-            
-      print(len(train_set))
-      print(len(validation_set))
-      print(len(test_set))
-      print(len(test_fool_set))
-              
+               
       return train_set, validation_set, test_set, test_fool_set
       
     # do files already exist?
