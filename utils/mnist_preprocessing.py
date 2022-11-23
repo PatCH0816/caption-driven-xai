@@ -2,7 +2,7 @@ import os
 from PIL import Image
 import numpy as np
 import torch
-from torchvision import datasets
+from torchvision import datasets, transforms
 
 
 def color_grayscale_arr(arr, green=True):
