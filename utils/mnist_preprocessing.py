@@ -50,12 +50,13 @@ class DatasetMNIST(datasets.VisionDataset):
   a 50% probability to be flipped.
   """
   def __init__(self, root='./data', env='train', transform=None, target_transform=None, color=True, filter=range(10), color_split=5):
-    super(DatasetMNIST2, self).__init__(root, transform=transform,
+    super(DatasetMNIST, self).__init__(root, transform=transform,
                                 target_transform=target_transform)
     self.color = color
     self.env = env
     self._filter = filter
     self._color_split = color_split
+    
     
     if self.color:
       self.prefix = 'color_'
