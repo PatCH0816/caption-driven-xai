@@ -156,3 +156,32 @@ def clip_accuracy(output, target, topk=(1,)):
     pred = output.topk(max(topk), 1, True, True)[1].t()
     correct = pred.eq(target.view(1, -1).expand_as(pred))
     return [float(correct[:k].reshape(-1).float().sum(0, keepdim=True).cpu().numpy()) for k in topk]
+
+
+def clip_mnist_similarity(clip_version, model, preprocess, class_labels, class_template, dataset_loader, dataset_name="Dataset name"):
+    transform = transforms.ToPILImage()
+    
+    # building text features
+    text_features = text_feature_generator(clip_version, model, class_labels, class_template)
+    
+    with torch.no_grad():
+        for images, ground_truth_label, low_high_label, color_label in dataset_loader:
+            
+            # preprocess images
+            images_new = []
+            for img in images:
+                images_new.append(preprocess(transform(img)))
+
+            # building image features
+            images = torch.tensor(np.stack(images_new)).cuda()
+            
+            # predict
+            image_features = model.encode_image(images)
+            image_features /= image_features.norm(dim=-1, keepdim=True)
+            similarities = image_features @ text_features
+
+    return similarities.cpu(), low_high_label.cpu()
+
+
+def clip_mnist_binary_accuracy(similarities, true_labels):
+    return np.round(100.0 * (true_labels == similarities.argmax(axis=1)).sum().item() / len(true_labels), 2)
