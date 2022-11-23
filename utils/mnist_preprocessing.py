@@ -49,22 +49,20 @@ class DatasetMNIST(datasets.VisionDataset):
   than 5 are colored green for the train and validation set. The colors of the digits have
   a 50% probability to be flipped.
   """
-  def __init__(self, root='./data', env='train', transform=None, target_transform=None, color=True, filter=range(10), color_split=5):
+  def __init__(self, root='./data', env='train', opt_postfix="", transform=None, target_transform=None, color=True, filter=range(10), first_color_max_nr=5):
     super(DatasetMNIST, self).__init__(root, transform=transform,
                                 target_transform=target_transform)
     self.color = color
     self.env = env
     self._filter = filter
-    self._color_split = color_split
+    self._first_color_max_nr = first_color_max_nr
+    self._opt_postfix = opt_postfix
     
-    if self.color:
-      self.prefix = 'color_'
-    else:
-      self.prefix = 'grey_'
+    self.prefix = 'color_' if self.color else 'grey_'
 
     self.prepare_colored_mnist()
     if env in ['train', 'val', 'test', 'test_fool']:
-      self.data_label_tuples = torch.load(os.path.join(self.root, 'mnist', f"{self.prefix}{env}.pt"))
+      self.data_label_tuples = torch.load(os.path.join(self.root, 'mnist', f"{env}_{self.prefix}{self._opt_postfix}.pt"))
     else:
       raise RuntimeError(f'{env} env unknown. Valid envs are train, val and test')
 
@@ -125,22 +123,22 @@ class DatasetMNIST(datasets.VisionDataset):
             
       for phase in environment.keys():        
         for idx, (im, ground_truth) in enumerate(environment[phase]["dataset"]):   
-          # progress bar
-          if ((idx % 5000) == 0):
-              print(f'Scanning {phase} image {idx}/{len(environment[phase]["dataset"])}')
-                
           # turn training data into train/validation datasets
           if (phase == "train" and idx >= train_size):
             continue
           if (phase == "validation" and idx < train_size):
             continue
           
+          # progress bar
+          if ((idx % 5000) == 0):
+              print(f'Scanning {phase} image {idx}/{len(environment[phase]["dataset"])}')
+                
           # apply filter
           if ground_truth not in self._filter:
             continue
                     
           # Assign binary digit label for small=0 and large=1 numbers
-          low_high_label = 1 if ground_truth > self._color_split else 0
+          low_high_label = 1 if ground_truth > self._first_color_max_nr else 0
         
           if self.color:
             # Assign random color labels to test set
@@ -180,17 +178,17 @@ class DatasetMNIST(datasets.VisionDataset):
       
     # do files already exist?
     colored_mnist_dir = os.path.join(self.root, 'mnist')
-    if os.path.exists(os.path.join(colored_mnist_dir, f"{self.prefix}train.pt")) \
-      and os.path.exists(os.path.join(colored_mnist_dir, f"{self.prefix}val.pt")) \
-      and os.path.exists(os.path.join(colored_mnist_dir, f"{self.prefix}test.pt")) \
-      and os.path.exists(os.path.join(colored_mnist_dir, f"{self.prefix}test_fool.pt")):
+    if os.path.exists(os.path.join(colored_mnist_dir, f"train_{self.prefix}{self._opt_postfix}.pt")) \
+      and os.path.exists(os.path.join(colored_mnist_dir, f"val_{self.prefix}{self._opt_postfix}.pt")) \
+      and os.path.exists(os.path.join(colored_mnist_dir, f"test_{self.prefix}{self._opt_postfix}.pt")) \
+      and os.path.exists(os.path.join(colored_mnist_dir, f"test_fool_{self.prefix}{self._opt_postfix}.pt")):
       print('MNIST dataset already exists')
       return
     
     train_set, val_set, test_set, test_fool_set = mnist_grayscale_to_color()
 
     os.makedirs(colored_mnist_dir, exist_ok=True)
-    torch.save(train_set, os.path.join(colored_mnist_dir, f"{self.prefix}train.pt"))
-    torch.save(val_set, os.path.join(colored_mnist_dir, f"{self.prefix}val.pt"))
-    torch.save(test_set, os.path.join(colored_mnist_dir, f"{self.prefix}test.pt"))
-    torch.save(test_fool_set, os.path.join(colored_mnist_dir, f"{self.prefix}test_fool.pt"))
+    torch.save(train_set, os.path.join(colored_mnist_dir, f"train_{self.prefix}{self._opt_postfix}.pt"))
+    torch.save(val_set, os.path.join(colored_mnist_dir, f"val_{self.prefix}{self._opt_postfix}.pt"))
+    torch.save(test_set, os.path.join(colored_mnist_dir, f"test_{self.prefix}{self._opt_postfix}.pt"))
+    torch.save(test_fool_set, os.path.join(colored_mnist_dir, f"test_fool_{self.prefix}{self._opt_postfix}.pt"))
