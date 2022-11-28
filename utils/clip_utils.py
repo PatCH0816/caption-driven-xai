@@ -35,7 +35,7 @@ def text_feature_generator(clip_version, model, classnames, class_template):
     with torch.no_grad():
         text_features = []
         for classname in classnames:
-            texts = [class_template.format(template) for template in classname] # generate texts using templates with classes
+            texts = [template.format(classname) for template in class_template] # generate texts using templates with classes
             texts = clip_version.tokenize(texts).cuda() # generate text-tokens
             class_embeddings = model.encode_text(texts) # generate text embeddings -> torch.Size([nr_templates x 1024])
             class_embeddings /= class_embeddings.norm(dim=-1, keepdim=True) # normalize feature vector -> torch.Size([nr_templates x 1024])
