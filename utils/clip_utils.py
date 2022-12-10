@@ -127,25 +127,6 @@ def show_text_img_probs(original_images, top_probs, top_labels, texts):
     plt.tight_layout()
     plt.show()
     
-
-def text_feature_generator(clip_version, model, classnames, class_template):
-    """
-    Generates the text-feature matrix from given template sentences and classes and place it on the GPU.
-    """
-    with torch.no_grad():
-        text_features = []
-        for classname in classnames:
-            texts = [class_template.format(template) for template in classname] # generate texts using templates with classes
-            texts = clip_version.tokenize(texts).cuda() # generate text-tokens
-            class_embeddings = model.encode_text(texts) # generate text embeddings -> torch.Size([nr_templates x 1024])
-            class_embeddings /= class_embeddings.norm(dim=-1, keepdim=True) # normalize feature vector -> torch.Size([nr_templates x 1024])
-            class_embedding = class_embeddings.mean(dim=0) # average over all template sentences
-            class_embedding /= class_embedding.norm() # normalize feature vector -> torch.Size([1024])
-            text_features.append(class_embedding) # generate feature matrix -> torch.Size([nr_classes x 1024])
-        text_features = torch.stack(text_features, dim=1).cuda()
-    return text_features
-    
-    
 def clip_similarities(clip_version, model, preprocess, test_loader_color, descriptions, dataset_name="Dataset name"):
     return 42
     
