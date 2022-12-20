@@ -1,11 +1,12 @@
 ---
 pagetitle: This is the HTML document title
-title: Fancy-title!
-subtitle: Fancy sub-title!
+title: Tell me what you see, CLIP!
+subtitle: A novel, explainable AI approach to obtaining a textual description of what a neural network pays its attention to.
 author: Patrick Koller
-date: September 2022
-location: University of Applied Sciences Ost , CH
+date: February 2023
+location: Northwestern University - Evanston, USA
 supervisor:
-- Guido Schuster
+- Prof. Dr. Aggelos K. Katsaggelos
+- Prof. Dr. Guido Schuster
 degree: Master of Science
 ---
