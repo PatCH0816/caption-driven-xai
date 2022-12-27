@@ -33,3 +33,9 @@
 All image and language embedding vectors are normalized. Therefore the shared embedding space of the multi-modal model forms a unit sphere.
 
 ![The cosine similarity is a measure of how well two vectors point into the same direction. Since the direction is independent of the length of the vectors, the vectors can be normalized. The effect of the normalization is that all vectors are located on the unit sphere. [[@cosine_similarity]](#references)](source/figures/cosine_similarity.png "Cosine similarity"){#fig:cosine_similarity width=50%}
+
+![The cosine similarity is a measure of how well two vectors point into the same direction. Since the direction is independent of the length of the vectors, the vectors can be normalized. The effect of the normalization is that all vectors are located on the unit sphere. [[@cosine_similarity]](#references)](source/figures/story.png "Cosine similarity"){#fig:cosine_similarity width=80%}
+
+![The cosine similarity is a measure of how well two vectors point into the same direction. Since the direction is independent of the length of the vectors, the vectors can be normalized. The effect of the normalization is that all vectors are located on the unit sphere. [[@clip_process]](#references)](source/figures/clip-1.png "CLIP contrastive pre-training"){#fig:cosine_similarity width=100%}
+
+![The cosine similarity is a measure of how well two vectors point into the same direction. Since the direction is independent of the length of the vectors, the vectors can be normalized. The effect of the normalization is that all vectors are located on the unit sphere. [[@clip_process]](#references)](source/figures/clip-2.png "CLIP zero-shot prediction"){#fig:cosine_similarity width=100%}
