@@ -4,6 +4,7 @@
 \chapter*{\vspace*{-4cm} Abstract}\label{abstract}}
 \addcontentsline{toc}{chapter}{Abstract} -->
 
+<!-- Short version of introduction and results -->
 Put fancy abstract here!
 
 \pagenumbering{roman}
