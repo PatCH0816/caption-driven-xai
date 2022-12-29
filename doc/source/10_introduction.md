@@ -21,33 +21,53 @@ All three mentioned shifts could have a negative impact on the performance of a 
 
 The challenge of facing a covariate shift in data distributions is a modality-independent problem. This phenomenon occurs in regression problems, natural language processing, computer vision, and other data representations. The universal language model BERT, which Google has developed, can understand sentences and generate suitable embeddings. A massive amount of data is used to create such a power model, which inevitably contains embedded biases. For example, a specific name always has a negative connotation, or certain words are associated with one gender over the other, independent of the context. [@bert_bias]
 
-In a final example, which takes place in the context of a hospital, a patient could suffer dangerous consequences if such a covariate shift in a deployed machine-learning model remains undetected. A team of artificial intelligence (AI) researchers and radiologists claims to have successfully developed a machine-learning model which reliably detects COVID-19 from chest radiographs. However, experiments reveal that high accuracy is not achieved because of actual medical pathology features but because of confounding factors. These findings lead to an alarming situation where the machine learning model appears accurate but fails when tested in new hospitals. [@covid_shortcuts_over_signal]
+In a final example, which takes place in the context of a hospital, a patient could suffer dangerous consequences if such a covariate shift in a deployed machine-learning model remains undetected. A team of artificial intelligence (AI) researchers and radiologists claims to have successfully developed a machine-learning model which reliably detects COVID-19 from chest radiographs. However, experiments reveal that high accuracy is not achieved because of actual medical pathology features but because of confounding factors. In the worst possible scenario, a different hospital provides data with similar confounding factors due to the fact that they are using the same type of x-ray machine or other factors. These findings lead to an alarming situation where the machine learning model appears accurate but fails when tested in new hospitals. [@covid_shortcuts_over_signal]
 
-<!--- What is an explaination method? Why is it needed? -->
-insight is the first step to improvement
-XAI can help
-Unearthing hidden problems in Real World Data Science
-husky example
-In addition, we show that evaluation of a model on external data is insufficient to ensure AI systems rely on medically relevant pathology, because the undesired ‘shortcuts’ learned by AI systems may not impair performance in new hospitals.
-These findings demonstrate that explainable AI should be seen as a prerequisite to clinical deployment of machine-learning healthcare models.
+<!--- What is an explanation method? Why is it needed? -->
+<!-- Why Care About Interpretability?
+5
+1. Help building trust:
+• Humans are reluctant to use ML for critical tasks
+• Fear of unknown when people confront new technologies
+2. Promote safety:
+• Explain model’s representation (i.e. important feature)
+providing opportunities to remedy the situation
+3. Allow for contestability:
+• Black-box models don't decompose the decision into submodels or illustrate a chain of reasoning -->
+As demonstrated, it is mission-critical to unearth hidden problems in real-world data science and not to fall for "correlation is not causation" problems. Accepting the fact that these challenges exist is the first step to improvement. At first, one needs to understand what a machine learning model is doing. The right tool for that kind of task are methods from the explainable AI toolbox. Getting back to the COVID-19 chest radiographs example, XAI supports AI systems to reduce the risk of learning undesired "shortcuts" instead of medically relevant pathology features. XAI is mainly used to understand and improve machine learning models, which suffer from low performance. Instead, XAI should be considered a prerequisite for all machine-learning models with significant responsibility, e.g. in healthcare environments. Hopefully, the vast amount of XAI methods will enable "Data Justice", "Data Trust" and "Data Fairness" in future applications.
 
-<!--- Different approaches -->
-<!--- State of the art -->
-gram-cam heatmaps
+<!--- Different state of the art approaches -->
+<!--- grad-cam heatmaps [@xai_gianfagna_dicecco] -->
+Part of this thesis is to work on computer vision problems. A widely used XAI method is generating saliency maps to understand which image region excites the machine-learning model the most for a specific class. Saliency maps highlight an area of pixels that contribute the most to the actual prediction. [@saliency_maps]
 
-How to discover concepts learned in the internal activations of models. The idea is to apply the model to a very diverse dataset called Broden and keep track of the highest activations of each neuron to each of the images.
+\*@fig:wolves_and_dogs_prediction demonstrates where saliency maps are helpful. The task is to classify the images into wolves and huskies. Five out of six predictions are correct. One question remains: Is this a good classifier?
+
+![Shown is a binary classification task on six images of wolves and dogs. Five out of six predictions are correct. [[@wolves_and_dogs_prediction]](#references)](source/figures/wolf_or_husky.png "Wolf or husky predictions"){#fig:wolves_and_dogs_prediction width=100%}
+
+\*@fig:husky_saliency_map demonstrates that the model in use did not use expected features like the colors of the fur, shape of the ears or the length of the snout to distinguish between wolves and huskies, but used the confounding factor "snow" from the background. The results from \*@fig:wolves_and_dogs_prediction suggests an accuracy of the model of about $\frac{5}{6} = 83\%$ to classify huskies and wolves, but in reality the model just learned to classify between "snow" and "no snow" and therefore failed to learn the task gracefully.
+
+![The image (a) displays the image of a husky, which is classified as a wolf. The saliency map in image (b) provides a visual explanation that the model did not pay attention to the animal, but to the snow in the background. [[@wolves_and_dogs_xai]](#references)](source/figures/husky_saliency_map.png "Husky classified as wolf."){#fig:husky_saliency_map width=80%}
+
+One of the most widespread XAI methods which produces saliency maps is the gradient class-activation-map (Grad-CAM) method. The Grad-CAM method uses the gradients of the classification score with respect to the final convolutional feature map to highlight the pixels in the input image with the most significant influence on the classification score. [@grad_cam] This Grad-CAM method is considered incredibly useful for comprehending what the machine learning model is doing. However, a common disadvantage in all saliency map producing methods is that understanding where the machine-learning model focuses does not tell what it is doing with that region of interest. Therefore, saliency maps do not reveal what the model is thinking but where it is looking only.
+
+<!-- #TODO: Show table of trust in model before and after the explanation -->
+
+<!-- Broden dataset
 http://netdissect.csail.mit.edu/ (Paper)
-https://medium.com/analytics-vidhya/demystifying-hidden-units-in-neural-networks-through-network-dissection-7d3ac657c428 (Simplified explanation of the paper in form of a blog)
+https://medium.com/analytics-vidhya/demystifying-hidden-units-in-neural-networks-through-network-dissection-7d3ac657c428 (Simplified explanation of the paper in form of a blog) -->
+How to discover concepts learned in the internal activations of models. The idea is to apply the model to a very diverse dataset called Broden and keep track of the highest activations of each neuron to each of the images. [@network_dissection]
 
 <!--- What is our solution approach? -->
-use clip to get an explanation
-
 <!--- Describe the idea -->
-how does the idea work?
+The new XAI method presented in this thesis addresses the previously mentioned problems and attempts to solve them differently. Saliency maps highlight specific areas of interest in images but do not reveal what the machine-learning model thinks about this information. In an idealized world, the model would tell in written text what it sees in the image. The new XAI method presented in this thesis attempts to obtain a text-based explanation for a given machine-learning model. A biased dataset demonstrates that this new XAI method is working as intended. This biased dataset contains a covariate shift between the train/validation and test sets. The objective of the novel XAI text-based method is to reveal that the model under test focuses on bias instead of learning the actual task.
 
 <!--- Overview chapters -->
-This thesis describes the development of a novel, explainable AI approach, which expresses the characteristics of a machine learning model in a text-based format. Each step to obtain the final result is documented in detail in one of the following chapters:
+The development of the novel XAI approach involves many different components. Each component is documented in detail in one of the following chapters:
 
 - \*@sec:problem-description defines current challenges and opportunities in the world of robust machine learning. The original idea, which provides the starting point for this project and its milestones are also included.
-- sdfg
+- \*@sec:dataset introduces the used dataset to train, validate and test the model under test. Furthermore, the purposely introduced bias in the dataset is explained in detail. 
+- \*@sec:contrastive-language-image-pre-training explains what the contrastive language image pre-training (CLIP) model is and how it works. CLIP is a core component of this new XAI method.
+- \*@sec:network-surgery provides an overview of how this novel XAI method works. All involved components are explained in detail.
+- \*@sec:results evaluates the performance which allows for a discussion on the suitability of the new XAI method for a given situation.
+- \*@sec:conclusion consolidates all ideas from the previous chapters, summarizes the gained knowledge from this project, discusses open questions and shares some advice on future approaches on this topic.
 - \*@sec:closing-words contains a personal reflection of this thesis from the author's point of view.
