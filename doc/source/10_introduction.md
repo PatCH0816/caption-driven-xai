@@ -58,6 +58,11 @@ Table: Some graduate students who have taken at least one graduate machine learn
 
 One of the most widespread XAI methods which produce saliency maps is the gradient class-activation-map (Grad-CAM) method. The Grad-CAM method uses the gradients of the classification score with respect to the final convolutional feature map to highlight the pixels in the input image with the most significant influence on the classification score. [@grad_cam] This Grad-CAM method is considered incredibly useful for comprehending what the machine learning model is doing. However, a common disadvantage in all saliency map-producing methods is that understanding where the machine-learning model focuses do not tell what it is doing with that region of interest. Therefore, saliency maps do not reveal what the model is thinking but where it is looking only.
 
+<!-- #TODO: Broden dataset
+http://netdissect.csail.mit.edu/ (Paper)
+https://medium.com/analytics-vidhya/demystifying-hidden-units-in-neural-networks-through-network-dissection-7d3ac657c428 (Simplified explanation of the paper in form of a blog) -->
+How to discover concepts learned in the internal activations of models. The idea is to apply the model to a very diverse dataset called Broden and keep track of the highest activations of each neuron to each of the images. [@network_dissection]
+
 <!--- What is our solution approach? -->
 <!--- Describe the idea -->
 The new XAI method presented in this thesis addresses the previously mentioned problems and attempts to solve them differently. Saliency maps highlight specific areas of interest in images but do not reveal what the machine-learning model thinks about this information. In an idealized world, the model would tell in written text what it sees in the image. The new XAI method presented in this thesis attempts to obtain a text-based explanation for a given machine-learning model. A biased dataset demonstrates that this new XAI method is working as intended. This biased dataset contains a covariate shift between the train/validation and test sets. The objective of the novel XAI text-based method is to reveal that the model under test focuses on bias instead of learning the actual task.
