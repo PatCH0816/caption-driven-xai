@@ -1,5 +1,13 @@
 # Fooled model
-- why resnet? supervised
-- what is a resnet?
+<!-- Which models are available to choose from? -->
+\*@fig:interpretability_vs_accuracy illustrates the tradeoff between the interpretability and accuracy of different machine learning models. The weights of simple linear regression models are directly interpretable, but the accuracy could be better for complex problems. Decision trees offer an excellent intrinsic explanation of their prediction by design. Support vector machine classifiers use the kernel trick to find a separating hyperplane in a higher dimensional space. Transforming this hyperplane back to a lower dimensional space results in a hard-to-interpret non-linear decision boundary. Random forests consist of many interpretable decision trees, but interpreting the result is a difficult task due to the randomness involved and their voting process. There is a trend to use deeper and deeper neural networks with millions and billions of tuneable parameters, which make them very successful function approximators in terms of accuracy but challenging to interpret.
+
+![Increasing accuracy comes at the cost of decreasing interpretability for linear regression, decision tree, support vector machine (SVM), random forest and neural networks. [[@interpretability_vs_accuracy]](#references)](source/figures/Model-interpretability-vs-accuracy.png "Model interpretability vs. accuracy."){#fig:interpretability_vs_accuracy width=60%}
+
+<!-- Why resnet? -->
+As depicted in \*@fig:resnet_imagenet, AlexNet achieved the first outstanding top 5 classification error of 16.4% on the ImageNet challenge in 2012. Its success is based on bypassing the vanishing gradient problem because it uses the relu activation function and using different convolutional kernel sizes. A considerable improvement brought the VGGNet in 2014 with a top 5 error rate of 7.3%. The improvement is based on smaller convolutional kernels of the same size. This resulted in less trainable parameters, enabled faster learning and demonstrated to be more robust to overfitting. The residual neural network (ResNet) architecture was a real breakthrough in 2015 because it was the first model which achieved "super-human" performance with a top 5 error rate of 3.6%. The ResNet did not bypass the vanishing gradient problem like AlexNet but solved it by introducing shortcut connections/skip connections/identity mapping. This clever change solved the vanishing gradient problem and enabled deeper and more powerful neural networks.
+
+![Relative image classification error (Top 5) in percent of different machine learning models. A human's relative image classification error (Top 5) is about 5%.. [[@resnet_imagenet]](#references)](source/figures/resnet_imagenet.png "Imagenet classification error top 5."){#fig:resnet_imagenet width=90%}
+
 - accuracy on train/validation and test (fail)
 - ready to test the explainable ai method!

@@ -77,3 +77,50 @@ The development of the novel XAI approach involves many different components. Th
 - \*@sec:results evaluates the performance, which allows for a discussion on the suitability of the new XAI method for a given situation.
 - \*@sec:conclusion consolidates all ideas from the previous chapters, summarizes the gained knowledge from this project, discusses open questions and shares some advice on future approaches on this topic.
 - \*@sec:closing-words contains a personal reflection of this thesis from the author's point of view.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- So What Is the Difference Between Interpretability 
+and Explainability? -->
+To provide a further visual example of this distinction between interpretability and 
+explainability, let’s think about the boiling water; the temperature increases with 
+time steadily until the boiling point after which it will stay stable. If you just rely on 
+Fig. 1.12 Explanations decomposed (Deutsch 1998)
+Fig. 1.13 An illustration of the error surface of Machine Learning model
+1 The Landscape
+
+data before the boiling point, the obvious prediction with the related interpretation 
+would be that temperature rises continuously. Another interpretation may make 
+sense of data taken after the boiling point with a steady temperature.
+But if you search for a full explanation, a full theory of water “changing state,” 
+this is something deeper that exceeds the single good interpretations and predic-
+tions, in the two different regimes. ML would be good at predicting the linear trend 
+and the fat temperature after the boiling point, but the physics of the phase transi-
+tion would not be explainable (Fig. 1.14).
+
+Interpretability would be to understand how the ML systems predict temperature 
+with passing time in the normal regime; explainability would be to have a ML model 
+that takes into account also the changing state that is a global understanding of the 
+phenomenon more related to the application of knowledge discovery already 
+mentioned.
+
+To summarize, with the risk of an oversimplifcation of the discussion above but 
+getting the core, we will consider interpretability as the possibility of understanding 
+the mechanics of a Machine Learning model but not necessarily knowing why.
+
+“We take the stance that interpretability alone 
+is insuffcient. For humans to trust black-box methods, we need explainability – 
+models that can summarise the reasons for neural network behaviour, gain the trust 
+of users, or produce insights about the causes of their decisions. Explainable models 
+are interpretable by default, but the reverse is not always true.”
