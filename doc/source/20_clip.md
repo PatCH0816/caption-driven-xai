@@ -77,3 +77,5 @@ Since this chapter about CLIP is fundamental to the content of this thesis, ther
 
 \noindent
 **Pre-training** describes that CLIP has been trained on a large dataset before being used on a downstream task. There is generally no need to finetune CLIP for a broad spectrum of concepts. Therefore, CLIP possesses zero-shot-prediction capabilities.
+
+<!-- #TODO: Add CLIP limitations/advantages/disadvantages -->
