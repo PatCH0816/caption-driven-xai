@@ -10,6 +10,9 @@ for approximately 30 million images sampled from our pretraining dataset. At the
 100% accuracy on its proxy training task.
 
 
+layer switching:
+- preserve CLIP embedding space
+- transfer decision critical layers from given model to CLIP
 
 
 #TODO create image of network surgery
