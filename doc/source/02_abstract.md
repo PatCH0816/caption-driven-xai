@@ -4,10 +4,6 @@
 \chapter*{\vspace*{-4cm} Abstract}\label{abstract}}
 \addcontentsline{toc}{chapter}{Abstract} -->
 
-\pagenumbering{roman}
-\setcounter{page}{1}
-\newpage
-
 <!-- Short version of introduction and results -->
 <!-- Initial situation: (3/ 9 sentences)
 - Machine learning in all areas of our lives.
@@ -36,3 +32,7 @@ The resulting explanation provides an opportunity to improve the model on possib
 #TODO Monday: Start with abstract, create subchapters, then network dissection, then network surgery bild
 #TODO check if image encoder from clip and openclip look the same
 -->
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+\newpage
