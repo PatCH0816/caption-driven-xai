@@ -1,7 +1,6 @@
 # Explainable artificial intelligence
 <!--- What is an explanation method? Why is it needed? -->
 <!-- Why Care About Interpretability?
-5
 1. Help building trust:
 • Humans are reluctant to use ML for critical tasks
 • Fear of unknown when people confront new technologies
@@ -10,41 +9,10 @@
 providing opportunities to remedy the situation
 3. Allow for contestability:
 • Black-box models don't decompose the decision into submodels or illustrate a chain of reasoning -->
-It is mission-critical to unearth hidden problems in real-world data science and not to fall for "correlation is not causation" type of problems. Accepting the fact that these challenges exist is the first step to improvement. At first, one needs to understand what a machine learning model is doing. The right tool for that kind of task are methods from the explainable artificial intelligence (XAI) toolbox. XAI tools help to promote safety, allow for contestability and help building trust. This chapter provides an overview about the problem with covariate shifts in data distributions, introduces state-of-the-art XAI "saliency maps" for machine-vision problems and explains a recent XAI method called "Network dissection".
+It is mission-critical to unearth hidden problems in real-world data science and not to fall for "correlation is not causation" and other type of problems. Accepting the fact that these challenges exist is the first step to improvement. At first, one needs to understand what a machine learning model is doing. The right tool for that kind of task are methods from the explainable artificial intelligence (XAI) toolbox. XAI tools help to promote safety, allow for contestability and help building trust in models. This chapter provides an overview about the difference between interpretability and explainability, the problem with covariate shifts in data distributions, introduces state-of-the-art XAI "saliency maps" for machine-vision problems and explains a recent XAI method called "Network dissection".
 
-<!-- ## Interpretability vs. explainability
-So What Is the Difference Between Interpretability and Explainability?
-To provide a further visual example of this distinction between interpretability and 
-explainability, let’s think about the boiling water; the temperature increases with 
-time steadily until the boiling point after which it will stay stable. If you just rely on 
-Fig. 1.12 Explanations decomposed (Deutsch 1998)
-Fig. 1.13 An illustration of the error surface of Machine Learning model
-1 The Landscape
-
-data before the boiling point, the obvious prediction with the related interpretation 
-would be that temperature rises continuously. Another interpretation may make 
-sense of data taken after the boiling point with a steady temperature.
-But if you search for a full explanation, a full theory of water “changing state,” 
-this is something deeper that exceeds the single good interpretations and predic-
-tions, in the two different regimes. ML would be good at predicting the linear trend 
-and the fat temperature after the boiling point, but the physics of the phase transi-
-tion would not be explainable (Fig. 1.14).
-
-Interpretability would be to understand how the ML systems predict temperature 
-with passing time in the normal regime; explainability would be to have a ML model 
-that takes into account also the changing state that is a global understanding of the 
-phenomenon more related to the application of knowledge discovery already 
-mentioned.
-
-To summarize, with the risk of an oversimplifcation of the discussion above but 
-getting the core, we will consider interpretability as the possibility of understanding 
-the mechanics of a Machine Learning model but not necessarily knowing why.
-
-“We take the stance that interpretability alone 
-is insuffcient. For humans to trust black-box methods, we need explainability – 
-models that can summarise the reasons for neural network behaviour, gain the trust 
-of users, or produce insights about the causes of their decisions. Explainable models 
-are interpretable by default, but the reverse is not always true.” -->
+## Interpretability vs. explainability
+Even tho the terms "interpretability" and "explainability" are used interchangably in XAI literature, there is a significant difference between them. Considering an example about boiling water, the data would show a continuously rising water temperature until ~100°C. Around this temperature, the watertemperature would remain stable. A machine learning (ML) model is able to learn this behavior and could make reliable predictions without knowing about the physics of the changing state of water from liquid to steam. According to Gianfagna et al: "..we will consider interpretability as the possibility of understanding the mechanics of a Machine Learning model but not necessarily knowing why." [@xai_gianfagna_dicecco] Explainability on the other hand would require an extended ML model, which is aware of the changing state of water and its related physics phenomena. This leads to the fine definition of Gilpin et al: "..explainable models are interpretable by default, but the reverse is not always true.” [@gilpin_explainability_interpretability]
 
 ## Covariate shift
 <!-- There are three different types of dataset shifts:
