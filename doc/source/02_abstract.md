@@ -39,7 +39,7 @@ The resulting explanation provides an opportunity to improve the model on possib
 #TODO 
 [x] Text Amil for a meeting
 [x] Explain network dissection
-[] Interpretability vs. explainability
+[x] Interpretability vs. explainability
 [] check if image encoder from clip and openclip look the same
 [] Show differences between CLIP and open-CLIP in appendix
 [] Clean desktop
