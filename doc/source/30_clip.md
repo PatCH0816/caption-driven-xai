@@ -50,6 +50,7 @@ From a mathematical standpoint of view, the theoretical range of numbers for the
 
 ## Pre-training dataset
 <!-- Explain CLIP dataset -->
+<!-- https://towardsdatascience.com/how-to-train-your-clip-45a451dcd303 -->
 A suitable dataset was needed to train such a powerful CLIP model. The visual genome dataset is a high-quality crowd-labeled dataset, but with its approximately 100'000 images relatively small by modern standards. Larger datasets like the YFCC100M with 100 million images or the IG-3.5B-17k with 3.5 billion images from Instagram are interesting in terms of the number of images. [@instagram_dataset] However, the associated metadata with these images is sparse and varies in quality. Many images automatically generate useless descriptions with the camera exposure in use or filenames like 20221228_083476.JPG. Therefore, OpenAI created a custom dataset and downloaded 400 million image-test-pairs from the world wide web. To balance this enormous dataset, they used 20,000 image-text pairs per query. [@clip_paper] OpenAI trained CLIP on a subset of their custom dataset and compared the performance of another CLIP model trained on a publicly available dataset with a similar size. The performance of both models was comparable. This result indicates that any well-balanced dataset with a similar size can achieve similar performance compared to OpenAI's custom dataset. Thus, they decided to keep their custom dataset private and not release it to the public.
 
 ## Training

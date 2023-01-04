@@ -20,7 +20,9 @@
 \textbf{LAION}      \> \textbf{L}arge-scale \textbf{A}rtificial \textbf{I}ntelligence \textbf{O}pen \textbf{N}etwork \\  
 \textbf{ML}         \> \textbf{M}achine \textbf{L}earning \\  
 \textbf{MNIST}      \> \textbf{M}odified \textbf{N}ational \textbf{I}nstitute of \textbf{S}tandards and \textbf{T}echnology \\  
+\textbf{OpenAI}     \> \textbf{Open} \textbf{A}rtificial \textbf{I}ntelligence \\  
 \textbf{ResNet}     \> \textbf{Res}idual neural \textbf{Net}work \\  
+\textbf{RN50}       \> \textbf{R}esidual Neural \textbf{N}etwork with \textbf{50} layers \\  
 \textbf{SVM}        \> \textbf{S}upport \textbf{V}ector \textbf{M}achine \\  
 \textbf{VGGNet}     \> \textbf{V}isual \textbf{G}eometry \textbf{G}roup Neural \textbf{Net}work \\  
 \textbf{XAI}        \> E\textbf{x}plainable \textbf{A}rtificial \textbf{I}ntelligence \\  
