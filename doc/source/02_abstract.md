@@ -28,11 +28,22 @@ The resulting explanation provides an opportunity to improve the model on possib
 
 <!-- Total: (19/23 sentences) - maximum: 3500 characters -->
 
-<!-- 
-#TODO Monday: Start with abstract, create subchapters, then network dissection, then network surgery bild
-#TODO check if image encoder from clip and openclip look the same
--->
-
 \pagenumbering{roman}
 \setcounter{page}{1}
 \newpage
+
+<!-- Nice sentences: -->
+<!-- Why should we trust AI enough to drive cars, detect diseases, and identify suspects when it is a black box? -->
+
+<!-- 
+#TODO 
+[x] Text Amil for a meeting
+[x] Explain network dissection
+[] Interpretability vs. explainability
+[] check if image encoder from clip and openclip look the same
+[] Show differences between CLIP and open-CLIP in appendix
+[] Clean desktop
+[] Draw network surgery
+[] Understand einsum(..)
+[] Coding.. :P
+-->

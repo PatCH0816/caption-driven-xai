@@ -12,71 +12,6 @@ providing opportunities to remedy the situation
 • Black-box models don't decompose the decision into submodels or illustrate a chain of reasoning -->
 It is mission-critical to unearth hidden problems in real-world data science and not to fall for "correlation is not causation" type of problems. Accepting the fact that these challenges exist is the first step to improvement. At first, one needs to understand what a machine learning model is doing. The right tool for that kind of task are methods from the explainable artificial intelligence (XAI) toolbox. XAI tools help to promote safety, allow for contestability and help building trust. This chapter provides an overview about the problem with covariate shifts in data distributions, introduces state-of-the-art XAI "saliency maps" for machine-vision problems and explains a recent XAI method called "Network dissection".
 
-## Covariate shift
-<!-- There are three different types of dataset shifts:
-
-https://www.analyticsvidhya.com/blog/2017/07/covariate-shift-the-hidden-problem-of-real-world-data-science/
-http://iwann.ugr.es/2011/pdf/InvitedTalk-FHerrera-IWANN11.pdf
-- Shift in the independent variables (Covariate Shift)
-- Shift in the target variable (Prior probability shift)
-- Shift in the relationship between the independent and the target variable (Concept Shift)
-
-All three mentioned shifts could have a negative impact on the performance of a machine learning model, but this thesis focuses solely on the covariate shift. -->
-
-XAI tools are helpful to discover non-obvious problems with the dataset or the machine-learning model. One particularly dangerous problem is goes by the name "covariate shift". The term "covariate shift" defines changes in the distribution of the independent variables. [@covariante_shift] \*@fig:covariate_shift_regression illustrates the challenge if the training samples do not represent the test samples well in a regression problem due to either bad data acquisition or lousy choice of train/test splits.
-
-![This illustration demonstrates the negative impact of the covariate shift on the success of the machine learning model trying to learn a true function (Red curve). Given the training samples (Blue dots), the model learns the linear learned function (Green line). The performance on the test samples (Black) will be terrible because the learned function does not approximate the true function very well in the space around the test samples. In an ideal setting, the training samples should have been equally distanced and scattered over the whole space of the true function with as low variance as possible. [[@covariate_shift_regression]](#references)](source/figures/covariate_shift_regression.png "Covariate shift demonstration for a regression problem"){#fig:covariate_shift_regression width=50%}
-
-The challenge of facing a covariate shift in data distributions is a modality-independent problem. This phenomenon occurs in regression problems, natural language processing, computer vision, and other data representations. The universal language model BERT, which Google has developed, can understand sentences and generate suitable embeddings. A massive amount of data is used to create such a power model, which inevitably contains embedded biases. For example, a specific name always has a negative connotation, or certain words are associated with one gender over the other, independent of the context. [@bert_bias]
-
-In a final example, which takes place in the context of a hospital, a patient could suffer dangerous consequences if such a covariate shift in a deployed machine-learning model remains undetected. A team of artificial intelligence (AI) researchers and radiologists claims to have successfully developed a machine-learning model which reliably detects COVID-19 from chest radiographs. However, experiments reveal that high accuracy is not achieved because of actual medical pathology features but because of confounding factors. In the worst possible scenario, a different hospital provides data with similar confounding factors due to the fact that they are using the same type of x-ray machine or other factors. These findings lead to an alarming situation where the machine learning model appears accurate but fails when tested in other hospitals. [@covid_shortcuts_over_signal]
-
-## Saliency maps
-<!--- Different state of the art approaches -->
-<!--- grad-cam heatmaps [@xai_gianfagna_dicecco] -->
-Part of this thesis is to work on computer vision problems. A widely used XAI method is generating saliency maps to understand which image region excites the machine-learning model the most for a specific class. Saliency maps highlight an area of pixels that contribute the most to the actual prediction. [@saliency_maps] \*@fig:wolves_and_dogs_prediction demonstrates where saliency maps are helpful. The task is to classify the images into wolves and huskies. Five out of six predictions are correct. One question remains: Is this a good classifier?
-
-![Shown is a binary classification task on six images of wolves and dogs. Five out of six predictions are correct. [[@wolves_and_dogs_prediction]](#references)](source/figures/wolf_or_husky.png "Wolf or husky predictions"){#fig:wolves_and_dogs_prediction width=100%}
-
-Using a saliency map as in \*@fig:husky_saliency_map indicates that the machine-learning model did not focus on expected features like the fur's colors, the ear's shape or the snout's length to distinguish between wolves and huskies. The results from \*@fig:wolves_and_dogs_prediction suggest an accuracy of the model of about $\frac{5}{6} \approx 83\%$ to classify huskies and wolves. Therefore, the model just learned to distinguish between "snow" and "no snow" and failed to learn the actual task due to spurious correlation.
-
-![Image (a) shows a husky, classified as a wolf. The saliency map in image (b) provides a visual explanation that the model ignored the animal and focused on the snow in the background instead. [[@wolves_and_dogs_xai]](#references)](source/figures/husky_saliency_map.png "Husky classified as wolf."){#fig:husky_saliency_map width=80%}
-
-It has been demonstrated how powerful XAI methods reveal problems with a model under test. On top of that, XAI can also increase humans' trust in machine-learning models. 27 graduate students who have taken at least one graduate machine learning course were asked in a survey if they trust the model to classify huskies and wolves. The survey kept track if they mentioned the snow as a potential feature. As soon as the student answered the question, the explanation image with the highlighted snow in the background in \*@fig:husky_saliency_map was revealed. Then, the same question was asked again. The findings are collected and displayed in the \*@tbl:survey_table. Without the saliency map, about half of the students had some faith in the flawed model and about half of the students thought the snow could be a potential feature. After revealing the explanation with the saliency map, only three out of 27 students still maintained their trust in the flawed model. 25 out of 27 students mentioned that the snow in the background is a potential feature. This demonstration shows that XAI methods can leverage the level of trust of humans into machine-learning models.
-
-|                               | Before        | After
-|-                              | -             | -
-|Trusted the bad model          | 10 out of 27  | 3 out of 27
-|Snow as a potential feature    | 12 out of 27  | 25 out of 27
-Table: Some graduate students who have taken at least one graduate machine learning course were asked if they trust the model to classify huskies and wolves and if they mentioned the snow as a potential feature. The same questions were asked before and after revealing the explanation image with the highlighted snow in the background. [@wolves_and_dogs_xai](#references) {#tbl:survey_table}
-
-One of the most widespread XAI methods which produce saliency maps is the gradient class-activation-map (Grad-CAM) method. The Grad-CAM method uses the gradients of the classification score with respect to the final convolutional feature map to highlight the pixels in the input image with the most significant influence on the classification score. [@grad_cam] This Grad-CAM method is considered incredibly useful for comprehending what the machine learning model is doing. However, a common disadvantage in all saliency map-producing methods is that understanding where the machine-learning model focuses do not tell what it is doing with that region of interest. Therefore, saliency maps do not reveal what the model is thinking but where it is looking only.
-
-## Network dissection
-<!-- #TODO: Broden dataset
-http://netdissect.csail.mit.edu/ (Paper)
-https://paperswithcode.com/method/network-dissection
-https://medium.com/analytics-vidhya/demystifying-hidden-units-in-neural-networks-through-network-dissection-7d3ac657c428 (Simplified explanation of the paper in form of a blog) -->
-How to discover concepts learned in the internal activations of models. The idea is to apply the model to a very diverse dataset called Broden and keep track of the highest activations of each neuron to each of the images. [@network_dissection]
-
-- Researcher at MIT Computer Science and Artificial Intelligence Laboratory (CSAIL)
-- What is going on inside of a neural network?
-- Discover concepts learned by internal activations of models
-- Broden dataset is a diverse dataset. 
-- Idea to keep track of all activations of each neuron to each of the images
-- In other words, this method interprets networks by providing meaningful labels to their hidden units.
-- In the past, observations of hidden units have shown that human-interpretable concepts sometimes emerge in individual units within networks.
-- Human-interpretable concepts include low-level concepts like colors and high-level concepts such as objects. By measuring the concept that best matches each unit, Net Dissection can break down the types of concepts represented in a layer.
-1 The Broadly and Densely Labeled Dataset (Broden) unifies several densely labeled image data sets: ADE , Open Surfaces , Pascal-Context , Pascal-Part and Describable Textures Dataset. These data sets contain examples of a broad range of objects, scenes, object parts, textures, and materials in a variety of contexts.
-2 Retrieve individual units’ activations. 
-
-## Summary
-Getting back to the COVID-19 chest radiographs example, XAI supports AI systems to reduce the risk of learning undesired "shortcuts" instead of medically relevant pathology features. XAI is mainly used to understand and improve machine learning models, which suffer from low performance. Instead, XAI should be considered a prerequisite for all machine-learning models with significant responsibility, e.g. in healthcare environments. Hopefully, the vast amount of XAI methods will leverage trust and fairness in future applications.
-
-
-
-
-
 <!-- ## Interpretability vs. explainability
 So What Is the Difference Between Interpretability and Explainability?
 To provide a further visual example of this distinction between interpretability and 
@@ -110,3 +45,114 @@ is insuffcient. For humans to trust black-box methods, we need explainability �
 models that can summarise the reasons for neural network behaviour, gain the trust 
 of users, or produce insights about the causes of their decisions. Explainable models 
 are interpretable by default, but the reverse is not always true.” -->
+
+## Covariate shift
+<!-- There are three different types of dataset shifts:
+
+https://www.analyticsvidhya.com/blog/2017/07/covariate-shift-the-hidden-problem-of-real-world-data-science/
+http://iwann.ugr.es/2011/pdf/InvitedTalk-FHerrera-IWANN11.pdf
+- Shift in the independent variables (Covariate Shift)
+- Shift in the target variable (Prior probability shift)
+- Shift in the relationship between the independent and the target variable (Concept Shift)
+
+All three mentioned shifts could have a negative impact on the performance of a machine learning model, but this thesis focuses solely on the covariate shift. -->
+
+XAI tools are helpful to discover non-obvious problems with the dataset or the machine-learning model. One particularly dangerous problem is goes by the name "covariate shift". The term "covariate shift" defines changes in the distribution of the independent variables. [@covariante_shift] \*@fig:covariate_shift_regression illustrates the challenge if the training samples do not represent the test samples well in a regression problem due to either bad data acquisition or lousy choice of train/test splits.
+
+![This illustration demonstrates the negative impact of the covariate shift on the success of the machine learning model trying to learn a true function (Red curve). Given the training samples (Blue dots), the model learns the linear learned function (Green line). The performance on the test samples (Black) will be terrible because the learned function does not approximate the true function very well in the space around the test samples. In an ideal setting, the training samples should have been equally distanced and scattered over the whole space of the true function with as low variance as possible. [[@covariate_shift_regression]](#references)](source/figures/covariate_shift_regression.png "Covariate shift demonstration for a regression problem"){#fig:covariate_shift_regression width=50%}
+
+The challenge of facing a covariate shift in data distributions is a modality-independent problem. This phenomenon occurs in regression problems, natural language processing, computer vision, and other data representations. The universal language model BERT, which Google has developed, can understand sentences and generate suitable embeddings. A massive amount of data is used to create such a power model, which inevitably contains embedded biases. For example, a specific name always has a negative connotation, or certain words are associated with one gender over the other, independent of the context. [@bert_bias]
+
+In a final example, which takes place in the context of a hospital, a patient could suffer dangerous consequences if such a covariate shift in a deployed machine-learning model remains undetected. A team of artificial intelligence (AI) researchers and radiologists claims to have successfully developed a machine-learning model which reliably detects COVID-19 from chest radiographs. However, experiments reveal that high accuracy is not achieved because of actual medical pathology features but because of confounding factors. In the worst possible scenario, a different hospital provides data with similar confounding factors due to the fact that they are using the same type of x-ray machine or other factors. These findings lead to an alarming situation where the machine learning model appears accurate but fails when tested in other hospitals. [@covid_shortcuts_over_signal]
+
+## Saliency maps
+<!--- Different state of the art approaches -->
+<!--- TODO: grad-cam heatmaps [@xai_gianfagna_dicecco] -->
+Part of this thesis is to work on computer vision problems. A widely used XAI method is generating saliency maps to understand which image region excites the machine-learning model the most for a specific class. Saliency maps highlight an area of pixels that contribute the most to the actual prediction. [@saliency_maps] \*@fig:wolves_and_dogs_prediction demonstrates where saliency maps are helpful. The task is to classify the images into wolves and huskies. Five out of six predictions are correct.
+
+![Shown is a binary classification task on six images of wolves and dogs. Five out of six predictions are correct. [[@wolves_and_dogs_prediction]](#references)](source/figures/wolf_or_husky.png "Wolf or husky predictions"){#fig:wolves_and_dogs_prediction width=100%}
+
+Using a saliency map as in \*@fig:husky_saliency_map indicates that the machine-learning model did not focus on expected features like the fur's colors, the ear's shape or the snout's length to distinguish between wolves and huskies. The results from \*@fig:wolves_and_dogs_prediction suggest an accuracy of the model of about $\frac{5}{6} \approx 83\%$ to classify huskies and wolves. Therefore, the model just learned to distinguish between "snow" and "no snow" and failed to learn the actual task due to spurious correlation.
+
+![Image (a) shows a husky, classified as a wolf. The saliency map in image (b) provides a visual explanation that the model ignored the animal and focused on the snow in the background instead. [[@wolves_and_dogs_xai]](#references)](source/figures/husky_saliency_map.png "Husky classified as wolf."){#fig:husky_saliency_map width=80%}
+
+It has been demonstrated how powerful XAI methods reveal problems with a model under test. On top of that, XAI can also increase humans' trust in machine-learning models. 27 graduate students who have taken at least one graduate machine learning course were asked in a survey if they trust the model to classify huskies and wolves. The survey kept track if they mentioned the snow as a potential feature. As soon as the student answered the question, the explanation image with the highlighted snow in the background in \*@fig:husky_saliency_map was revealed. Then, the same question was asked again. The findings are collected and displayed in the \*@tbl:survey_table. Without the saliency map, about half of the students had some faith in the flawed model and about half of the students thought the snow could be a potential feature. After revealing the explanation with the saliency map, only three out of 27 students still maintained their trust in the flawed model. 25 out of 27 students mentioned that the snow in the background is a potential feature. This demonstration shows that XAI methods can leverage the level of trust of humans into machine-learning models. [@wolves_and_dogs_xai]
+
+|                               | Before        | After
+|-                              | -             | -
+|Trusted the bad model          | 10 out of 27  | 3 out of 27
+|Snow as a potential feature    | 12 out of 27  | 25 out of 27
+Table: Some graduate students who have taken at least one graduate machine learning course were asked if they trust the model to classify huskies and wolves and if they mentioned the snow as a potential feature. The same questions were asked before and after revealing the explanation image with the highlighted snow in the background. [@wolves_and_dogs_xai](#references) {#tbl:survey_table}
+
+One of the most widespread XAI methods which produce saliency maps is the gradient class-activation-map (Grad-CAM) method. The Grad-CAM method uses the gradients of the classification score with respect to the final convolutional feature map to highlight the pixels in the input image with the most significant influence on the classification score. [@grad_cam] This Grad-CAM method is considered incredibly useful for comprehending what the machine learning model is doing. However, a common disadvantage in all saliency map-producing methods is that understanding where the machine-learning model focuses do not tell what it is doing with that region of interest. Therefore, saliency maps do not reveal what the model is thinking but where it is looking only.
+
+<!--
+http://netdissect.csail.mit.edu/ (Paper)
+https://paperswithcode.com/method/network-dissection
+https://medium.com/analytics-vidhya/demystifying-hidden-units-in-neural-networks-through-network-dissection-7d3ac657c428 (Simplified explanation of the paper in form of a blog)
+-->
+## Network dissection
+<!-- 
+- Researcher at MIT Computer Science and Artificial Intelligence Laboratory (CSAIL)
+- What is going on inside of a neural network?
+- Discover concepts learned by internal activations of models
+- Broden dataset is a diverse dataset. 
+- Idea to keep track of all activations of each neuron to each of the images
+- In other words, this method interprets networks by providing meaningful labels to their hidden units.
+- In the past, observations of hidden units have shown that human-interpretable concepts sometimes emerge in individual units within networks.
+- Human-interpretable concepts include low-level concepts like colors and high-level concepts such as objects. By measuring the concept that best matches each unit, Net Dissection can break down the types of concepts represented in a layer. -->
+
+<!-- Introduction -->
+Deep neural networks are commonly described as being black-boxes. It would be fascinating to be able to cut such networks open to analyze and understand what the task of each hidden unit is. A fairly recent method called "Network dissection" has been introduced by a team of researchers from the MIT Computer Science and Artificial Intelligence Laboratory (CSAIL), which enables to comprehend what kind of concepts a hidden unit is looking for. [@network_dissection] 
+
+<!-- Spoiler of how it works -->
+The basic idea is to stimulate the network with a broad range of visual-concepts captured in images to discover concepts learned in the internal activations of models. In the end, network dissection is able to tell which concepts are caputured in which layer. Since the matching algorithm of the new XAI method is an adaptation of this method, the tripartite process is explained in the following section to get a gentle introduction to the presented idea without going too much into the details.
+
+\noindent
+**Dataset**  
+The authors created a new broadly and densely labeled (Broden) dataset, which contains about 60'000 images of textures, object parts, materials and scenes. The Broden dataset unites many existing densely labeled image datasets like Pascal-Parts [@pascal_parts_dataset], Pascal-Context [@pascal_context_dataset], ADE [@ade_dataset], describable textures [@describable_textures_dataset] and Open Surfaces [@open_surfaces_dataset]. The most important property about this dataset is its size and the fact that all images are labelled pixelwise. This means, there's a binary saliency map for each image, which tells where the metal pan, the dog, the flower is located in the image. Therefore, there's a binary segmentation map $\mathbf{L}_c$ for all concepts $\mathbf{c}$.
+
+\noindent
+**Track activation maps**
+Images from the Broden dataset are fed into the neural network to be explained. All activations of all hidden units are tracked during this process to ultimately match the responses to their corresponding concepts. In more detail, the process looks like this:
+
+- Each image $\mathbf{x}$ of the Broden dataset is fed into the neural network to be explained. Along this inference process, all activation maps $\mathbf{A}_k$ for each unit $\mathbf{k}$ are stored.
+- Use $\mathbf{A}_k$ over all images $\mathbf{x}$ to compute the distribution of activations $\mathbf{a}_k$.
+- To be able to compare the binary segmentation maps from the Broden dataset with the distribution of activations $\mathbf{a}_k$ for a given unit $k$, $\mathbf{a}_k$ ultimately needs to be converted to a binary map. Compute a threshold $\mathbf{T}_k$, such that 0.5% of all activations of unit $k$ are greater than $\mathbf{T}_k$, more mathematically: $P(\mathbf{a}_k) > \mathbf{T}_k = 0.005$. 
+- The deeper the activation maps in a neural network, the smaller are its sizes in general. Applying a bilinear interpolation to all lower scale activation maps $\mathbf{A}_k(x)$, allows to scale all activation maps to the same size as the original input image. The scaled activation maps are called $\mathbf{S}_k(x)$.
+- The binarized activation maps $\mathbf{M}_k(x)$ are the result of applying the threshold $\mathbf{T}_k$ to the scaled activation maps $\mathbf{S}_k(x)$ like this: $\mathbf{M}_k(x) = \mathbf{S}_k(x) >= \mathbf{T}_k(x)$. This activation mask $\mathbf{M}_k(x)$ highlights the pixels space which is responsible to maximize the activation for a unit $k$ given an image $x$.
+
+\noindent
+**Align activation maps with concepts**
+In the final step, the activations maps and the concepts are aligned to to understand which activation maps correspond to which concepts. To find the concepts which each node is looking for, the activation mask $\mathbf{M}_k$ and the human-labelled concept masks $\mathbf{L}_c$ are compared. As a measure of simililarity, the intersection over union (IoU) score is used.
+
+![A human recognizes immediately that there is a body underneath the scarf, which belongs to the pug. (Human annotated ground truth) Most machine vision models don't know about the concept of partially covered objects, therefore only the face of the pug is detected. (Top activated area) These two quantities allow to compute the area of intersection and the area of union, which are needed to ultimately compute the intersection over union. [[@intersection_over_union]](#references)](source/figures/intersection_over_union.jpg "Intersection over union"){#fig:intersection_over_union width=100%}
+
+The IoU score computes the number of overlapping pixels in both the concept mask and the activation mask divided by the total number of unique pixels in concept $\mathbf{c}$.
+
+\noindent\fbox{
+    \begin{minipage}{\linewidth}
+        \begin{equation}
+            IoU_{k,c} = \frac{\sum | M_k(\mathbf{x}) \cap L_c(\mathbf{x}) |}      {\sum | M_k(\mathbf{x}) \cup  L_c(\mathbf{x}) |} 
+        \end{equation}
+        \begin{tabular}{l @{ $=$ } l}
+            $x$ & Input image\\
+            $k$ & Hidden unit\\
+            $c$ & Concept\\
+            $M_k$ & Activation mask for unit k\\
+            $L_c$ & Human labelled image segment of concept c\\
+            $IoU_{k,c}$ & Intersection over union score for unit k and concept c
+        \end{tabular}
+    \end{minipage}
+}
+
+This IoU score represents if a unit $k$ gets excited about a concept $\mathbf{c}$. If the IoU score exceeds a threshold to be defined, the neuron is considered to be a detector of concept $\mathbf{c}$. It is important to note that one unit could detect several concepts. The final findings to be highlighted in this paper are:
+
+- The architecture of the neural network influences its interpretability: ResNet > VGG > GoogLeNet > AlexNet (Larger means better interpretability)
+- Self-supervised neural networks have less unique concept detectors compared to neural networks trained on supervised tasks.
+- High-level concepts (E.g. texture and color) can be found in the first few layers (Close to the input), low-level features (E.g. parts and objects) can be found in deeper layers.
+- Increasing the number of interpretable units in a layer increases the number of unique concept detectors. Adding batch normalization decreases the number of unique concept detectors.
+- An increasing number of training iterations lead to a larger number of unique concept detectors.
+
+## Summary
+Getting back to the COVID-19 chest radiographs example, XAI supports AI systems to reduce the risk of learning undesired "shortcuts" instead of medically relevant pathology features. XAI is mainly used to understand and improve machine learning models, which suffer from low performance. Instead, XAI should be considered a prerequisite for all machine-learning models, especially for those with significant responsibility, e.g. in healthcare environments. Hopefully, the vast amount of XAI methods will leverage trust and fairness in future applications.
