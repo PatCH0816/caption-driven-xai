@@ -9,6 +9,7 @@
 providing opportunities to remedy the situation
 3. Allow for contestability:
 • Black-box models don't decompose the decision into submodels or illustrate a chain of reasoning -->
+<!--- Different state of the art approaches -->
 It is mission-critical to unearth hidden problems in real-world data science and not to fall for "correlation is not causation" and other types of problems. Accepting the fact that these challenges exist is the first step to improvement. At first, one needs to understand what a machine learning model is doing. The right tool for that kind of task are methods from the explainable artificial intelligence (XAI) toolbox. XAI tools help to promote safety, allow for contestability and help build trust in models. This chapter provides an overview of the difference between interpretability and explainability, the problem with covariate shifts in data distributions, state-of-the-art XAI "saliency maps" for machine-vision problems and a recent XAI method called "Network dissection".
 
 ## Interpretability vs. explainability
@@ -34,13 +35,11 @@ The challenge of facing a covariate shift in data distributions is a modality-in
 In a final example, which takes place in the context of a hospital, a patient could suffer dangerous consequences if such a covariate shift in a deployed machine-learning model remains undetected. A team of artificial intelligence (AI) researchers and radiologists claims to be able to detect COVID-19 from chest radiographs with their new machine-learning model. However, experiments reveal that high accuracy is not achieved because of actual medical pathology features but because of confounding factors. In the worst possible scenario, a different hospital provides data with similar confounding factors since they use the same type of x-ray machine or other factors. These findings lead to an alarming situation where the machine learning model appears accurate but fails when tested in other hospitals. [@covid_shortcuts_over_signal]
 
 ## Saliency maps
-<!--- Different state of the art approaches -->
-<!--- TODO: grad-cam heatmaps [@xai_gianfagna_dicecco] -->
 Part of this thesis is to work on computer vision problems. A widely used XAI method is generating saliency maps to understand which image region excites the machine-learning model the most for a specific class. Saliency maps highlight an area of pixels that contribute the most to the actual prediction. [@saliency_maps] \*@fig:wolves_and_dogs_prediction demonstrates where saliency maps are helpful. The task is to classify the images into wolves and huskies. Five out of six predictions are correct.
 
 ![Shown is a binary classification task on six images of wolves and dogs. Five out of six predictions are correct. [[@wolves_and_dogs_prediction]](#references)](source/figures/wolf_or_husky.png "Wolf or husky predictions"){#fig:wolves_and_dogs_prediction width=100%}
 
-Using a saliency map as in \*@fig:husky_saliency_map indicates that the machine-learning model did not focus on expected features like the fur's colors, the ear's shape or the snout's length to distinguish between wolves and huskies. The results from \*@fig:wolves_and_dogs_prediction suggest an accuracy of the model of about $\frac{5}{6} \approx 83\%$ to classify huskies and wolves. Therefore, the model just learned to distinguish between "snow" and "no snow" and failed to learn the actual task due to spurious correlation.
+Using a saliency map as in \*@fig:husky_saliency_map indicates that the machine-learning model did not focus on expected features like the fur's colors, the ear's shape or the snout's length to distinguish between wolves and huskies. The results from \*@fig:wolves_and_dogs_prediction suggest an accuracy of the model of about $\frac{5}{6} \approx 83\%$ to classify huskies and wolves. Therefore, the model just learned to distinguish between "snow" and "no snow" and failed to learn the actual task due to spurious correlation. [@xai_gianfagna_dicecco]
 
 ![Image (a) shows a husky, classified as a wolf. The saliency map in the image (b) provides a visual explanation that the model ignored the animal and focused on the snow in the background instead. [[@wolves_and_dogs_xai]](#references)](source/figures/husky_saliency_map.png "Husky classified as wolf."){#fig:husky_saliency_map width=80%}
 

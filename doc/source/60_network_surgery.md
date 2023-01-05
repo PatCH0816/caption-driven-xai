@@ -1,6 +1,4 @@
 # Network surgery
-<!-- The two resnets are not the same! -->
-<!-- #TODO Modified ResNet -->
 <!-- ResNet architecture: https://towardsdatascience.com/understanding-and-visualizing-resnets-442284831be8 -->
 <!-- ResNet expects input images of size: 224x224 -->
 We selected a ResNet-50 as the model architecture. We
@@ -14,5 +12,3 @@ for approximately 30 million images sampled from our pretraining dataset. At the
 layer switching:
 - preserve CLIP embedding space
 - transfer decision critical layers from given model to CLIP
-
-#TODO create image of network surgery

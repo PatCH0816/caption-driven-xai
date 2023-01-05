@@ -9,6 +9,9 @@ Demonstrating a novel XAI, a model to be explained is needed. This chapter intro
  
 ## Model selection
 <!-- Why resnet? How does it work/look like? -->
+<!-- ResNet identity mapping: https://medium.com/deepreview/review-of-identity-mappings-in-deep-residual-networks-ad6533452f33
+Batch norm: https://towardsdatascience.com/batch-norm-explained-visually-how-it-works-and-why-neural-networks-need-it-b18919692739
+-->
 As depicted in \*@fig:resnet_imagenet, AlexNet achieved the first outstanding top 5 classification error of 16.4% on the ImageNet challenge in 2012. Using the relu activation function and using different convolutional kernel sizes bypasses the vanishing gradient problem. A considerable improvement brought the VGGNet in 2014 with a top 5 error rate of 7.3%. Using smaller convolutional kernels of the same size is the most impactful change. This improvement leads to less trainable parameters, enables faster learning and tends to be more robust to overfitting.
 
 ![Relative image classification error (Top 5) in percent of different machine learning models. A human's relative image classification error (Top 5) is about 5%. [[@resnet_imagenet]](#references)](source/figures/resnet_imagenet.png "Imagenet classification error top 5."){#fig:resnet_imagenet width=90%}

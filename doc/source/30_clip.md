@@ -72,10 +72,10 @@ Using several text-image-pairs as in \*@fig:clip_matrix, all cosine-similarity s
 The strong movement in the open source community in recent years continues on large-scale projects like CLIP. The "mlfoundations" community on Github maintains the open-source implementation of CLIP. [@open_clip] An overview of all open-source CLIP models is provided in \*@tbl:open_clip_configuration_table in the appendix. The challenge of collecting a massive dataset as OpenAI has been tackled by the Large-scale Artificial Intelligence Open Network (LAION) community. [@laion_datasets] This thesis uses the implementation of OpenAI but wants to take advantage of the opportunity to promote the vital movement of the open-source community.
 
 ## Summary
-Since this chapter about CLIP is fundamental to the content of this thesis, there is a very brief recap of what the abbreviation of the name stands for:
+Since this chapter about contrastive language image pre-training (CLIP) is fundamental to the content of this thesis, there is a very brief recap of what the abbreviation of the name stands for:
 
 \noindent
-**Contrastive** describes the process of maximizing the cosine-similarities of the correct text-image-pairs (Along the diagonal) and minimizing the cosine-similarity of the incorrect text-image-pairs (All entries of the matrix apart from the diagonal).
+**Contrastive** learning in CLIP describes the process of creating an embedding space where similar text-image-pairs are close together while dissimilar text-image-pairs are as far apart as possible. This can be achieved by maximizing the cosine-similarities of the correct text-image-pairs (Along the diagonal) and minimizing the cosine-similarity of the incorrect text-image-pairs (All entries of the matrix apart from the diagonal).
 
 \noindent
 **Language** denotes the first of the two modalities used in this multi-modal model. Texts belong to the language modality. Text-based language is used to suggest matching descriptions for the concepts in images. 
@@ -85,5 +85,3 @@ Since this chapter about CLIP is fundamental to the content of this thesis, ther
 
 \noindent
 **Pre-training** describes that CLIP has been trained on a large dataset before being used on a downstream task. There is generally no need to finetune CLIP for a broad spectrum of concepts. Therefore, CLIP possesses zero-shot-prediction capabilities.
-
-<!-- #TODO: Add CLIP limitations/advantages/disadvantages -->

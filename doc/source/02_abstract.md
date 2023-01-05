@@ -44,8 +44,10 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] Interpretability vs. explainability
 [x] check if image encoder from clip and openclip look the same
     [x] Show differences between CLIP and open-CLIP in appendix
-[] Draw network surgery
+[x] Replace with better definition of contrastive learning!
+[] Add CLIP limitations/advantages/disadvantages
 [] Clean desktop
+[] Draw network surgery
 [] fix presentation date for lab buddies
 [] Coding.. (Understand einsum(..)) :P
     [] dataloader provides imgs not ready for clip (preprocess images in dataloader)
