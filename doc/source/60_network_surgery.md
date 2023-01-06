@@ -1,6 +1,12 @@
 # Network surgery
-<!-- ResNet architecture: https://towardsdatascience.com/understanding-and-visualizing-resnets-442284831be8 -->
-<!-- ResNet expects input images of size: 224x224 -->
+<!--
+ResNet architecture: https://towardsdatascience.com/understanding-and-visualizing-resnets-442284831be8
+ResNet expects input images of size: 224x224
+-->
+<!-- 
+How transferable are features in deep neural networks?
+https://papers.nips.cc/paper/2014/hash/375c71349b295fbe2dcdca9206f20a06-Abstract.html
+-->
 We selected a ResNet-50 as the model architecture. We
 modified the base ResNet-50 with the anti-alias improvements from (Zhang, 2019) and used weight norm (Salimans & Kingma, 2016) instead of batch norm (Ioffe &
 Szegedy, 2015) to avoid leaking information about duplicates via batch statistics - a problem previously noted in

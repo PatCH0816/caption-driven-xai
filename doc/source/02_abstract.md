@@ -9,6 +9,20 @@
 - Machine learning in all areas of our lives.
 - Safety/Need for robustness
 - Explainable AI -->
+<!-- 
+Babytalk:
+After a few short years of life, children can fathom the concepts behind simple words and connect them to related images. They can identify the connection between shapes and textures of the physical world to the abstract symbols of written language. It’s something we take for granted. Very few (if any) people in the world will remember a time when these “basic” skills were beyond their capacity.
+-->
+
+<!-- 
+Very nice intro inspiration:
+In recent years, there’s been an explosion of AI datasets and models that are impacting millions around the world each day. Some systems are recommending us songs and movies to enjoy; others are automating fundamental business processes or saving lives by detecting tumors. In the near future, machines relying on AI will drive our cars, fly our aircraft, and manage our care. But for that to take place, we need to ensure that those systems are robust enough against any attempts to hack them.
+
+During development of an AI model, conditions are carefully controlled to obtain the best possible performance — like starting a seedling in a greenhouse. But in the real world, where models are ultimately deployed, conditions are rarely perfect, and risks are abundant. If development is a greenhouse, then deployment is a jungle. We have to prepare AI models to withstand the onslaught.
+
+For years, AI models struggled to reach accuracy levels suitable for real-world applications. Now that they’ve reached that threshold for certain tasks, it is crucial to recognize that accuracy isn’t the only benchmark that matters. In the real world, fairness, interpretability, and robustness are critical, and many tools are available to inspect these dimensions of AI models. Developers must actively prepare AI models to succeed in the wild by spotting holes in the armor, predicting an adversary’s next move, and weaving robustness into the fabric of AI.
+-->
+
 An increasing number of new and exciting machine learning applications disrupt our lives almost daily. Autonomous driving, movie recommender systems and traffic prediction are just a few large-scale projects to be mentioned in this context. There is no doubt that many more exciting applications will come, but with great power comes great responsibility. The fundamental property of machine learning models is that they are not explicitly programmed but learn from data instead. This characteristic makes them very powerful but challenging to interpret. The situation gets even worse in e.g. medical environments where a patient could suffer from wrong predictions made by a machine learning model. Therefore, it is mission-critical to deploy robust machine-learning models only. The science of interpreting machine learning models to improve their robustness is called explainable artificial intelligence (XAI). One of the state-of-the-art methods in computer vision problems is generating beneficial saliency maps. The primary issue of these saliency maps is that they tell where the model focuses on an image instead of answering what they are seeing. This property is problematic if correlating and causating features are present in overlapping pixel space. 
 
 <!--
@@ -44,12 +58,14 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] Interpretability vs. explainability
 [x] check if image encoder from clip and openclip look the same
     [x] Show differences between CLIP and open-CLIP in appendix
+    [] Show differences between ResNet-50 and CLIP's modified ResNet-50 in appendix
 [x] Replace with better definition of contrastive learning!
-[] Add CLIP limitations/advantages/disadvantages
-[] Clean desktop
+[x] Clean desktop
+[x] Add CLIP limitations/advantages/disadvantages
 [] Draw network surgery
-[] fix presentation date for lab buddies
+[] fix presentation date for lab buddies (09.02 presentation at 09:00 o'clock)
 [] Coding.. (Understand einsum(..)) :P
+    [] check 1024 features are dependent if resnet or transformer
     [] dataloader provides imgs not ready for clip (preprocess images in dataloader)
     [] balance 5/8 mnist dataset
     [] network surgery
