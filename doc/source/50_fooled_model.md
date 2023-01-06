@@ -1,0 +1,33 @@
+# Fooled model
+Demonstrating a novel XAI, a model to be explained is needed. This chapter introduces the trade-off between the interpretability and the accuracy of different machine-learning models, the final choice for the architecture of the fooled model and assesses its performance on the custom dataset.
+
+## Interpretability vs. accuracy
+<!-- Which models are available to choose from? -->
+\*@fig:interpretability_vs_accuracy illustrates the tradeoff between the interpretability and accuracy of different machine learning models. The weights of simple linear regression models are directly interpretable, but the accuracy could be better for complex problems. Decision trees offer an excellent intrinsic explanation of their prediction by design. Support vector machine classifiers use the kernel trick to find a separating hyperplane in a higher dimensional space. Transforming this hyperplane back to a lower dimensional space results in a hard-to-interpret non-linear decision boundary. Random forests consist of many interpretable decision trees, but interpreting the result is difficult due to the randomness involved and their voting process. There is a trend to use deeper and deeper neural networks with millions and billions of tuneable parameters, which make them very successful function approximators in terms of accuracy but challenging to interpret. This thesis focuses on developing a novel explainability method for a neural network in a machine-vision problem setting.
+
+![Increasing accuracy comes at the cost of decreasing interpretability for linear regression, decision trees, support vector machines (SVM), random forests and neural networks. [[@interpretability_vs_accuracy]](#references)](source/figures/Model-interpretability-vs-accuracy.png "Model interpretability vs. accuracy."){#fig:interpretability_vs_accuracy width=60%}
+ 
+## Model selection
+<!-- Why resnet? How does it work/look like? -->
+<!-- ResNet identity mapping: https://medium.com/deepreview/review-of-identity-mappings-in-deep-residual-networks-ad6533452f33
+Batch norm: https://towardsdatascience.com/batch-norm-explained-visually-how-it-works-and-why-neural-networks-need-it-b18919692739
+-->
+As depicted in \*@fig:resnet_imagenet, AlexNet achieved the first outstanding top 5 classification error of 16.4% on the ImageNet challenge in 2012. Using the relu activation function and using different convolutional kernel sizes bypasses the vanishing gradient problem. A considerable improvement brought the VGGNet in 2014 with a top 5 error rate of 7.3%. Using smaller convolutional kernels of the same size is the most impactful change. This improvement leads to less trainable parameters, enables faster learning and tends to be more robust to overfitting.
+
+![Relative image classification error (Top 5) in percent of different machine learning models. A human's relative image classification error (Top 5) is about 5%. [[@resnet_imagenet]](#references)](source/figures/resnet_imagenet.png "Imagenet classification error top 5."){#fig:resnet_imagenet width=90%}
+
+The residual neural network (ResNet) architecture was a real breakthrough in 2015 because it was the first model which achieved "super-human" performance with a top 5 error rate of 3.6%. The ResNet did not bypass the vanishing gradient problem like AlexNet but solved it by introducing shortcut connections/skip connections/identity mapping/bottleneck layers, as shown in \*@fig:resnet_architecture. This clever change solved the vanishing gradient problem and enabled deeper and more powerful neural networks.
+
+![Basic structure of a residual neural network (ResNet) and a close-up of a bottleneck layer. The ResNet-50 model consists of 50 layers. [[@resnet_architecture]](#references)](source/figures/resnet50_architecture.png "Architecture of a residual neural network (ResNet)."){#fig:resnet_architecture width=100%}
+
+## Performance
+<!-- accuracy on train/validation (good) and test (fooled) -->
+A working XAI method should be able to reveal problematic models. In order to demonstrate the XAI method in action, a suitable machine-learning model needs to be chosen to create such a fooled model. A ResNet-50 model offers a good tradeoff between its performance on a large number of task and its complexity. Additionally, a ResNet-50 model is more interpretable than its predecessors as described in \*@sec:network-dissection. Therefore, a ResNet-50 model is the model of choice. 
+
+Using a pre-trained ResNet-50 model accelerates the training progress. The model is pre-trained on the ImageNet dataset (ILSVRC 2012) with 1000 classes, ~1.2 Mio training images and 50 thousand validation images. [@imagenet] The process of adapting and training the final classification layers is called transfer learning. 
+
+Using the dataset introduced in \*@sec:dataset for the binary classification task to distinguish between two digits, it can be demonstrated that the ResNet-50 model does fall for the bias (Classify by color) instead of learning the real objective. (Classify by the shape of the digits) This behavior is a classic situation commonly referred to as "correlation does not imply causation". Just because the colors of the digits in the train and validation dataset match with the labels does not mean that this is the best feature to distinguish between the classes. If all data had been drawn from the same biased distribution, there would be no way to detect this bias at this point!
+
+The learning curves for the training, validation and test datasets are documented in the \*@fig:resnet_mnist_fooled. Therefore, we end up with a biased model, the ideal candidate to demonstrate the novel XAI method. This model is referred to as the "standalone ResNet model" from now on during this thesis.
+
+![This figure illustrates the learning progress of the transfer learned ResNet-50 model on the training, validation and test datasets.](source/figures/resnet_mnist_fooled.png "Learning curves from standalone ResNet-50 on custom MNIST dataset for binary classification."){#fig:resnet_mnist_fooled width=75%}

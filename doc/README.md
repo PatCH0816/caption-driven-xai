@@ -1,4 +1,4 @@
-# Trade-That Documentation
+# MAster thesis
 Document is based on: [Template for writing a PhD thesis in Markdown](https://github.com/tompollard/phd_thesis_markdown)
 
 # Setup
