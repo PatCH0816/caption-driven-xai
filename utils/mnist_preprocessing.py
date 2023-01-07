@@ -49,7 +49,8 @@ class DatasetMNIST(datasets.VisionDataset):
   than 5 are colored green for the train and validation set. The colors of the digits have
   a 50% probability to be flipped.
   """
-  def __init__(self, root='./data', env='train', opt_postfix="", transform=None, target_transform=None, color=True, filter=range(10), first_color_max_nr=5):
+  def __init__(self, root='./data', env='train', opt_postfix="", transform=None, target_transform=None, color=True, filter=range(10),
+               first_color_max_nr=5, preprocess=None):
     super(DatasetMNIST, self).__init__(root, transform=transform,
                                 target_transform=target_transform)
     self.color = color
@@ -57,6 +58,7 @@ class DatasetMNIST(datasets.VisionDataset):
     self._filter = filter
     self._first_color_max_nr = first_color_max_nr
     self._opt_postfix = opt_postfix
+    self._preprocess = preprocess
     
     self.prefix = 'color_' if self.color else 'grey_'
 
@@ -72,9 +74,12 @@ class DatasetMNIST(datasets.VisionDataset):
     before providing them to the dataloader.
     """
     img, ground_truth_label, low_high_label, color_label = self.data_label_tuples[index]
-
-    if self.transform is not None:
-      img = self.transform(img)
+    transform = transforms.ToPILImage()
+    
+    img = self.transform(img)
+    img = map(transform, img)
+    img = map(self._preprocess, img)
+    img = torch.as_tensor(np.stack(list(img)))
 
     if self.target_transform is not None:
       low_high_label = self.target_transform(low_high_label)
