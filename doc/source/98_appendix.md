@@ -78,3 +78,19 @@ open_model
 Using these two import code snippets, a developer expects to obtain the exact same CLIP-architecture trained on the proprietary OpenAI dataset. However, the text-transformer architecture contains some differences as shown in \*@fig:diff_clip_vs_open_clip. Even if the difference in the architecture of the text-transformer can be justified, because the loading functions receive a specific configuration for the image encoder (RN50) only, it is not clear how the new text-transformer model has been trained. The problem is that the OpenAI custom dataset is proprietary. This leads to unexpected small differences in the results between CLIP and open-CLIP. The author started an open discussion on Github. [@difference_clip_vs_open_clip]
 
 ![Different architectures for the CLIP (Left) and open-CLIP (Right) implementations for the text-transformers for the same argument provided to load CLIP with a ResNet-50 image encoder.](source/figures/diff_clip_vs_open_clip.png "Different architectures in CLIP and open-CLIP"){#fig:diff_clip_vs_open_clip width=100%}
+
+## Embedding dimensions of CLIP
+Each image-text-encoder configuration of CLIP in \*@tbl:open_clip_configuration_table generates an embedding with a distinctive dimensionality summarized in \*@tbl:clip_embedding_dimensions. The dimensionality of the image and text encoder are identical.
+
+| Image encoder         | Embedding dimensions
+|-                      | -
+| RN50                  | 1024
+| RN101                 | 512
+| RN50x4                | 640
+| RN50x16               | 768
+| RN50x64               | 1024
+| ViT-B/32              | 512
+| ViT-B/16              | 512
+| ViT-L/14              | 768
+| ViT-L/14@336px        | 768
+Table: The different embedding dimensionalities of all available CLIP configurations. {#tbl:clip_embedding_dimensions}
