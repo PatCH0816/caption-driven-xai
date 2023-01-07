@@ -74,13 +74,11 @@ class DatasetMNIST(datasets.VisionDataset):
     before providing them to the dataloader.
     """
     img, ground_truth_label, low_high_label, color_label = self.data_label_tuples[index]
-    transform = transforms.ToPILImage()
     
-    img = self.transform(img)
-    img = map(transform, img)
-    img = map(self._preprocess, img)
-    img = torch.as_tensor(np.stack(list(img)))
-
+    img = self.transform(img) # torch.Size([3, 28, 28])
+    transform = transforms.ToPILImage()
+    img = self._preprocess(transform(img)) # torch.Size([3, 224, 224])
+    
     if self.target_transform is not None:
       low_high_label = self.target_transform(low_high_label)
 
