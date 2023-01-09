@@ -4,6 +4,15 @@ import torch
 
 
 
+def binary_to_5_8(binary_pred):
+    """
+    Converts binary 0/1 to the digits 5/8
+    """
+    digit_set = (5,8)
+    return digit_set[binary_pred]
+
+
+
 def plot_digits(dataset, preprocessor):
     """
     Plots some digits from a provided colored MNIST dataset to be analyzed.
@@ -19,8 +28,8 @@ def plot_digits(dataset, preprocessor):
     for i in range(columns*rows):
         img, _, true_label, color_label = dataset[i]
         ax.append(fig.add_subplot(rows, columns, i + 1))
-        ax[-1].set_title("True label: " + str(true_label) + 
-                         "\nColor label: " + str(color_label) +
+        ax[-1].set_title("True label: " + str(binary_to_5_8(true_label)) + 
+                         "\nColor label: " + str(binary_to_5_8(color_label)) +
                          "\nFlipped: " + str(true_label != color_label))
         
         img = torch.stack((img[0]*torch.Tensor(normalizer.std)[0] + torch.Tensor(normalizer.mean)[0],
@@ -55,15 +64,15 @@ def random_tests(dataset, model, device, preprocessor):
         ax.append(fig.add_subplot(8, 4, i + 1))
         if (pred[i].item() == true_label[i].item()):
             ax[-1].set_title("Ground truth: " + 
-                             str(true_label[i].item()) + 
+                             str(binary_to_5_8(true_label[i].item())) + 
                              "\nPrediction: " + 
-                             str(np.round(pred[i].item())) + 
+                             str(binary_to_5_8(np.round(pred[i].item()))) + 
                              "\nCorrect!")
         else:
             ax[-1].set_title("Ground truth: " + 
-                             str(true_label[i].item()) + 
+                             str(binary_to_5_8(true_label[i].item())) + 
                              "\nPrediction: " + 
-                             str(np.round(pred[i].item())) + 
+                             str(binary_to_5_8(np.round(pred[i].item()))) + 
                              "\nFooled!")
                         
         img[i] = torch.stack((img[i][0]*torch.Tensor(normalizer.std)[0] + torch.Tensor(normalizer.mean)[0],
