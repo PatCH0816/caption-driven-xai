@@ -105,10 +105,10 @@ class DatasetMNIST(datasets.VisionDataset):
       # shuffle datasets
       train_loader = torch.utils.data.DataLoader(train_mnist,
                                                 batch_size=1,
-                                                shuffle=True)
+                                                shuffle=False)
       test_loader = torch.utils.data.DataLoader(test_mnist,
                                                 batch_size=1,
-                                                shuffle=True)
+                                                shuffle=False)
       
       # setup
       environment = {"train":      {"dataset":train_loader},
