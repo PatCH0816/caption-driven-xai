@@ -64,7 +64,8 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] Add CLIP limitations/advantages/disadvantages
 [x] Understand einsum(..) -> scores = torch.einsum('aixy,ajxy->ij', ... -> torch.product(..) and toch.sum(..)
 [x] check 1024 features are dependent if resnet or transformer
-[] dataloader provides imgs not ready for clip (preprocess images in dataloader)
+[x] update dataloader to provide CLIP preprocessored images
+[x] whats the scale of the original mnist data? 0-1 or 0-255? -> CLIP expect 0-1
 [] balance 5/8 mnist dataset
 [] network surgery
 [] fix presentation date for lab buddies (09.02 presentation at 09:00 o'clock)

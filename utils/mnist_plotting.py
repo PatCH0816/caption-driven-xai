@@ -4,14 +4,17 @@ import torch
 
 
 
-def plot_digits(dataset):
+def plot_digits(dataset, preprocessor):
     """
     Plots some digits from a provided colored MNIST dataset to be analyzed.
+    Normalize(..) is expected to be the last transformation in the preprocessor.
     """
     fig = plt.figure(figsize=(13,8))
     columns = 6
     rows = 3
     ax = []
+    
+    normalizer = preprocessor.transforms.copy().pop()
     
     for i in range(columns*rows):
         img, _, true_label, color_label = dataset[i]
@@ -19,8 +22,12 @@ def plot_digits(dataset):
         ax[-1].set_title("True label: " + str(true_label) + 
                          "\nColor label: " + str(color_label) +
                          "\nFlipped: " + str(true_label != color_label))
-        plt.imshow(np.transpose(img.cpu().numpy(), (1,2,0)))
         
+        img = torch.stack((img[0]*torch.Tensor(normalizer.std)[0] + torch.Tensor(normalizer.mean)[0],
+                           img[1]*torch.Tensor(normalizer.std)[1] + torch.Tensor(normalizer.mean)[1],
+                           img[2]*torch.Tensor(normalizer.std)[2] + torch.Tensor(normalizer.mean)[2]))
+        plt.imshow(np.transpose(img.cpu().numpy(), (1,2,0)))
+                        
     plt.tight_layout()
     plt.show()
 
