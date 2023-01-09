@@ -33,7 +33,7 @@ def plot_digits(dataset, preprocessor):
 
 
 
-def random_tests(dataset, model, device):
+def random_tests(dataset, model, device, preprocessor):
     """
     Test and plot some digits from a provided colored MNIST dataset to be analyzed.
     """
@@ -43,11 +43,13 @@ def random_tests(dataset, model, device):
     ax = []
     
     img, _, true_label, color_label = next(iter(dataset))
+        
     model.eval()
     logits = model(img.to(device))
     pred = logits.argmax(dim=1)
 
     print("Batch accuracy: " + str(100 * torch.sum(pred == true_label.to(device)).item() / true_label.shape[0]) + "%")
+    normalizer = preprocessor.transforms.copy().pop()
 
     for i in range(columns*rows):
         ax.append(fig.add_subplot(8, 4, i + 1))
@@ -63,6 +65,10 @@ def random_tests(dataset, model, device):
                              "\nPrediction: " + 
                              str(np.round(pred[i].item())) + 
                              "\nFooled!")
+                        
+        img[i] = torch.stack((img[i][0]*torch.Tensor(normalizer.std)[0] + torch.Tensor(normalizer.mean)[0],
+                           img[i][1]*torch.Tensor(normalizer.std)[1] + torch.Tensor(normalizer.mean)[1],
+                           img[i][2]*torch.Tensor(normalizer.std)[2] + torch.Tensor(normalizer.mean)[2]))
         plt.imshow(np.transpose(img[i].cpu().numpy(), (1,2,0)))
         
     plt.tight_layout()
