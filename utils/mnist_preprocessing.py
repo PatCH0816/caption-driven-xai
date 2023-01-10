@@ -5,6 +5,19 @@ import torch
 from torchvision import datasets, transforms
 
 
+class align_emnist_like_mnist:
+    """
+    Align EMNIST images like MNIST images. For some dubious reason, the EMNIST images
+    are flipped and rotated. (See its documentation)
+    """
+    def __init__(self):
+        self.angle = 90
+
+    def __call__(self, x):
+        x = transforms.functional.hflip(x)
+        return transforms.functional.rotate(img=x, angle=self.angle)
+    
+
 def color_grayscale_arr(arr, green=True):
   """
   Convert grayscale MNIST images to either red or green MNIST images by expanding
@@ -97,8 +110,10 @@ class DatasetMNIST(datasets.VisionDataset):
       # http://yann.lecun.com/exdb/mnist/
       # try balanced emnist: https://www.nist.gov/itl/products-and-services/emnist-dataset
       print('Preparing Colored MNIST')
-      train_mnist = datasets.mnist.EMNIST(self.root, train=True, download=True, split="mnist", transform = transforms.Compose([transforms.ToTensor()])) # 60'000 samples for training
-      test_mnist = datasets.mnist.EMNIST(self.root, train=False, download=True, split="mnist", transform = transforms.Compose([transforms.ToTensor()])) # 10'000 samples for validation and test
+      train_mnist = datasets.mnist.EMNIST(self.root, train=True, download=True, split="mnist", transform = transforms.Compose([transforms.ToTensor(),
+                                                                                                                               align_emnist_like_mnist])) # 60'000 samples for training
+      test_mnist = datasets.mnist.EMNIST(self.root, train=False, download=True, split="mnist", transform = transforms.Compose([transforms.ToTensor(),
+                                                                                                                               align_emnist_like_mnist])) # 10'000 samples for validation and test
       # train_mnist = datasets.mnist.MNIST(self.root, train=True, download=True, transform = transforms.Compose([transforms.ToTensor()])) # 60'000 samples for training
       # test_mnist = datasets.mnist.MNIST(self.root, train=False, download=True, transform = transforms.Compose([transforms.ToTensor()])) # 10'000 samples for validation and test
       
