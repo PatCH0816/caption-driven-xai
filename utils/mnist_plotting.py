@@ -4,6 +4,66 @@ import torch
 
 
 
+def plot_history(hist, show_plots=['loss', 'acc'], show_curves=['train_w_backprop', 'train', 'validation', 'test', 'test_fool']):
+    """
+    Plot the losses and accuracies during the training, validation and test procedures.
+    """
+    if 'loss' in show_plots:
+        plt.subplot(1,2,1)
+        if 'train_w_backprop' in show_curves:
+            plt.semilogy(range(len(hist['train_w_backprop']['loss'])), hist['train_w_backprop']['loss'], label='Train batch accumulated')
+        if 'train' in show_curves:
+            plt.semilogy(range(len(hist['train']['loss'])), hist['train']['loss'], label='Train')
+        if 'validation' in show_curves:
+            plt.semilogy(range(len(hist['validation']['loss'])), hist['validation']['loss'], label='Validation')
+        if 'test' in show_curves:
+            plt.semilogy(range(len(hist['test']['loss'])), hist['test']['loss'], label='Test')
+        if 'test_fool' in show_curves:
+            plt.semilogy(range(len(hist['test_fool']['loss'])), hist['test_fool']['loss'], label='Test fool')
+        plt.xlabel('Epoch')
+        plt.ylabel('Loss')
+        plt.legend()
+        plt.grid()
+
+    if 'acc' in show_plots:
+        plt.subplot(1,2,2)
+        if 'train_w_backprop' in show_curves:
+            plt.plot(range(len(hist['train_w_backprop']['acc'])), hist['train_w_backprop']['acc'], label='Train batch accumulated')
+        if 'train' in show_curves:
+            plt.plot(range(len(hist['train']['acc'])), hist['train']['acc'], label='Train')
+        if 'validation' in show_curves:
+            plt.plot(range(len(hist['validation']['acc'])), hist['validation']['acc'], label='Validation')
+        if 'test' in show_curves:
+            plt.plot(range(len(hist['test']['acc'])), hist['test']['acc'], label='Test')
+        if 'test_fool' in show_curves:
+            plt.plot(range(len(hist['test_fool']['acc'])), hist['test_fool']['acc'], label='Test fool')
+        plt.xlabel('Epoch')
+        plt.ylabel('Accuracy in %')
+        plt.legend()
+        plt.grid()
+
+    plt.tight_layout()
+    plt.show()
+
+
+
+def digit_distribution(datasource):
+    """
+    Displays a bar plot showing the number of 5s and 8s in the dataset.
+    """
+    nr_of_5s = 0
+    
+    for i in range(len(datasource)):
+        nr_of_5s += (datasource[i][1].item() == 5)
+    
+    plt.bar((5,8), (nr_of_5s, len(datasource) - nr_of_5s))
+    plt.xlabel("Digit")
+    plt.ylabel("Count")
+    plt.title("Sample distribution")
+    plt.show()
+    
+
+
 def binary_to_5_8(binary_pred):
     """
     Converts binary 0/1 to the digits 5/8

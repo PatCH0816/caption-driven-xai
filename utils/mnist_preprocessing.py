@@ -111,19 +111,19 @@ class DatasetMNIST(datasets.VisionDataset):
       # try balanced emnist: https://www.nist.gov/itl/products-and-services/emnist-dataset
       print('Preparing Colored MNIST')
       train_mnist = datasets.mnist.EMNIST(self.root, train=True, download=True, split="mnist", transform = transforms.Compose([transforms.ToTensor(),
-                                                                                                                               align_emnist_like_mnist()])) # 60'000 samples for training
+                                                                                                                               align_emnist_like_mnist()])) # 60'000 samples for training and validation
       test_mnist = datasets.mnist.EMNIST(self.root, train=False, download=True, split="mnist", transform = transforms.Compose([transforms.ToTensor(),
-                                                                                                                               align_emnist_like_mnist()])) # 10'000 samples for validation and test
-      # train_mnist = datasets.mnist.MNIST(self.root, train=True, download=True, transform = transforms.Compose([transforms.ToTensor()])) # 60'000 samples for training
-      # test_mnist = datasets.mnist.MNIST(self.root, train=False, download=True, transform = transforms.Compose([transforms.ToTensor()])) # 10'000 samples for validation and test
+                                                                                                                               align_emnist_like_mnist()])) # 10'000 samples for test
+      # train_mnist = datasets.mnist.MNIST(self.root, train=True, download=True, transform = transforms.Compose([transforms.ToTensor()])) # 60'000 samples for training and validation
+      # test_mnist = datasets.mnist.MNIST(self.root, train=False, download=True, transform = transforms.Compose([transforms.ToTensor()])) # 10'000 samples for test
       
       # shuffle datasets
       train_loader = torch.utils.data.DataLoader(train_mnist,
                                                 batch_size=1,
-                                                shuffle=False)
+                                                shuffle=True)
       test_loader = torch.utils.data.DataLoader(test_mnist,
                                                 batch_size=1,
-                                                shuffle=False)
+                                                shuffle=True)
       
       # setup
       environment = {"train":      {"dataset":train_loader},
