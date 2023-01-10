@@ -10,10 +10,10 @@ class align_emnist_like_mnist:
     Align EMNIST images like MNIST images. For some dubious reason, the EMNIST images
     are flipped and rotated. (See its documentation)
     """
-    def __init__(self, y):
+    def __init__(self):
         self.angle = 90
 
-    def __call__(self, x, y):
+    def __call__(self, x):
         x = transforms.functional.hflip(x)
         return transforms.functional.rotate(img=x, angle=self.angle)
     
