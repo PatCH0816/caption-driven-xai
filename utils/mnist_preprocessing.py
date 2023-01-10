@@ -97,10 +97,10 @@ class DatasetMNIST(datasets.VisionDataset):
       # http://yann.lecun.com/exdb/mnist/
       # try balanced emnist: https://www.nist.gov/itl/products-and-services/emnist-dataset
       print('Preparing Colored MNIST')
-      # train_mnist = datasets.mnist.EMNIST(self.root, train=True, download=True, split="balanced") # 60'000 samples for training
-      # test_mnist = datasets.mnist.EMNIST(self.root, train=False, download=True, split="balanced") # 10'000 samples for validation and test
-      train_mnist = datasets.mnist.MNIST(self.root, train=True, download=True, transform = transforms.Compose([transforms.ToTensor()])) # 60'000 samples for training
-      test_mnist = datasets.mnist.MNIST(self.root, train=False, download=True, transform = transforms.Compose([transforms.ToTensor()])) # 10'000 samples for validation and test
+      train_mnist = datasets.mnist.EMNIST(self.root, train=True, download=True, split="balanced") # 60'000 samples for training
+      test_mnist = datasets.mnist.EMNIST(self.root, train=False, download=True, split="balanced") # 10'000 samples for validation and test
+      # train_mnist = datasets.mnist.MNIST(self.root, train=True, download=True, transform = transforms.Compose([transforms.ToTensor()])) # 60'000 samples for training
+      # test_mnist = datasets.mnist.MNIST(self.root, train=False, download=True, transform = transforms.Compose([transforms.ToTensor()])) # 10'000 samples for validation and test
       
       # shuffle datasets
       train_loader = torch.utils.data.DataLoader(train_mnist,
