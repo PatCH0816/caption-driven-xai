@@ -23,7 +23,8 @@
 \textbf{OpenAI}     \> \textbf{Open} \textbf{A}rtificial \textbf{I}ntelligence \\  
 \textbf{ResNet}     \> \textbf{Res}idual neural \textbf{Net}work \\  
 \textbf{RN50}       \> \textbf{R}esidual Neural \textbf{N}etwork with \textbf{50} layers \\  
-\textbf{SVM}        \> \textbf{S}upport \textbf{V}ector \textbf{M}achine \\  
+\textbf{SOTA}       \> \textbf{S}tate \textbf{O}f \textbf{T}he \textbf{A}rt \\
+\textbf{SVM}        \> \textbf{S}upport \textbf{V}ector \textbf{M}achine \\    
 \textbf{VGGNet}     \> \textbf{V}isual \textbf{G}eometry \textbf{G}roup Neural \textbf{Net}work \\  
 \textbf{XAI}        \> E\textbf{x}plainable \textbf{A}rtificial \textbf{I}ntelligence \\  
 \end{tabbing}

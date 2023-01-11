@@ -94,3 +94,15 @@ Each image-text-encoder configuration of CLIP in \*@tbl:open_clip_configuration_
 | ViT-L/14              | 768
 | ViT-L/14@336px        | 768
 Table: The different embedding dimensionalities of all available CLIP configurations. {#tbl:clip_embedding_dimensions}
+
+## CLIP preprocessor
+Every CLIP image-encoder has its preprocessor. \*@tbl:clip_rn50_preprocess summarizes the configuration for the associated preprocessor of the ResNet-50 image encoder.
+
+| Operation                                                                 | Explanation
+|-                                                                          | -
+| Resize(size=224, interpolation=bicubic, max_size=None, antialias=None)    | Resize the image such that the shorter edge of the image is 224 pixels.
+| CenterCrop(size=(224, 224))                                               | Crop 224x224 pixels from the center to ensure a quadratic format.
+| <function _convert_image_to_rgb at 0x7f2811025670>                        | Transform 1x224x224 grayscale images to 3x224x224
+| ToTensor()                                                                | Ensure tensor format.
+| Normalize(mean=(..), std=(..))                                            | Standard scale pixel values.
+Table: Overview of chronological operations from the preprocessor from CLIP's ResNet-50 image-encoder according to explanations. {#tbl:clip_rn50_preprocess}
