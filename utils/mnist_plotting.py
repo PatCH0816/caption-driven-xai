@@ -32,7 +32,7 @@ def plot_history(hist, show_plots=['loss', 'acc'], show_points=False, show_curve
             plt.plot(avg_acc, label=key)
             plt.grid()
             plt.xlabel("Epoch")
-            plt.ylabel("Loss")
+            plt.ylabel("Accuracy in %")
             plt.legend()
                     
     if 'loss' in show_plots:
@@ -59,7 +59,7 @@ def plot_history(hist, show_plots=['loss', 'acc'], show_points=False, show_curve
             plt.plot(avg_loss, label=key)
             plt.grid()
             plt.xlabel("Epoch")
-            plt.ylabel("Accuracy in %")
+            plt.ylabel("Loss")
             plt.legend()
 
     plt.tight_layout()
