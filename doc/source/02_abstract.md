@@ -66,8 +66,8 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] check 1024 features are dependent if resnet or transformer
 [x] update dataloader to provide CLIP preprocessored images
 [x] whats the scale of the original mnist data? 0-1 or 0-255? -> CLIP expect 0-1
-[] balance 5/8 mnist dataset
+[x] balance 5/8 mnist dataset
 [] network surgery
-[] fix presentation date for lab buddies (09.02 presentation at 09:00 o'clock)
+[] fix presentation date for lab buddies (09.02 presentation at 08:00 o'clock)
 [] Draw network surgery
 -->

@@ -4,43 +4,63 @@ import torch
 
 
 
-def plot_history(hist, show_plots=['loss', 'acc'], show_curves=['train_w_backprop', 'train', 'validation', 'test', 'test_fool']):
+def plot_history(hist, show_plots=['loss', 'acc'], show_points=False, show_curves=['train_w_backprop', 'train', 'validation', 'test', 'test_fool']):
     """
-    Plot the losses and accuracies during the training, validation and test procedures.
+    Displays loss and accuracies from crossvalidation results.
     """
-    if 'loss' in show_plots:
-        plt.subplot(1,2,1)
-        if 'train_w_backprop' in show_curves:
-            plt.semilogy(range(len(hist['train_w_backprop']['loss'])), hist['train_w_backprop']['loss'], label='Train batch accumulated')
-        if 'train' in show_curves:
-            plt.semilogy(range(len(hist['train']['loss'])), hist['train']['loss'], label='Train')
-        if 'validation' in show_curves:
-            plt.semilogy(range(len(hist['validation']['loss'])), hist['validation']['loss'], label='Validation')
-        if 'test' in show_curves:
-            plt.semilogy(range(len(hist['test']['loss'])), hist['test']['loss'], label='Test')
-        if 'test_fool' in show_curves:
-            plt.semilogy(range(len(hist['test_fool']['loss'])), hist['test_fool']['loss'], label='Test fool')
-        plt.xlabel('Epoch')
-        plt.ylabel('Loss')
-        plt.legend()
-        plt.grid()
-
     if 'acc' in show_plots:
+        
+        # plot accuracies
+        plt.subplot(1,2,1)
+        
+        for key in show_curves:
+            if show_points:
+                # individual crossvalidation accuracies
+                plt.plot(hist[key]['fold0']['acc'], 'x')
+                plt.plot(hist[key]['fold1']['acc'], 'x')
+                plt.plot(hist[key]['fold2']['acc'], 'x')
+                plt.plot(hist[key]['fold3']['acc'], 'x')
+                plt.plot(hist[key]['fold4']['acc'], 'x')
+
+            # average accuracy
+            avg_acc = np.vstack((hist[key]['fold0']['acc'],
+                                    hist[key]['fold1']['acc'],
+                                    hist[key]['fold2']['acc'],
+                                    hist[key]['fold3']['acc'],
+                                    hist[key]['fold4']['acc'])).mean(axis=0)
+            
+            plt.plot(avg_acc, label=key)
+            plt.grid()
+            plt.xlabel("Epoch")
+            plt.ylabel("Loss")
+            plt.legend()
+                    
+    if 'loss' in show_plots:
+        
+        # plot losses
         plt.subplot(1,2,2)
-        if 'train_w_backprop' in show_curves:
-            plt.plot(range(len(hist['train_w_backprop']['acc'])), hist['train_w_backprop']['acc'], label='Train batch accumulated')
-        if 'train' in show_curves:
-            plt.plot(range(len(hist['train']['acc'])), hist['train']['acc'], label='Train')
-        if 'validation' in show_curves:
-            plt.plot(range(len(hist['validation']['acc'])), hist['validation']['acc'], label='Validation')
-        if 'test' in show_curves:
-            plt.plot(range(len(hist['test']['acc'])), hist['test']['acc'], label='Test')
-        if 'test_fool' in show_curves:
-            plt.plot(range(len(hist['test_fool']['acc'])), hist['test_fool']['acc'], label='Test fool')
-        plt.xlabel('Epoch')
-        plt.ylabel('Accuracy in %')
-        plt.legend()
-        plt.grid()
+        
+        for key in show_curves:
+            if show_points:
+                # individual crossvalidation accuracies
+                plt.plot(hist[key]['fold0']['loss'], 'x')
+                plt.plot(hist[key]['fold1']['loss'], 'x')
+                plt.plot(hist[key]['fold2']['loss'], 'x')
+                plt.plot(hist[key]['fold3']['loss'], 'x')
+                plt.plot(hist[key]['fold4']['loss'], 'x')
+
+            # average accuracy
+            avg_loss = np.vstack((hist[key]['fold0']['loss'],
+                                    hist[key]['fold1']['loss'],
+                                    hist[key]['fold2']['loss'],
+                                    hist[key]['fold3']['loss'],
+                                    hist[key]['fold4']['loss'])).mean(axis=0)
+            
+            plt.plot(avg_loss, label=key)
+            plt.grid()
+            plt.xlabel("Epoch")
+            plt.ylabel("Accuracy in %")
+            plt.legend()
 
     plt.tight_layout()
     plt.show()
