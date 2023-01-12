@@ -4,16 +4,22 @@ import torch
 
 
 
-def plot_history(hist, show_plots=['loss', 'acc'], show_points=False, show_curves=['train_w_backprop', 'train', 'validation', 'test', 'test_fool']):
+def plot_history(hist, show_plots=['loss', 'acc'], show_points=False,
+                  show_curves=['train_w_backprop', 'train', 'validation', 'test', 'test_fool'],
+                  alternative_labels=[]):
     """
     Displays loss and accuracies from crossvalidation results.
     """
+    # sanity check
+    if len(alternative_labels) != 0 and len(alternative_labels) != len(show_curves):
+        raise Exception("Every curve needs an alternative name! Mismatch in the length of lists!")
+    
     if 'acc' in show_plots:
         
         # plot accuracies
         plt.subplot(1,2,1)
         
-        for key in show_curves:
+        for i, key in enumerate(show_curves):
             if show_points:
                 # individual crossvalidation accuracies
                 plt.plot(hist[key]['fold0']['acc'], 'x')
@@ -29,7 +35,10 @@ def plot_history(hist, show_plots=['loss', 'acc'], show_points=False, show_curve
                                     hist[key]['fold3']['acc'],
                                     hist[key]['fold4']['acc'])).mean(axis=0)
             
-            plt.plot(avg_acc, label=key)
+            if alternative_labels:
+                plt.plot(avg_acc, label=alternative_labels[i])
+            else:
+                plt.plot(avg_acc, label=key)
             plt.grid()
             plt.xlabel("Epoch")
             plt.ylabel("Accuracy in %")
@@ -40,7 +49,7 @@ def plot_history(hist, show_plots=['loss', 'acc'], show_points=False, show_curve
         # plot losses
         plt.subplot(1,2,2)
         
-        for key in show_curves:
+        for i, key in enumerate(show_curves):
             if show_points:
                 # individual crossvalidation accuracies
                 plt.plot(hist[key]['fold0']['loss'], 'x')
@@ -56,7 +65,10 @@ def plot_history(hist, show_plots=['loss', 'acc'], show_points=False, show_curve
                                     hist[key]['fold3']['loss'],
                                     hist[key]['fold4']['loss'])).mean(axis=0)
             
-            plt.plot(avg_loss, label=key)
+            if alternative_labels:
+                plt.plot(avg_loss, label=alternative_labels[i])
+            else:
+                plt.plot(avg_loss, label=key)
             plt.grid()
             plt.xlabel("Epoch")
             plt.ylabel("Loss")
