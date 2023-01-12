@@ -71,6 +71,7 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] Chapter model add learning curves
 [x] gray biased mnist to gray unbiased mnist
 [x] introduce term "embedding similarities" (clip.png)
+[x] change human robot image with captions instead of suggestions!
 [] Show differences between ResNet-50 and CLIP's modified ResNet-50 in appendix
 [] chapter model: replace 2 learning curves figures and add accuracy on real-world dataset
 [] Add final accuracy and plots to model chapter after training
