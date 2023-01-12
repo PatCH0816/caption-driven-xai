@@ -1,6 +1,6 @@
 # Appendix
 ## Configurations of CLIP
-OpenAI's CLIP architecture is a successful demonstration of the power of a self-supervised model to learn a wide variety of concepts from text-image-pairs. During the course of the research, OpenAI has used different variations for their image encoder, which is summarized in the \*@tbl:clip_configuration_table.
+OpenAI's CLIP architecture is a successful demonstration of the power of a self-supervised model to learn a wide variety of concepts from caption-image-pairs. During the course of the research, OpenAI has used different variations for their image encoder, which is summarized in the \*@tbl:clip_configuration_table.
 
 | Image encoder     | Text encoder          | Dataset
 |-                  | -                     | -
@@ -79,7 +79,7 @@ Using these two import code snippets, a developer expects to obtain the same CLI
 ![Different architectures for the CLIP (Left) and open-CLIP (Right) implementations for the text-transformers for the same argument provided to load CLIP with a ResNet-50 image encoder.](source/figures/diff_clip_vs_open_clip.png "Different architectures in CLIP and open-CLIP"){#fig:diff_clip_vs_open_clip width=100%}
 
 ## Embedding dimensions of CLIP
-Each image-text-encoder configuration of CLIP in \*@tbl:open_clip_configuration_table generates an embedding with a distinctive dimensionality summarized in \*@tbl:clip_embedding_dimensions. The dimensionality of the image and text encoder are identical.
+Each caption-image-encoder configuration of CLIP in \*@tbl:open_clip_configuration_table generates an embedding with a distinctive dimensionality summarized in \*@tbl:clip_embedding_dimensions. The dimensionality of the image and text encoder are identical.
 
 | Image encoder         | Embedding dimensions
 |-                      | -
