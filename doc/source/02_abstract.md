@@ -58,7 +58,6 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] Interpretability vs. explainability
 [x] check if image encoder from clip and openclip look the same
     [x] Show differences between CLIP and open-CLIP in appendix
-    [] Show differences between ResNet-50 and CLIP's modified ResNet-50 in appendix
 [x] Replace with better definition of contrastive learning!
 [x] Clean desktop
 [x] Add CLIP limitations/advantages/disadvantages
@@ -67,7 +66,10 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] update dataloader to provide CLIP preprocessored images
 [x] whats the scale of the original mnist data? 0-1 or 0-255? -> CLIP expect 0-1
 [x] balance 5/8 mnist dataset
+[x] explain numeric differences between CLIP and open-CLIP
 [x] fix presentation date for lab buddies (08.02@lab-meeting and 09.02 presentation at 08:00 o'clock)
+[] Show differences between ResNet-50 and CLIP's modified ResNet-50 in appendix
+[] Add final accuracy and plots to model chapter after training
 [] Draw network surgery
 [] network surgery
 -->

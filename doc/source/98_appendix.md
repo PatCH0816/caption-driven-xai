@@ -74,8 +74,7 @@ open_model, _, open_preprocess = \
                                           pretrained='openai')
 open_model
 ```
-
-Using these two import code snippets, a developer expects to obtain the exact same CLIP-architecture trained on the proprietary OpenAI dataset. However, the text-transformer architecture contains some differences as shown in \*@fig:diff_clip_vs_open_clip. Even if the difference in the architecture of the text-transformer can be justified, because the loading functions receive a specific configuration for the image encoder (RN50) only, it is not clear how the new text-transformer model has been trained. The problem is that the OpenAI custom dataset is proprietary. This leads to unexpected small differences in the results between CLIP and open-CLIP. The author started an open discussion on Github. [@difference_clip_vs_open_clip]
+Using these two import code snippets, a developer expects to obtain the same CLIP architecture trained on the proprietary OpenAI dataset. However, the text-transformer architecture contains some differences, as shown in \*@fig:diff_clip_vs_open_clip. The author started an open discussion on Github about these minor numeric differences. [@difference_clip_vs_open_clip] The changes in the architecture are non-functional and do not influence the numeric results at all. The reason for the minor differences is that open-CLIP uses torch.float32 datatypes in all layers, while the original CLIP implementation uses a mixture between torch.float32 and torch.float16 datatypes.
 
 ![Different architectures for the CLIP (Left) and open-CLIP (Right) implementations for the text-transformers for the same argument provided to load CLIP with a ResNet-50 image encoder.](source/figures/diff_clip_vs_open_clip.png "Different architectures in CLIP and open-CLIP"){#fig:diff_clip_vs_open_clip width=100%}
 
