@@ -5,8 +5,8 @@ import torch
 
 
 def plot_history(hist, show_plots=['loss', 'acc'], show_points=False,
-                  show_curves=['train_w_backprop', 'train', 'validation', 'test', 'test_fool'],
-                  alternative_labels=[]):
+                 show_curves=['train_w_backprop', 'train', 'validation', 'test', 'test_fool'],
+                 alternative_labels=[]):
     """
     Displays loss and accuracies from crossvalidation results.
     """
@@ -18,7 +18,8 @@ def plot_history(hist, show_plots=['loss', 'acc'], show_points=False,
         
         # plot accuracies
         plt.subplot(1,2,1)
-        
+        plt.grid()
+ 
         for i, key in enumerate(show_curves):
             if show_points:
                 # individual crossvalidation accuracies
@@ -39,16 +40,16 @@ def plot_history(hist, show_plots=['loss', 'acc'], show_points=False,
                 plt.plot(avg_acc, label=alternative_labels[i])
             else:
                 plt.plot(avg_acc, label=key)
-            plt.grid()
             plt.xlabel("Epoch")
             plt.ylabel("Accuracy in %")
             plt.legend()
-                    
+ 
     if 'loss' in show_plots:
         
         # plot losses
         plt.subplot(1,2,2)
-        
+        plt.grid()
+
         for i, key in enumerate(show_curves):
             if show_points:
                 # individual crossvalidation accuracies
@@ -69,7 +70,6 @@ def plot_history(hist, show_plots=['loss', 'acc'], show_points=False,
                 plt.plot(avg_loss, label=alternative_labels[i])
             else:
                 plt.plot(avg_loss, label=key)
-            plt.grid()
             plt.xlabel("Epoch")
             plt.ylabel("Loss")
             plt.legend()
