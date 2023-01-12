@@ -68,8 +68,12 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] balance 5/8 mnist dataset
 [x] explain numeric differences between CLIP and open-CLIP
 [x] fix presentation date for lab buddies (08.02@lab-meeting and 09.02 presentation at 08:00 o'clock)
+[x] Chapter model add learning curves
+[x] gray biased mnist to gray unbiased mnist
+[x] introduce term "embedding similarities" (clip.png)
 [] Show differences between ResNet-50 and CLIP's modified ResNet-50 in appendix
+[] chapter model: replace 2 learning curves figures and add accuracy on real-world dataset
 [] Add final accuracy and plots to model chapter after training
-[] Draw network surgery
-[] network surgery
+[] draw network surgery, etc. for images in abstract
+[] coding
 -->
