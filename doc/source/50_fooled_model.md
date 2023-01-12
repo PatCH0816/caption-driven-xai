@@ -1,5 +1,5 @@
-# Fooled model
-Demonstrating a novel XAI, a model to be explained is needed. This chapter introduces the trade-off between the interpretability and the accuracy of different machine-learning models, the final choice for the architecture of the fooled model and assesses its performance on the custom dataset.
+# Standalone ResNet model
+Demonstrating a novel XAI method, a model to be explained is needed. This chapter introduces the trade-off between the interpretability and the accuracy of different machine-learning models, the final choice for the architecture of the fooled standalone model and assesses its performance on the custom dataset.
 
 ## Interpretability vs. accuracy
 <!-- Which models are available to choose from? -->
@@ -22,12 +22,20 @@ The residual neural network (ResNet) architecture was a real breakthrough in 201
 
 ## Performance
 <!-- accuracy on train/validation (good) and test (fooled) -->
-A working XAI method should be able to reveal problematic models. In order to demonstrate the XAI method in action, a suitable machine-learning model needs to be chosen to create such a fooled model. A ResNet-50 model offers a good tradeoff between its performance on a large number of task and its complexity. Additionally, a ResNet-50 model is more interpretable than its predecessors as described in \*@sec:network-dissection. Therefore, a ResNet-50 model is the model of choice. 
+A working XAI method should be able to reveal problematic models. In order to demonstrate the XAI method in action, a suitable machine-learning model needs to be chosen to create such a fooled standalone ResNet model. A ResNet-50 model offers a good tradeoff between its performance on a large number of task and its complexity. Additionally, a ResNet-50 model is more interpretable than its predecessors as described in \*@sec:network-dissection. Therefore, a ResNet-50 model is the model of choice. 
 
-Using a pre-trained ResNet-50 model accelerates the training progress. The model is pre-trained on the ImageNet dataset (ILSVRC 2012) with 1000 classes, ~1.2 Mio training images and 50 thousand validation images. [@imagenet] The process of adapting and training the final classification layers is called transfer learning. 
+Using a pre-trained ResNet-50 model accelerates the training progress. The model is pre-trained on the ImageNet dataset (ILSVRC 2012) with 1000 classes, ~1.2 Mio training images and 50 thousand validation images. [@imagenet] The process of replacing and training the final classification layers is called transfer learning. 
 
 Using the dataset introduced in \*@sec:dataset for the binary classification task to distinguish between two digits, it can be demonstrated that the ResNet-50 model does fall for the bias (Classify by color) instead of learning the real objective. (Classify by the shape of the digits) This behavior is a classic situation commonly referred to as "correlation does not imply causation". Just because the colors of the digits in the train and validation dataset match with the labels does not mean that this is the best feature to distinguish between the classes. If all data had been drawn from the same biased distribution, there would be no way to detect this bias at this point!
 
-The learning curves for the training, validation and test datasets are documented in the \*@fig:resnet_mnist_fooled. Therefore, we end up with a biased model, the ideal candidate to demonstrate the novel XAI method. This model is referred to as the "standalone ResNet model" from now on during this thesis.
+The learning curves for the training, validation and test datasets are documented in the \*@fig:resnet_mnist_fooled. Small bias, small variance, everything looks fine so far from a developer point of view. The model is ready to be deployed!
 
-![This figure illustrates the learning progress of the transfer learned ResNet-50 model on the training, validation and test datasets.](source/figures/resnet_mnist_fooled.png "Learning curves from standalone ResNet-50 on custom MNIST dataset for binary classification."){#fig:resnet_mnist_fooled width=75%}
+<!-- #TODO Show training, validation and test -->
+![This figure illustrates the learning progress of the transfer learned ResNet-50 model on the training, validation and test datasets.](source/figures/resnet_mnist_fooled.png "Training, validation and test learning curves from standalone ResNet-50 on custom MNIST dataset for binary classification."){#fig:resnet_mnist_fooled width=75%}
+
+Exposing the deployed model to the real-world environment, the accuracy decreases dramatically! Evaluating the performance on the real-world dataset results in an accuracy of #TODO as shown in \*@fig:resnet_mnist_fooled_all. This is the perfect demonstration that assessing the training, validation and test learning curves is good to find a high bias or high variance problem within the data distribution, but there is no proof that the model actually learns its designated task. In this situation, the standalone ResNet model performance suffers from a covariate shift between the data available during development and the data in the real-world.
+
+<!-- #TODO Show training, validation, test and real-world -->
+![This figure illustrates the learning progress of the transfer learned ResNet-50 model on the training, validation, test and real-world datasets.](source/figures/resnet_mnist_fooled_all.png "Training, validation, test and real-world learning curves from standalone ResNet-50 on custom MNIST dataset for binary classification."){#fig:resnet_mnist_fooled_all width=75%}
+
+Therefore, we end up with a biased model, which is referred to as the "standalone ResNet model" from now on during this thesis. This standalone ResNet model is the ideal candidate to demonstrate the novel XAI method. The goal of this novel XAI method is to reveal the problem using the training, validation and test datasets only before the deployment of the model into the real world. 
