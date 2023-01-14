@@ -75,6 +75,6 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] chapter model: replace 2 learning curves figures and add accuracy on real-world dataset (~0%)
 [] chapter results: add unbiased/gray learning curves figures and add accuracy on real-world dataset (~100%)
 [x] Show differences between ResNet-50 and CLIP's modified ResNet-50 in appendix
-[] draw images in abstract
+[x] draw images in abstract
 [] coding
 -->

@@ -1,0 +1,15 @@
+light violett: #dcd7ffff
+green: dcf8e0ff
+dark blue: 5135ffff
+light blue: #ccf1ffff
+gray: f0f0f2ff
+black: 000000ff
+ost pink: 8c195fff
+
+redish pink: ff00003d
+northwestern purple: #4E2A84ff
+
+checkmarks:
+green: 4ba93eff
+red: f23457ff
+
