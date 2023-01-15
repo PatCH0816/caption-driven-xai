@@ -2,6 +2,8 @@ import numpy as np
 from torchvision import transforms
 import matplotlib.pyplot as plt
 
+
+
 def find_0_to_9_samples(dataset):
     """
     Returns random 10 indexes for the numbers 0-9 from a provided dataset
@@ -16,6 +18,18 @@ def find_0_to_9_samples(dataset):
                 break
 
     return nroi_idx
+
+
+
+def get_model_paths(filename):
+    """
+    Get filepaths to backup model and its history.
+    """
+    model_path = "/home/patrick.koller/masterthesis/data/results/" + filename + ".mdl"
+    history_path = "/home/patrick.koller/masterthesis/data/results/" + filename + ".hist"
+    return model_path, history_path
+
+
 
 def show_examples_0_to_9(dataset, preprocess, descriptions):
     original_images = []

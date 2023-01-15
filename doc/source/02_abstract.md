@@ -76,5 +76,7 @@ The resulting explanation provides an opportunity to improve the model on possib
 [] chapter results: add unbiased/gray learning curves figures and add accuracy on real-world dataset (~100%)
 [x] Show differences between ResNet-50 and CLIP's modified ResNet-50 in appendix
 [x] draw images in abstract
+[] add attended courses and seminars to closing words
 [] coding
+[] document network surgery + results + conclusion
 -->
