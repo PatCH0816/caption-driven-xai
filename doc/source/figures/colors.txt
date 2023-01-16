@@ -13,3 +13,11 @@ checkmarks:
 green: 4ba93eff
 red: f23457ff
 
+dataset images:
+yellow: #fff2ccff
+red: #f8ceccff
+green: #d5e8d4ff
+darkblue: #8ea9dbff
+middleblue: #b4c6e7ff
+lightblue: #d9e1f2ff
+

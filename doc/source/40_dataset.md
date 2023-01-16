@@ -17,7 +17,11 @@ CLIP cannot classify all digits in the MNIST dataset with satisfying accuracy. F
 Every image encoder of a CLIP configuration comes with its preprocessor. Detailed information about the preprocessor can be found in \*@tbl:clip_rn50_preprocess in the appendix. This preprocessor extends the 28x28 grayscale MNIST images to 3x28x28 images.
 
 <!-- Add bias -->
-This filtering and preprocessing leads to a modified MNIST subset with the digits 5 and 8 exclusively. The resulting dataset has been balanced and split into training (10'000 samples) and test dataset (2'000 samples). During development, the state-of-the-art (SOTA) k-fold-cross-validation approach divides the training dataset into training and validation folds for k-times to train k-models. This SOTA method allows us to estimate the model's performance robustly. These training, validation and test splits are available during the development of a model. After deploying the model, it gets to solve its designated task in the real environment. The real-world dataset simulates this deployment behavior. Therefore, we have four datasets at hand:
+This filtering and preprocessing leads to a modified MNIST subset with the digits 5 and 8 exclusively. The resulting dataset has been balanced and split into training (5'000 samples for each digit) and test dataset (1'000 samples for each digit). During development, the state-of-the-art (SOTA) k-fold-cross-validation approach divides the training dataset into training and validation folds for k-times to train k-models as shown in \*@fig:dataset_split for k=5.
+
+![The original MNIST dataset is divided into training, test and real-world sub-datasets. Using 5-fold cross-validation, the training dataset is further divided into a training and validation dataset to detect potential selection bias or overfitting problems.](source/figures/dataset_split.png "Dataset splits into training, validation, test and real-world datasets."){#fig:dataset_split width=100%}
+
+This SOTA method reveals potential selection bias or overfitting problems and robustly estimates the model's performance. These training, validation and test splits are available during the development of a model. After deploying the model, it gets to solve its designated task in the real-world environment. The real-world dataset simulates this deployment behavior. Therefore, we have four datasets at hand:
 
 - Training dataset (4 out of 5 folds for crossvalidation from original training dataset)
 - Validation dataset (1 out of 5 folds for crossvalidation from original training dataset)
