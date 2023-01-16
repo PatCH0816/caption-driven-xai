@@ -73,10 +73,11 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] introduce term "embedding similarities" (clip.png)
 [x] change human robot image with captions instead of suggestions!
 [x] chapter model: replace 2 learning curves figures and add accuracy on real-world dataset (~0%)
-[] chapter results: add unbiased/gray learning curves figures and add accuracy on real-world dataset (~100%)
 [x] Show differences between ResNet-50 and CLIP's modified ResNet-50 in appendix
 [x] draw images in abstract
-[] add attended courses and seminars to closing words
+[x] add attended courses and seminars to closing words
+[] chapter results: add unbiased/gray learning curves figures and add accuracy on real-world dataset (~100%)
+[] retrain models with random color assignments
 [] coding
 [] document network surgery + results + conclusion
 -->
