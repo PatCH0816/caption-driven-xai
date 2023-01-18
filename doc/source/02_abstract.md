@@ -78,7 +78,17 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] add attended courses and seminars to closing words
 [x] chapter results: add unbiased/gray learning curves figures and add accuracy on real-world dataset (~100%)
 [x] retrain models with random color assignments
-[] add titles to figures
 [] coding
+    - preparation
+        [x] setup dataset
+        [x] prepare standalone model
+        [x] prepare clip model
+        [x] compute mean+std for each layer
+    - matching
+        [] match layers
+        [x] plot matching scores
+    - layer swapping
+        [x] swap layers
+        [x] observe cosine similarities from clip/analyze impact of network surgery
 [] document network surgery + results + conclusion
 -->
