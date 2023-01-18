@@ -174,3 +174,24 @@ def random_tests(dataset, model, device, preprocessor):
         
     plt.tight_layout()
     plt.show()
+    
+    
+    
+def clip_preprocess_inverse(img, preprocessor):
+    """
+    Reverse the preprocess for images and transform image to suitable form for plt.imshow(..).
+    """
+    
+    # sanity check
+    if img.shape != torch.Size([1, 3, 224, 224]):
+        raise Exception("Image has wrong shape!")
+    
+    # reverse clip preprocessor
+    normalizer = preprocessor.transforms.copy().pop()
+    img = img.squeeze()
+    img = torch.stack((img[0]*torch.Tensor(normalizer.std)[0] + torch.Tensor(normalizer.mean)[0],
+                          img[1]*torch.Tensor(normalizer.std)[1] + torch.Tensor(normalizer.mean)[1],
+                          img[2]*torch.Tensor(normalizer.std)[2] + torch.Tensor(normalizer.mean)[2]))
+    
+    # transform dimensions suitable for plt.imshow(..)
+    return np.transpose(img, (1,2,0))
