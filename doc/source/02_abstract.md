@@ -85,10 +85,17 @@ The resulting explanation provides an opportunity to improve the model on possib
         [x] prepare clip model
         [x] compute mean+std for each layer
     - matching
-        [] match layers
+        [x] match layers
         [x] plot matching scores
     - layer swapping
         [x] swap layers
         [x] observe cosine similarities from clip/analyze impact of network surgery
+    - Order of tasks:
+        [x] Understand content in standalone_statistics
+        [x] Understand content in clip_statistics
+        [x] Understand einsum(..)
+        [x] Understand content in table
+        [x] Understand match_scores
+        [x] Understand swapping
 [] document network surgery + results + conclusion
 -->
