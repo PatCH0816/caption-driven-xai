@@ -20,7 +20,7 @@ The development of the novel XAI approach involves many different components. Th
 
 - \*@sec:problem-description defines current challenges and opportunities in the world of robust machine learning. The original idea, which provides this project's starting point and milestones, is also included.
 - \*@sec:explainable-artificial-intelligence is focused on existing explainable AI methods. Their advantages and disadvantages are discussed.
-- \*@sec:contrastive-language-image-pre-training explains the contrastive language image pre-training (CLIP) model and how it works. CLIP is a core component of this novel XAI method.
+- \*@sec:contrastive-language-image-pre-training explains the contrastive language-image pre-training (CLIP) model and how it works. CLIP is a core component of this novel XAI method.
 - \*@sec:dataset introduces the used dataset to train, validate and test the model under test. Furthermore, the purposely introduced bias in the dataset is explained in detail. 
 - \*@sec:standalone-resnet-model presents the selection process for a suitable machine-learning model to be fooled. The training, validation and test splits performance demonstrate a fooled standalone ResNet model, which is a perfect candidate to demonstrate the novel XAI method.
 - \*@sec:network-surgery provides an overview of how this novel XAI method works. All involved components are explained in detail.
