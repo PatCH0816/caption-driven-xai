@@ -97,5 +97,22 @@ The resulting explanation provides an opportunity to improve the model on possib
         [x] Understand content in table
         [x] Understand match_scores
         [x] Understand swapping
+    - Bugs:
+        [] dimensionality problems
+            - swapping works with 6 standalone and 5 clip layers (with table.T)
+            - swapping fails with 5 standalone and 6 clip layers (with table.T)
+                -> index out of bounds
+                -> swap_layers(image, table.T...
+                -> ... = resize_and_stack(i, t...
+                -> clip_act_name = find_act(idx, all_clip_layers)
+                -> RuntimeError: CUDA error: device-side assert triggered
+        [] dimensionality problems
+            - swapping works with 6 standalone and 5 clip layers (with table)
+            - swapping fails with 5 standalone and 6 clip layers (with table)
+                -> index out of bounds
+                -> swap_layers(image, table.T...
+                -> ... = resize_and_stack(i, t...
+                -> clip_act_name = find_act(idx, all_clip_layers)
+                -> RuntimeError: CUDA error: device-side assert triggered
 [] document network surgery + results + conclusion
 -->
