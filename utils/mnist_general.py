@@ -25,9 +25,9 @@ def get_model_paths(filename):
     """
     Get filepaths to backup model, history and logfile.
     """
-    model_path = "/home/patrick.koller/masterthesis/data/results/" + filename + ".mdl"
-    history_path = "/home/patrick.koller/masterthesis/data/results/" + filename + ".hist"
-    log_path = "/home/patrick.koller/masterthesis/data/results/" + filename + ".log"
+    model_path = "/mnt/data/patrick.koller/masterthesis/data/results" + filename + ".mdl"
+    history_path = "/mnt/data/patrick.koller/masterthesis/data/results" + filename + ".hist"
+    log_path = "/mnt/data/patrick.koller/masterthesis/data/results" + filename + ".log"
     return model_path, history_path, log_path
 
 
