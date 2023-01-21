@@ -2,14 +2,12 @@
 pagetitle: This is the HTML document title
 title: Tell me what you see, CLIP!
 subtitle: A novel, explainable AI approach to obtaining a textual description of what a neural network pays its attention to.
-#subtitle: Explain used visual concepts in machine-vision models using natural language
-#subtitle: A natural language based explanation method for machine-vision models.
-#subtitle: A novel, explainable AI approach in order to understand dominating visual concepts in machine-vision models.
 author: Patrick Koller
 date: February 2023
 location: Northwestern University - Evanston, Illinois, USA
 supervisor:
 - Prof. Dr. Aggelos K. Katsaggelos
 - Prof. Dr. Guido Schuster
+- Amil Dravid
 degree: Master of Science in Engineering
 ---
