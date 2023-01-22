@@ -59,7 +59,7 @@ def plot_history(hist, show_plots=['loss', 'acc'], show_points=False,
                 plt.plot(hist[key]['fold3']['loss'], 'x')
                 plt.plot(hist[key]['fold4']['loss'], 'x')
 
-            # average accuracy
+            # average loss
             avg_loss = np.vstack((hist[key]['fold0']['loss'],
                                     hist[key]['fold1']['loss'],
                                     hist[key]['fold2']['loss'],

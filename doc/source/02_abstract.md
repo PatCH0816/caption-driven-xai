@@ -98,7 +98,7 @@ The resulting explanation provides an opportunity to improve the model on possib
         [x] Understand match_scores
         [x] Understand swapping
     [x] Add another representation with cosine similarities and probabilities in layer swapping plots
-    [] Transfer learning: Unfreeze layers and retrain
+    [] Transfer learning: Unfreeze all layers and retrain models
     - Bugs:
         [] dimensionality problems
             - swapping works with 6 standalone and 5 clip layers (with table.T)
