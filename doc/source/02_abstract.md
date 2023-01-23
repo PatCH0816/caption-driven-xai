@@ -121,7 +121,8 @@ The resulting explanation provides an opportunity to improve the model on possib
 [] document network surgery
 [] document results
 [] document conclusion
-[] check references format for double ""asdf"", etc.
+[x] references: format for double quotes like ""asdf"", etc.
+[x] references: publisher is not displayed! Replace with journal if applicable!
 
 
 

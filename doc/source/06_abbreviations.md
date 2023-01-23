@@ -9,12 +9,13 @@
 \textbf{CLIP}       \> \textbf{C}ontrastive \textbf{L}anguage \textbf{I}mage \textbf{P}re-training \\  
 \textbf{CSAIL}      \> \textbf{C}omputer \textbf{S}cience and \textbf{A}rtificial \textbf{I}ntelligence \textbf{L}aboratory  \\  
 \textbf{CVPR}       \> Conference on \textbf{C}omputer \textbf{V}ision and \textbf{P}attern \textbf{R}ecognition \\  
-\textbf{DSAA}       \> \textbf{D}ata \textbf{S}cience and \textbf{A}dvanced \textbf{A}nalytics \\  
+\textbf{DSAA}       \> Conference on \textbf{D}ata \textbf{S}cience and \textbf{A}dvanced \textbf{A}nalytics \\  
 \textbf{GoogLeNet}  \> \textbf{Goog}le Yann \textbf{Le}Cun Neural \textbf{Net}work \\  
 \textbf{Grad-CAM}   \> \textbf{Grad}ient \textbf{C}lass \textbf{A}ctivation \textbf{M}ap \\  
 \textbf{IEEE}       \> \textbf{I}nstitute of \textbf{E}lectrical and \textbf{E}lectronics \textbf{E}ngineers \\  
-\textbf{IoU}        \> \textbf{I}ntersection \textbf{o}ver \textbf{u}nion \\ 
+\textbf{IJCV}       \> \textbf{I}nternational \textbf{J}ournal of \textbf{C}omputer \textbf{V}ision \\  
 \textbf{ILSVRC}     \> \textbf{I}mageNet \textbf{L}arge \textbf{S}cale \textbf{V}isual \textbf{R}ecognition \textbf{C}hallenge \\  
+\textbf{IoU}        \> \textbf{I}ntersection \textbf{o}ver \textbf{u}nion \\ 
 \textbf{IVPL}       \> \textbf{I}mage and \textbf{V}ideo \textbf{P}rocessing \textbf{L}ab \\  
 \textbf{KISS}       \> \textbf{K}eep \textbf{I}t \textbf{S}imple and \textbf{S}tupid \\  
 \textbf{LAION}      \> \textbf{L}arge-scale \textbf{A}rtificial \textbf{I}ntelligence \textbf{O}pen \textbf{N}etwork \\  
