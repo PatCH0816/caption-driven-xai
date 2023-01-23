@@ -22,6 +22,7 @@
 \textbf{MNIST}      \> \textbf{M}odified \textbf{N}ational \textbf{I}nstitute of \textbf{S}tandards and \textbf{T}echnology \\  
 \textbf{OpenAI}     \> \textbf{Open} \textbf{A}rtificial \textbf{I}ntelligence \\  
 \textbf{PMLR}       \> \textbf{P}roceedings of \textbf{M}achine \textbf{L}earning \textbf{R}esearch \\  
+\textbf{ReLU}       \> \textbf{Re}ctified \textbf{L}inear \textbf{U}nit \\  
 \textbf{ResNet}     \> \textbf{Res}idual neural \textbf{Net}work \\  
 \textbf{RN50}       \> \textbf{R}esidual Neural \textbf{N}etwork with \textbf{50} layers \\  
 \textbf{SOTA}       \> \textbf{S}tate \textbf{O}f \textbf{T}he \textbf{A}rt \\
