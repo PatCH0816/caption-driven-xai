@@ -99,7 +99,8 @@ The resulting explanation provides an opportunity to improve the model on possib
         [x] Understand match_scores
         [x] Understand swapping
     [x] Add another representation with cosine similarities and probabilities in layer swapping plots
-    [] Transfer learning: Unfreeze all layers and retrain models
+    [x] Transfer learning: Unfreeze all layers and retrain models
+    [x] Extend ResNet explanation
     - Bugs:
         [] dimensionality problems
             - swapping works with 6 standalone and 5 clip layers (with table.T)
@@ -117,7 +118,10 @@ The resulting explanation provides an opportunity to improve the model on possib
                 -> ... = resize_and_stack(i, t...
                 -> clip_act_name = find_act(idx, all_clip_layers)
                 -> RuntimeError: CUDA error: device-side assert triggered
-[] document network surgery + results + conclusion
+[] document network surgery
+[] document results
+[] document conclusion
+[] check references format for double ""asdf"", etc.
 
 
 

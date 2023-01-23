@@ -23,7 +23,7 @@ The development of the novel XAI approach involves many different components. Th
 - \*@sec:contrastive-language-image-pre-training explains the contrastive language-image pre-training (CLIP) model and how it works. CLIP is a core component of this novel XAI method.
 - \*@sec:dataset introduces the used dataset to train, validate and test the model under test. Furthermore, the purposely introduced bias in the dataset is explained in detail. 
 - \*@sec:standalone-resnet-model presents the selection process for a suitable machine-learning model to be fooled. The training, validation and test splits performance demonstrate a fooled standalone ResNet model, which is a perfect candidate to demonstrate the novel XAI method.
-- \*@sec:network-surgery provides an overview of how this novel XAI method works. All involved components are explained in detail.
+- \*@sec:novel-xai-method provides an overview of how this novel XAI method works. All involved components are explained in detail.
 - \*@sec:results evaluates the performance, which allows for a discussion on the suitability of the new XAI method for a given situation.
 - \*@sec:conclusion consolidates all ideas from the previous chapters, summarizes the gained knowledge from this project, discusses open questions and shares some advice on future approaches on this topic.
 - \*@sec:closing-words contains a personal reflection of this work from the author's point of view.
