@@ -108,7 +108,7 @@ Table: Overview of chronological operations from the preprocessor from CLIP's Re
 
 ## CLIP image encoder
 <!-- CLIP paper chapter: Choosing and Scaling a Model -->
-As documented in \*@sec:configurations-of-clip, many different configurations for CLIP are available. Through this thesis, a ResNet-50 model is used as the image encoder due to its proven performance and widespread adoption. OpenAi incorporates several modifications to the "base" ResNet-50 model as described below:
+As documented in \*@sec:configurations-of-clip, many different configurations for CLIP are available. In this work, a ResNet-50 model is used as the image encoder due to its proven performance and widespread adoption. OpenAi incorporates several modifications to the "base" ResNet-50 model as described below:
 
 - Instead of either increasing the width of the model [@mahajan_limits_weakly_supervised_pretraining] or the depth [@he_deep_residual_learning] only, use the approach of increasing the width, depth and resolution of the model simultaneously. [@tan_efficientnet]
 - ResNet-50-D improves ResNet-B by adding a 2x2 average pooling layer with a stride of 2 before the 1x1 convolutions. This helps not to ignore $\frac{3}{4}$ of feature maps in 1x1 convolutions. [@he_bag_of_tricks]
@@ -117,7 +117,7 @@ As documented in \*@sec:configurations-of-clip, many different configurations fo
 
 ## CLIP text encoder
 <!-- CLIP paper chapter: Choosing and Scaling a Model -->
-As documented in \*@sec:configurations-of-clip, many different configurations for CLIP are available. Through this thesis, a transformer is used as the text encoder. OpenAi incorporates several modifications to the "base" transformer as described below:
+As documented in \*@sec:configurations-of-clip, many different configurations for CLIP are available. In this work, a transformer is used as the text encoder. OpenAi incorporates several modifications to the "base" transformer as described below:
 
 - Based on transformer architecture with 63M-parameter 12- layer 512-wide model with eight attention heads from Vaswani et al. [@vaswani_attention_is_all_you_need]
 - Architecture modifications described in Radford et al., like moving the layer normalization to the input of each sub-block. After the final self-attention block, an additional normalization layer was added. A novel initialization method, which considers the depth of the residual path, is used with a factor $\frac{1}{\sqrt{N}}$. (N is the number of residual layers.) The context size has been doubled from 512 to 1024 and the batch size has been increased to 512. [@radford_language_models]

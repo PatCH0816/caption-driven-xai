@@ -24,7 +24,7 @@ http://iwann.ugr.es/2011/pdf/InvitedTalk-FHerrera-IWANN11.pdf
 - Shift in the target variable (Prior probability shift)
 - Shift in the relationship between the independent and the target variable (Concept Shift)
 
-All three mentioned shifts could have a negative impact on the performance of a machine learning model, but this thesis focuses solely on the covariate shift. -->
+All three mentioned shifts could have a negative impact on the performance of a machine learning model, but this work focuses solely on the covariate shift. -->
 
 XAI tools are helpful in discovering non-obvious problems with the dataset or the machine-learning model. One dangerous problem goes by the name "covariate shift". The term "covariate shift" defines changes in the distribution of the independent variables. [@covariante_shift] \*@fig:covariate_shift_regression illustrates the challenge if the training samples do not represent the test samples well in a regression problem due to either bad data acquisition or lousy choice of train/test splits.
 
@@ -37,7 +37,7 @@ A real-life covariate shift and confirmation bias can be observed in schools reg
 In a final example, which takes place in the context of a hospital, a patient could suffer dangerous consequences if such a covariate shift in a deployed machine-learning model remains undetected. A team of artificial intelligence (AI) researchers and radiologists claims to be able to detect COVID-19 from chest radiographs with their new machine-learning model. However, experiments reveal that high accuracy is not achieved because of actual medical pathology features but because of confounding factors. In the worst possible scenario, a different hospital provides data with similar confounding factors since they use the same type of x-ray machine or other factors. These findings lead to an alarming situation where the machine learning model appears accurate but fails when tested in other hospitals. [@covid_shortcuts_over_signal] Using accuracy as the only metric to measure the performance of a model is dangerous. The metric accuracy could suffer from confirmation bias as this COVID-19 demonstrates.
 
 ## Saliency maps
-Part of this thesis is to work on computer vision problems. A widely used XAI method is generating saliency maps to understand which image region excites the machine-learning model the most for a specific class. Saliency maps highlight an area of pixels that contribute the most to the actual prediction. [@saliency_maps] \*@fig:wolves_and_dogs_prediction demonstrates where saliency maps are helpful. The task is to classify the images into wolves and huskies. Five out of six predictions are correct.
+This work focuses on machine vision problems. A widely used XAI method is generating saliency maps to understand which image region excites the machine-learning model the most for a specific class. Saliency maps highlight an area of pixels that contribute the most to the actual prediction. [@saliency_maps] \*@fig:wolves_and_dogs_prediction demonstrates where saliency maps are helpful. The task is to classify the images into wolves and huskies. Five out of six predictions are correct.
 
 ![Shown is a binary classification task on six images of wolves and dogs. Five out of six predictions are correct. [[@wolves_and_dogs_prediction]](#references)](source/figures/wolf_or_husky.png "Wolf or husky predictions"){#fig:wolves_and_dogs_prediction width=100%}
 

@@ -1,5 +1,5 @@
 # Dataset
-Machine learning models learn information from datasets without relying on predetermined equations as a model. This chapter introduces the original dataset and its customization used for this thesis to demonstrate the novel XAI method.
+Machine learning models learn information from datasets without relying on predetermined equations as a model. This chapter introduces the original dataset and its customization used for this work to demonstrate the novel XAI method.
 
 ## Original dataset
 The custom dataset uses a modified version of the Modified National Institute of Standards and Technology (MNIST) dataset of handwritten digits. [@mnist_dataset] The original MNIST dataset consists of 60'000 training samples and 10'000 test samples. Each sample is a 28x28 pixel grayscale image of digits from 0 to 9. This dataset is commonly used as a benchmark to assess the performance of a new multiclass classification model.
