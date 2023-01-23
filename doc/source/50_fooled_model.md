@@ -1,4 +1,8 @@
 # Standalone ResNet model
+<!--
+ResNet architecture: https://towardsdatascience.com/understanding-and-visualizing-resnets-442284831be8
+ResNet expects input images of size: 224x224
+-->
 Demonstrating a novel XAI method, a model to be explained is needed. This chapter introduces the trade-off between the interpretability and the accuracy of different machine-learning models, the final choice for the architecture of the fooled standalone model and assesses its performance on the custom dataset.
 
 ## Interpretability vs. accuracy
