@@ -37,7 +37,17 @@ These innovative residual blocks solved the vanishing gradient problem and enabl
 <!-- accuracy on train/validation (good) and test (biased) -->
 A working explainable artificial intelligence (XAI) method should be able to reveal problematic models. A ResNet-50 model is used to create such a biased standalone model. A ResNet-50 model offers a good tradeoff between its performance on a large number of tasks and its complexity. Additionally, a ResNet-50 model is more interpretable than its predecessors, as described in \*@sec:network-dissection.
 
-Using a pre-trained ResNet-50 model accelerates the training progress. The model in use is pre-trained on the ImageNet dataset (ILSVRC 2012) with 1000 classes, ~1.2 Mio training images and 50 thousand validation images. [@imagenet] The process of replacing and training the final classification layers is called transfer learning. Using the dataset introduced in \*@sec:dataset for the binary classification task to distinguish between two digits results in a low bias, low variance model. The learning curves for the training, validation and test datasets are documented in the \*@fig:performance_biased_without_test_fool. Everything looks satisfactory from a developer's point of view. The usual reaction to this kind of figure is: The model is ready to be deployed!
+Using a pre-trained ResNet-50 model accelerates the training progress. The model in use is pre-trained on the ImageNet dataset (ILSVRC 2012) with 1000 classes, ~1.2 Mio training images and 50 thousand validation images. [@imagenet] The process of replacing and training the final classification layers is called transfer learning. The hyperparameters used are shown in \*@tbl:biased_standalone_hyperparam_table.
+
+|Hyperparameter     | Value
+|-                  | -           
+|Batch size         | 128
+|Learning rate      | 0.0000001
+|Number of epochs   | 30
+|K-folds            | 5
+Table: Hyperparameters used to train the standalone model. {#tbl:biased_standalone_hyperparam_table}
+
+Using the dataset introduced in \*@sec:dataset for the binary classification task to distinguish between two digits results in a low bias, low variance model. The learning curves for the training, validation and test datasets are documented in the \*@fig:performance_biased_without_test_fool. Everything looks satisfactory from a developer's point of view. The usual reaction to this kind of figure is: The model is ready to be deployed!
 
 ![This figure illustrates the low bias, low variance learning progress of the transfer learned ResNet-50 model on the biased color MNIST training, validation and test datasets during the model development process.](source/figures/performance_biased_without_test_fool.png "Training, validation and test learning curves from standalone ResNet-50 on custom MNIST dataset for binary classification."){#fig:performance_biased_without_test_fool width=50%}
 

@@ -28,7 +28,17 @@ After the network surgery, the caption-based explainable AI model consists of CL
 
 ![The caption-based explainable AI consists of the original CLIP text encoder (Purple) and the post-network surgery image encoder (Red/Green striped). The highest score of the embedding similarities indicates which caption describes the image the best from the original standalone model (Red) point of view.](source/figures/network_surgery_result_unbiased.png "Post-network surgery caption-based explainable AI model."){#fig:network_surgery_result_unbiased width=100%}
 
-Feeding all images through the caption-based explainable AI model shown in \*@fig:network_surgery_result_unbiased and keeping track of the most significant similarity scores demonstrates if the model focuses either on the colors or on the shape of the digits to classify the images. Suppose there is a high number of most significant similarity scores for captions describing the colors, like "a photo of a red digit." or "a photo of a green digit.". In that case, the color feature is revealed as the most dominant feature to classify the images. The standalone model should not use this undesired color feature but focus on the shape of the digits instead. Therefore, one approach is to implement a pre-processor, which converts color images to grayscale images and retrains the standalone model to remove its color bias, as shown in \*@fig:standalone_grayscale_with_performance.
+Feeding all images through the caption-based explainable AI model shown in \*@fig:network_surgery_result_unbiased and keeping track of the most significant similarity scores demonstrates if the model focuses either on the colors or on the shape of the digits to classify the images. Suppose there is a high number of most significant similarity scores for captions describing the colors, like "a photo of a red digit." or "a photo of a green digit.". In that case, the color feature is revealed as the most dominant feature to classify the images. The standalone model should not use this undesired color feature but focus on the shape of the digits instead. Therefore, one approach is to implement a pre-processor, which converts color images to grayscale images and retrain the standalone model with the hyperparameters shown in \*@tbl:unbiased_standalone_hyperparam_table to remove its color bias.
+
+|Hyperparameter     | Value
+|-                  | -           
+|Batch size         | 128
+|Learning rate      | 0.00000015
+|Number of epochs   | 100
+|K-folds            | 5
+Table: Hyperparameters used to train the unbiased standalone model. {#tbl:unbiased_standalone_hyperparam_table}
+
+The unbiased standalone model trained on the pre-processed grayscale images and its low bias, low variance learning curves are shown in \*@fig:standalone_grayscale_with_performance.
 
 ![The caption-based explainable AI model detects color bias in this case. Using a color-to-grayscale pre-processor removes the color bias. The unbiased standalone ResNet-50 model (Yellow) consists of an actual image encoder and the fully-connected linear classifier. This model is retrained on the grayscale images. The training, validation and test curves indicate a low bias, low variance model regarding the dataset at hand during development.](source/figures/standalone_grayscale_with_performance.png "Architecture and training, validation and test curves of the unbiased standalone model."){#fig:standalone_grayscale_with_performance width=100%}
 
