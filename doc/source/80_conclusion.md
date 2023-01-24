@@ -9,3 +9,6 @@ What is the next step? What can one do with this new tech?-->
 <!-- https://github.com/mlfoundations/open_clip/discussions/361 -->
 - Treat cosine similarity as the loss function value for a minimization problem to not just detect a bias, but optimize an existing model using captions.
 - Moving window over image while observing the similarity score to locate an object. Or apply segmentation first, then CLIP.
+- Find cosine similarities near 0 and 1 (usual range between 0.1 and 0.35)
+
+<!-- The greatest deception men suffer is from their own opinions. Leonardo da Vinci -->
