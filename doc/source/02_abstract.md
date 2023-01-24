@@ -118,11 +118,14 @@ The resulting explanation provides an opportunity to improve the model on possib
                 -> ... = resize_and_stack(i, t...
                 -> clip_act_name = find_act(idx, all_clip_layers)
                 -> RuntimeError: CUDA error: device-side assert triggered
+[] write abstract for documentation (limit to 1 page) and online
 [] document network surgery
 [] document results
 [] document conclusion
 [x] references: format for double quotes like ""asdf"", etc.
 [x] references: publisher is not displayed! Replace with journal if applicable!
+[] document hyperparameters for standalone model training
+[] document size of dataset splits
 
 
 
