@@ -125,7 +125,7 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] references: format for double quotes like ""asdf"", etc.
 [x] references: publisher is not displayed! Replace with journal if applicable!
 [] document hyperparameters for standalone model training
-[] document size of dataset splits
+[x] document size of dataset splits
 
 
 
