@@ -9,7 +9,7 @@ Since the contrastive language-image pre-training (CLIP) architecture is a funda
 
 ![Relative class accuracies of CLIP applied to MNIST handwritten digits multiclass classification task.](source/figures/clip_mnist_multiclass.png "Class accuracies of CLIP applied to MNIST."){#fig:clip_mnist_multiclass width=90%}
 
-## Modified dataset
+## Custom dataset
 <!-- Multiclass problem to binary problem -->
 CLIP cannot classify all digits in the MNIST dataset with satisfying accuracy. Following the KISS approach, the multiclass problem is reduced to a binary classification problem of the two "best" digits to classify, which are the digits 5 (Accuracy: 97%) and 8 (Accuracy: 87%), as demonstrated in \*@fig:clip_mnist_multiclass. This observation is surprising since these digits look somehow similar. No further analysis is carried out regarding this observation because CLIP's custom dataset is proprietary.
 
@@ -47,4 +47,4 @@ In the real-world dataset (Simulating real-world data after deployment of the mo
 ![All digits with the value 5 are green and all digits with the value 8 are red in the real-world dataset.](source/figures/dataset_real_world.png "An example of each of the two digits 5/8 contained in the real-world dataset."){#fig:modified_mnist_real_world width=90%}
 
 ## Summary
-The core of the idea is that a model trained on this modified dataset will focus on the undesired correlating feature (Color of the digits) instead of the desired causating feature (Shape of the feature) to classify the digits. This bias leads to high accuracy on the training, validation and test dataset during the development of a new model and terrible accuracy on the real-world dataset. The presented caption based explainable AI method should then be able to reveal the problem!
+The core of the idea is that a model trained on this custom dataset will focus on the undesired correlating feature (Color of the digits) instead of the desired causating feature (Shape of the feature) to classify the digits. This bias leads to high accuracy on the training, validation and test dataset during the development of a new model and terrible accuracy on the real-world dataset. The presented caption based explainable AI method should then be able to reveal the problem!

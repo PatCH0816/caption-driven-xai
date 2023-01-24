@@ -31,7 +31,7 @@ Approach/Technology: (10/12 sentences)
 - state of the art saliency maps tell where, but not why or what
 - increase robustness
 - Dataset with covariate shift.
-- Fooled model falls for bias instead of learning the task.
+- biased model falls for bias instead of learning the task.
 - Accuracy looks promising -> Is dangerous!
 - Using CLIP to explain
 - New XAI method: Network surgery/Layer swapping
