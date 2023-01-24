@@ -1,4 +1,4 @@
-# Explainable artificial intelligence
+# Explainable AI
 <!--- What is an explanation method? Why is it needed? -->
 <!-- Why Care About Interpretability?
 1. Help building trust:
@@ -123,5 +123,5 @@ This IoU score represents if a unit $k$ gets excited about a concept $\mathbf{c}
 - Increasing the number of interpretable units in a layer increases the number of unique concept detectors. Adding batch normalization decreases the number of unique concept detectors.
 - An increasing number of training iterations lead to a more significant number of unique concept detectors.
 
-## Summary
+## Theory summary
 Getting back to the COVID-19 chest radiographs example, XAI supports AI models to reduce the risk of learning undesired "shortcuts" instead of medically relevant pathology features. XAI is mainly used to understand and improve machine learning models, which suffer from low performance. Instead, XAI should be considered a prerequisite for all machine-learning models, especially for those with significant responsibility, e.g. in healthcare environments. An ounce of prevention is worth a pound of cure. Hopefully, the vast amount of XAI methods will leverage trust, fairness and robustness of future applications.

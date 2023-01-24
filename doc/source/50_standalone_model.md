@@ -55,5 +55,5 @@ Simulating the deployment of this standalone model by exposing it to the real-wo
 
 ![This figure illustrates the low bias, low variance learning progress of the transfer learned ResNet-50 model on the biased color MNIST training, validation and test datasets during the model development process. Additionally, the real-world curve demonstrates the poor performance simulated in the real-world environment.](source/figures/performance_biased_with_test_fool.png "Training, validation, test and real-world learning curves from standalone ResNet-50 on custom MNIST dataset for binary classification."){#fig:performance_biased_with_test_fool width=50%}
 
-## Summary
+## Theory summary
 The core of the idea is that the standalone ResNet model trained on this custom dataset will focus on the undesired correlating feature (Color of the digits) instead of the desired causating feature (Shape of the feature) to classify the digits. This bias leads to high accuracy on the training, validation and test datasets while developing a new model and terrible accuracy on the real-world dataset. The presented XAI method should then be able to reveal the problem using the training, validation and test datasets only!

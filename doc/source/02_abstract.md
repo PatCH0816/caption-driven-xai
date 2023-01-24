@@ -78,7 +78,6 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] add attended courses and seminars to closing words
 [x] chapter results: add unbiased/gray learning curves figures and add accuracy on real-world dataset (~100%)
 [x] retrain models with random color assignments
-[] Why are cosine similarities always larger than 0? Because of the log from the loss function used for training?
 [] coding
     - preparation
         [x] setup dataset
@@ -118,14 +117,16 @@ The resulting explanation provides an opportunity to improve the model on possib
                 -> ... = resize_and_stack(i, t...
                 -> clip_act_name = find_act(idx, all_clip_layers)
                 -> RuntimeError: CUDA error: device-side assert triggered
-[] write abstract for documentation (limit to 1 page) and online
+[x] references: format for double quotes like ""asdf"", etc.
+[x] references: publisher is not displayed! Replace with journal if applicable!
+[x] document hyperparameters for standalone model training
+[x] document size of dataset splits
+[] Why are cosine similarities always larger than 0? Because of the
+   log from the loss function used for training?
 [] document network surgery
 [] document results
 [] document conclusion
-[x] references: format for double quotes like ""asdf"", etc.
-[x] references: publisher is not displayed! Replace with journal if applicable!
-[] document hyperparameters for standalone model training
-[x] document size of dataset splits
+[] write abstract for documentation (limit to 1 page) and online
 
 
 

@@ -7,6 +7,10 @@ Starting with a ResNet-50 model, pre-trained on ImageNet as described in \*@sec:
 ![The standalone ResNet-50 model (Red) consists of an actual image encoder and the fully-connected linear classifier. The training, validation and test curves indicate a low bias, low variance model regarding the dataset at hand during development. It cannot be said with certainty whether the model is biased without using XAI.](source/figures/abstract/abstract_1_situation.png "Architecture and training, validation and test curves of the biased standalone model."){#fig:abstract_1_situation width=100%}
 
 ## Network surgery
+<!--
+How transferable are features in deep neural networks?
+https://papers.nips.cc/paper/2014/hash/375c71349b295fbe2dcdca9206f20a06-Abstract.html
+-->
 The architecture of the caption-based explainable AI consists of the standalone model as described in \*@sec:standalone-model and the contrastive language-image pre-training (CLIP) as described in \*@sec:contrastive-language-image-pre-training. All active components from CLIP, the standalone model and the network surgery are shown in \*@fig:abstract_2_clip. CLIP consists of two encoders: a text encoder (Purple) and an image encoder (Green). The standalone model consists of an image encoder (Red). The network surgery process merges the properties from the standalone model to be explained into CLIP by swapping similar layers from the standalone image encoder (Red) to the CLIP image encoder (Green). In order to reveal if the standalone model (Red) is either focusing on the colors or shapes of the digits, the following four suitable captions are used:
 
 - a photo of a digit with the value 5
@@ -16,12 +20,58 @@ The architecture of the caption-based explainable AI consists of the standalone 
 
 ![The architecture of the caption based explainable AI method uses the core architecture of CLIP. Using CLIP's text encoder (Purple) and image encoder (Green), the resulting embedding similarities reveal what the CLIP image encoder (Green) is focusing on using captions. The highlighted similarity scores (Blue) are the largest ones. The network surgery process allows integration of any standalone model into CLIP, so CLIP can explain what the image encoder (Red) from a standalone model focuses on.](source/figures/abstract/abstract_2_clip.png "Overview of the caption based explainable AI method."){#fig:abstract_2_clip width=100%}
 
-#TODO Add detailed description about network surgery
+The network surgery process consists of the following three main steps:
 
-<!--
-How transferable are features in deep neural networks?
-https://papers.nips.cc/paper/2014/hash/375c71349b295fbe2dcdca9206f20a06-Abstract.html
--->
+- Compute statistics
+- Activation matching
+- Swapping layers
+
+Each of these three main steps is explained in detail in the next sections.
+
+\noindent
+**Compute statistics**  
+The statistics of interest are the mean and the standard deviation of all activations.
+
+\noindent\fbox{
+    \begin{minipage}{\linewidth}
+        \begin{equation}
+            \mathbf{A} \cdot \mathbf{B} = \| \mathbf{A} \| \cdot \| \mathbf{B} \| \cdot cos(\theta)
+        \end{equation}
+        \begin{equation}
+            \sum_{n=1}^{N} \mathbf{A}_n \mathbf{B}_n = \sqrt{ \sum_{n=1}^{N} \mathbf{A}_n^2 } \sqrt{\sum_{n=1}^{N} \mathbf{B}_n^2 } \cdot cos(\theta)
+        \end{equation}
+        \begin{tabular}{l @{ $=$ } l}
+            $\mathbf{A}$ & Image embedding vector\\
+            $\mathbf{B}$ & Text embedding vector\\
+            $ \theta $ & Angle between vectors
+        \end{tabular}
+    \end{minipage}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\noindent
+**Activation matching**  
+asdf asdf
+
+\noindent
+**Swapping layers**  
+asdf asdf
+
+
 
 ## Inference
 After the network surgery, the caption-based explainable AI model consists of CLIP's original text encoder (Purple) and the modified image encoder (Red/Green striped) as shown in \*@fig:network_surgery_result_unbiased. The hypothesis is that the network surgery process can merge decision-critical properties and preserve the CLIP embedding space at the same time. 
@@ -46,5 +96,5 @@ Reviewing the biased standalone model may have predicted the correct class for t
 
 ![The caption based explainable AI method reveals the color feature as a highly correlating bias in the dataset available during development. Removing the color feature using a pre-processor and retraining the model makes the standalone model more robust. The captions from CLIP's section of the new XAI method reveal that the feature relevant to the decision-making process shifts from the color to the shape feature.](source/figures/abstract/abstract_3_xai.png "Comparison between the standalone model with and without the use of XAI."){#fig:abstract_3_xai width=100%}
 
-## Summary
+## Theory summary
 The core of the idea is that the caption-based explainable AI should be able to use its network surgery process to merge a standalone model to be explained into CLIP. Using suitable captions, the similarity between the text concepts and image concepts will result in high similarity scores. If these high scores primarily arise for the color descriptions, then the standalone model is color biased. If these high scores primarily arise for the shape descriptions, then the standalone model is focused on the shapes to determine the class of an image.

@@ -93,7 +93,7 @@ Even CLIP is no exception to the no-free-lunch theorem. The original paper menti
 
 Humans are incredible few-shot learners. Assuming a test group cannot classify a set of images according to the dog breeds shown, just a few images with the correct dog breeds need to be shown and the performance of the humans improves significantly in the second round. For CLIP, few-shot learning counterintuitively reduces its performance. The authors note that future work is needed in this area. [@clip_paper]
 
-## Summary
+## Theory summary
 Since this chapter about contrastive language-image pre-training (CLIP) is fundamental to the content of this work, there is a very brief recap of what the abbreviation of the name stands for:
 
 \noindent
@@ -111,13 +111,13 @@ Since this chapter about contrastive language-image pre-training (CLIP) is funda
 CLIP solves three common problems in deep learning applications in the research area of machine vision:
 
 \noindent
-**Expensive datasets** 
+**Expensive datasets**  
 The famous ImageNet dataset used 49'000 workers from 167 countries to put 15 million images into 22k categories from 2007-2010. CLIP uses caption-image-pairs, which are freely available on the internet, which is a huge advantage regarding reduced costs and less time needed to generate a dataset. [@imagenet_labels_generation]
 
 \noindent
-**Transfer learning** 
+**Transfer learning**  
 Transfer learning requires a pre-trained model, which needs to be finetuned on a downstream task in an N-shot setting. Due to CLIP's zero-shot capability, there is no need for finetuning in general. All we need to do is to provide CLIP with the captions for a new downstream task and CLIP will assess the alignment of the concepts in the images and the captions. [@clip_blog]
 
 \noindent
-**Poor real-world performance** 
+**Poor real-world performance**  
 Deep learning models perform very well on benchmark tasks like the ImageNet challenge. Once deployed into the real world, the performance is often not as good as expected because the models are optimized for the benchmark. This effect is due to a covariate shift between the benchmark and real-world data. CLIP's performance on the benchmark dataset is typically much more representative because CLIP is not finetuned on the benchmark dataset. [@clip_blog]

@@ -19,7 +19,7 @@ One obvious solution to this problem is to ensure that the data for the developm
 The development of the caption based explainable AI method involves many different components. The following chapters include a detailed description of all involved components:
 
 - \*@sec:problem-description defines current challenges and opportunities in the world of robust machine learning. The original idea, which provides this project's starting point and milestones, is also included.
-- \*@sec:explainable-artificial-intelligence is focused on existing explainable AI methods. Their advantages and disadvantages are discussed.
+- \*@sec:explainable-ai is focused on existing explainable AI methods. Their advantages and disadvantages are discussed.
 - \*@sec:contrastive-language-image-pre-training explains the contrastive language-image pre-training (CLIP) model and how it works. CLIP is a core component of the caption based explainable AI method.
 - \*@sec:dataset introduces the used dataset to train, validate and test the model under test. Furthermore, the purposely introduced bias in the dataset is explained in detail. 
 - \*@sec:standalone-model presents the selection process for a suitable biased machine-learning model. The training, validation and test splits performance demonstrate a biased standalone ResNet model, which is a perfect candidate to demonstrate the caption based explainable AI method.
