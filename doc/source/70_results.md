@@ -6,7 +6,7 @@ text text text.
 
 ![The training, validation and test curves indicate low bias and low variance on the grayscale MNIST dataset (Removed correlating color feature) during the retraining of the standalone model.](source/figures/performance_unbiased_without_test_fool.png "Training, validation and test curves on the grayscale MNIST dataset."){#fig:performance_unbiased_without_test_fool width=50%}
 
-## Novel XAI method
+## caption based explainable AI
 text text text.
 
 ## Remove bias and training
