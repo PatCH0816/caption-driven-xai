@@ -9,6 +9,10 @@ text text text.
 ## caption based explainable AI
 text text text.
 
+![Gaussian activations statistics from random layer 39 of the standalone model. Activations from other layers are also Gaussian.](source/figures/activations_gaussian_mean_std_standalone.png "Gaussian activations statistics from random layer 39 of the standalone model."){#fig:activations_gaussian_mean_std_standalone width=75%}
+
+![Gaussian activations statistics from random layer 39 of the clip model. Activations from other layers are also Gaussian.](source/figures/activations_gaussian_mean_std_clip.png "Gaussian activations statistics from random layer 39 of the clip model."){#fig:activations_gaussian_mean_std_clip width=75%}
+
 ## Remove bias and training
 text text text.
 

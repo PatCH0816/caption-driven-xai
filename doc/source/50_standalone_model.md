@@ -27,7 +27,7 @@ The residual neural network (ResNet) architecture was a real breakthrough in 201
 <!-- https://iq.opengenus.org/resnet50-architecture/ -->
 These innovative residual blocks solved the vanishing gradient problem and enabled deeper and more powerful neural networks. There are various well-known residual neural networks, like ResNet-18, ResNet-34, ResNet-50, ResNet-101 and ResNet-152. The number after ResNet in the type denotes the number of neural network layers in the architecture, as shown in \*@fig:resnet_architecture. This work uses the ResNet-50 with 50 neural network layers consisting of 49 convolutional layers and one fully connected layer. There is one additional max-pooling and one average-pooling layer, but these are not counted towards the number of neural layers since they are pooling layers.
 
-![Basic structure of a residual neural network (ResNet). The ResNet-50 model consists of 50 neural network layers in total. [[@resnet_architecture]](#references)](source/figures/resnet50_architecture.png "Architecture of a residual neural network (ResNet)."){#fig:resnet_architecture width=100%}
+![Basic structure of a residual neural network (ResNet). The ResNet-50 model is divided into five stages and consists of 50 neural network layers. [[@resnet_architecture]](#references)](source/figures/resnet50_architecture.png "Architecture of a residual neural network (ResNet)."){#fig:resnet_architecture width=100%}
 
 \*@fig:resnet50_configuration denotes the  exact configuration of the ResNet-50 with ~23 million trainable parameters. The number next to the brackets denotes the number of stacked building blocks. Downsampling is not just done by pooling layers but mainly by conv3_1, conv4_1 and conv5_1 with a stride of 2.
 
