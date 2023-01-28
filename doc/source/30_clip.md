@@ -13,41 +13,41 @@ Contrastive language-image pre-training (CLIP) is a multi-modal model that uses 
 ![This figure demonstrates how to interact with CLIP on an abstract level. Given an image and a set of captions, CLIP will assess how well these captions describe the image and vice versa. (Modified image from [[@xai_story_bot]](#references))](source/figures/story.png "Story XAI-bot"){#fig:story_xai_bot width=80%}
 
 ## Architecture of CLIP
-As shown in \*@fig:clip-1, the CLIP structure consists of two encoders, one for each modality (Text depicted in purple, vision depicted in green). The text encoder translates human-readable captions into transformer-readable tokens. The text embedding can be generated using a text transformer like BERT [@google_bert]. There are many different configurations available for CLIP. The main difference between the versions is the image encoder type, a ResNet or a transformer model of different sizes. The one property shared across all configurations is the ability to learn concepts in images using natural language as a training signal. Independent from the specific type of encoders, the image encoder creates an embedding for the image. The space spanned by these text- and image-embedding vectors is a concept space. Each location in this high-dimensional space relates to a specific concept. An overview in \*@tbl:clip_configuration_table of all available encoders is provided in the appendix. The best-performing CLIP model uses the vision transformer ViT-L/14@336px. This work will use the modified ResNet-50 image encoder. The ResNet-50 image encoder (Details in \*@sec:clip-image-encoder) and its related text transformer (Details in \*@sec:clip-text-encoder) are used throughout this work. According to the dimensionality mentioned in \*@sec:embedding-dimensions-of-clip, the result of these two encoders are high dimensional and normalized image embeddings $\mathbf{I}_n \in \mathbb{R}^{1024}$ and text embeddings $\mathbf{T}_n \in \mathbb{R}^{1024}$. The dimensionality of these embeddings are $dim(\mathbf{I}_n) = 1 \times 1024$ and $dim(\mathbf{T}_n) = 1024 \times 1$. This high-dimensional shared embedding space contains all concepts learned by CLIP from the training dataset. 
+As shown in \*@fig:clip-1, the CLIP structure consists of two encoders, one for each modality (Text depicted in purple, vision depicted in green). The text encoder translates human-readable captions into transformer-readable tokens. The text embedding can be generated using a text transformer like BERT [@google_bert]. There are many different configurations available for CLIP. The main difference between the versions is the image encoder type, a ResNet or a transformer model of different sizes. The one property shared across all configurations is the ability to learn concepts in images using natural language as a training signal. Independent from the specific type of encoders, the image encoder creates an embedding for the image. The space spanned by these text- and image-embedding vectors is a concept space. Each location in this high-dimensional space relates to a specific concept. An overview in \*@tbl:clip_configuration_table of all available encoders is provided in the appendix. The best-performing CLIP model uses the vision transformer ViT-L/14@336px. This work will use the modified ResNet-50 image encoder. The ResNet-50 image encoder (Details in \*@sec:clip-image-encoder) and its related text transformer (Details in \*@sec:clip-text-encoder) are used throughout this work. According to the dimensionality mentioned in \*@sec:embedding-dimensions-of-clip, the result of these two encoders are high dimensional and normalized image embeddings $\boldsymbol{I}_n \in \mathbb{R}^{1024}$ and text embeddings $\boldsymbol{T}_n \in \mathbb{R}^{1024}$. The dimensionality of these embeddings are $dim(\boldsymbol{I}_n) = 1 \times 1024$ and $dim(\boldsymbol{T}_n) = 1024 \times 1$. This high-dimensional shared embedding space contains all concepts learned by CLIP from the training dataset. 
 
 ![The multi-modal CLIP model consists of a text and an image encoder. Both encoders produce normalized text and image embeddings, respectively. These two embedding's inner/scalar product results in embedding similarities (A matrix of cosine similarities). The contrast-learning approach maximizes the cosine similarity of the matching caption-image-pairs along the diagonal (Highlighted in blue) and minimizes the remaining incorrect cosine similarities (Highlighted in grey). This step uses a massive dataset of 400 million caption-image-pairs and the process is called contrastive pre-training. [[@clip_process]](#references)](source/figures/clip-1.png "Contrastive language-image pre-training (CLIP) architecture."){#fig:clip-1 width=100%}
 
 ## Similarity
 <!-- Explanation for positive values only: https://stats.stackexchange.com/questions/198810/interpreting-negative-cosine-similarity -->
-We are looking to measure the similarity between concepts. A suitable score for this objective should express how well a caption fits an image. E.g., the concept of a tree can be represented by an image of a tree standing on a field of grass under the blue sky or a caption "a tree standing on a field of grass under the blue sky". Using text- and image encoders to obtain the text and image embeddings results in two high-dimensional vectors. Different directions in this shared embedding space denote different concepts. If two vectors point in the same direction, they point to the same concept and are therefore considered similar. The angle between two vectors is the property, which denotes if the vectors are pointing in the same direction. Applying the cosine to this angle $cos(\theta) = [-1, 1]$ results in a theoretical, interpretable range of numbers. The cosine similarity derives from the euclidean dot product formula. Note: The text embedding $\mathbf{A}$ and image embedding $\mathbf{B}$ have an arbitrary magnitude at this point!
+We are looking to measure the similarity between concepts. A suitable score for this objective should express how well a caption fits an image. E.g., the concept of a tree can be represented by an image of a tree standing on a field of grass under the blue sky or a caption "a tree standing on a field of grass under the blue sky". Using text- and image encoders to obtain the text and image embeddings results in two high-dimensional vectors. Different directions in this shared embedding space denote different concepts. If two vectors point in the same direction, they point to the same concept and are therefore considered similar. The angle between two vectors is the property, which denotes if the vectors are pointing in the same direction. Applying the cosine to this angle $cos(\theta) = [-1, 1]$ results in a theoretical, interpretable range of numbers. The cosine similarity derives from the euclidean dot product formula. Note: The text embedding $\boldsymbol{A}$ and image embedding $\boldsymbol{B}$ have an arbitrary magnitude at this point!
 
 \noindent\fbox{
     \begin{minipage}{\linewidth}
         \begin{equation}
-            \mathbf{A} \cdot \mathbf{B} = \| \mathbf{A} \| \cdot \| \mathbf{B} \| \cdot cos(\theta)
+            \boldsymbol{A} \cdot \boldsymbol{B} = \| \boldsymbol{A} \| \cdot \| \boldsymbol{B} \| \cdot cos(\theta)
         \end{equation}
         \begin{equation}
-            \sum_{n=1}^{N} \mathbf{A}_n \mathbf{B}_n = \sqrt{ \sum_{n=1}^{N} \mathbf{A}_n^2 } \sqrt{\sum_{n=1}^{N} \mathbf{B}_n^2 } \cdot cos(\theta)
+            \sum_{n=1}^{N} \boldsymbol{A}_n \boldsymbol{B}_n = \sqrt{ \sum_{n=1}^{N} \boldsymbol{A}_n^2 } \sqrt{\sum_{n=1}^{N} \boldsymbol{B}_n^2 } \cdot cos(\theta)
         \end{equation}
         \begin{tabular}{l @{ $=$ } l}
-            $\mathbf{A}$ & Image embedding vector\\
-            $\mathbf{B}$ & Text embedding vector\\
+            $\boldsymbol{A}$ & Image embedding vector\\
+            $\boldsymbol{B}$ & Text embedding vector\\
             $ \theta $ & Angle between vectors
         \end{tabular}
     \end{minipage}
 }
 
-The cosine similarity is the inner/scalar product of the two normalized text and image embeddings. The shared embedding space of the multi-modal model forms a unit sphere due to the normalization of the text and image embeddings. These normalized text and image embeddings $\frac{\mathbf{A}}{\| \mathbf{A} \|}$ and $\frac{\mathbf{B}}{\| \mathbf{B} \|}$ are denoted as $\mathbf{I}_n$ and text embedding $\mathbf{T}_n$ in figure \*@fig:clip-1.
+The cosine similarity is the inner/scalar product of the two normalized text and image embeddings. The shared embedding space of the multi-modal model forms a unit sphere due to the normalization of the text and image embeddings. These normalized text and image embeddings $\frac{\boldsymbol{A}}{\| \boldsymbol{A} \|}$ and $\frac{\boldsymbol{B}}{\| \boldsymbol{B} \|}$ are denoted as $\boldsymbol{I}_n$ and text embedding $\boldsymbol{T}_n$ in figure \*@fig:clip-1.
 
 \noindent\fbox{
     \begin{minipage}{\linewidth}
         \begin{equation}
-            cos(\theta) = \frac{\mathbf{A} \cdot \mathbf{B}}{\| \mathbf{A} \| \cdot \| \mathbf{B} \|} \\
-            = \frac{ \sum_{n=1}^{N} \mathbf{A}_n \mathbf{B}_n }{\sqrt{\sum_{n=1}^{N} \mathbf{A}_n^2} \sqrt{\sum_{n=1}^{N} \mathbf{B}_n^2}}
+            cos(\theta) = \frac{\boldsymbol{A} \cdot \boldsymbol{B}}{\| \boldsymbol{A} \| \cdot \| \boldsymbol{B} \|} \\
+            = \frac{ \sum_{n=1}^{N} \boldsymbol{A}_n \boldsymbol{B}_n }{\sqrt{\sum_{n=1}^{N} \boldsymbol{A}_n^2} \sqrt{\sum_{n=1}^{N} \boldsymbol{B}_n^2}}
         \end{equation}
         \begin{tabular}{l @{ $=$ } l}
-            $\mathbf{A}$ & Image embedding vector\\
-            $\mathbf{B}$ & Text embedding vector\\
+            $\boldsymbol{A}$ & Image embedding vector\\
+            $\boldsymbol{B}$ & Text embedding vector\\
             $\theta$ & Angle between vectors
         \end{tabular}
     \end{minipage}
@@ -68,7 +68,7 @@ A suitable dataset was needed to train such a powerful CLIP model. The visual ge
 Loss function: symmetric cross entropy loss (Average of the sum of the cross entropy loss along the row and columns)
 https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html
 -->
-During the training of CLIP, all caption-image-pairs are passed in mini-batches with a size of $N = 32768$ through the text and image encoders, which result in $dim(\mathbf{I}) = 32768 \times 1024$ and $dim(\mathbf{T}) = 1024 \times 32768$. These large embeddings lead to embedding similarities (A matrix of cosine-similarities) of the size $dim(\mathbf{I} \cdot \mathbf{T}) = 32768 \times 32768$. The objective of the training is to maximize the cosine similarities of the $N = 32768$ correct scores along the diagonal of the embedding similarities matrix and to minimize the scores of the $N^{2} - N = 32768^{2} - 32768$ (All entries of the matrix apart from the diagonal) incorrect pairs. To get a feeling for the computational power needed: The training for the largest ResNet Model RN50x64 took 18 days on 592 NVIDIA V100 GPUs.
+During the training of CLIP, all caption-image-pairs are passed in mini-batches with a size of $N = 32768$ through the text and image encoders, which result in $dim(\boldsymbol{I}) = 32768 \times 1024$ and $dim(\boldsymbol{T}) = 1024 \times 32768$. These large embeddings lead to embedding similarities (A matrix of cosine-similarities) of the size $dim(\boldsymbol{I} \cdot \boldsymbol{T}) = 32768 \times 32768$. The objective of the training is to maximize the cosine similarities of the $N = 32768$ correct scores along the diagonal of the embedding similarities matrix and to minimize the scores of the $N^{2} - N = 32768^{2} - 32768$ (All entries of the matrix apart from the diagonal) incorrect pairs. To get a feeling for the computational power needed: The training for the largest ResNet Model RN50x64 took 18 days on 592 NVIDIA V100 GPUs.
 
 ## Zero-shot capability
 <!-- Explain zero-shot capability -->

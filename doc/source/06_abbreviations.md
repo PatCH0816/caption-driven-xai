@@ -7,6 +7,7 @@
 \textbf{AlexNet}    \> \textbf{Alex} Krizhevsky Neural \textbf{Net}work\\  
 \textbf{BroDen}     \> \textbf{Bro}adly and \textbf{Den}sely labeled dataset \\  
 \textbf{CLIP}       \> \textbf{C}ontrastive \textbf{L}anguage \textbf{I}mage \textbf{P}re-training \\  
+\textbf{COVID-19}   \> \textbf{Co}rona\textbf{vi}rus \textbf{D}isease of 20\textbf{19} \\  
 \textbf{CSAIL}      \> \textbf{C}omputer \textbf{S}cience and \textbf{A}rtificial \textbf{I}ntelligence \textbf{L}aboratory  \\  
 \textbf{CVPR}       \> Conference on \textbf{C}omputer \textbf{V}ision and \textbf{P}attern \textbf{R}ecognition \\  
 \textbf{DSAA}       \> Conference on \textbf{D}ata \textbf{S}cience and \textbf{A}dvanced \textbf{A}nalytics \\  

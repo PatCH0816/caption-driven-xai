@@ -30,30 +30,30 @@ Each of these three main steps is explained in detail in the next sections.
 
 \noindent
 **Compute statistics**  
-Feeding the training dataset with the images $\mathbf{x}$, as introduced in \*@sec:dataset, into the model $h$ and retaining the activations $\mathbf{A}$ of all kernels/units $k$ allows us to compute the statistics of all activations. Assuming the activations of all units $k$ are gaussians, then the mean and standard deviation are suitable measures to describe these distributions.
+Feeding the training dataset with the images $\boldsymbol{x}$, as introduced in \*@sec:dataset, into the model $h$ and retaining the activations $\boldsymbol{A}$ of all kernels/units $k$ allows us to compute the statistics of all activations. Assuming the activations of all units $k$ are gaussians, then the mean and standard deviation are suitable measures to describe these distributions.
 
 As explained in \*@sec:standalone-model, there are 49 convolutional layers $l$, one fully connected layer and two pooling layers in the ResNet-50 standalone model. The file "./3_miscellaneous/model_architectures/standalone_resnet50.txt" describes the exact architecture of the standalone model. Each convolutional layer $l$ has a specific number of convolutional kernels/units $k$. The sum of all kernels/units $k$ over all layers $l$ in the standalone model is 22'720.
 
-As explained in \*@sec:contrastive-language-image-pre-training, CLIP's image encoder is a modified ResNet model. There are two additional convolutional layers in the first stage of the model. Therefore, there are 51 convolutional layers $l$, one fully connected layer and two pooling layers in CLIP's image encoder model. Retaining the activations from the last layer of each of the five stages of the CLIP image encoder only allows to limit of the computational power needed to an absolute minimum. Each layer $l$ has a specific number of kernels/units $k$. The sum of all kernels $k$ over these last layers $l$ in all five stages in the CLIP image encoder is 3'840.
+As explained in \*@sec:contrastive-language-image-pre-training, CLIP's image encoder is a modified ResNet model. There are two additional convolutional layers in the first stage of the model. Therefore, there are 51 convolutional layers $l$, one fully connected layer and two pooling layers in CLIP's image encoder model. The file "./3_miscellaneous/model_architectures/clip_resnet.txt" describes the exact architecture of the CLIP model. Retaining the activations from the last layer of each of the five stages of the CLIP image encoder only allows to limit of the computational power needed to an absolute minimum. Each layer $l$ has a specific number of kernels/units $k$. The sum of all kernels $k$ over these last layers $l$ in all five stages in the CLIP image encoder is 3'840.
 
 The mean $\boldsymbol{\mu}_{kl}$ and the standard deviation $\boldsymbol{\sigma}_{kl}$ for each kernel/unit $k$ in the mentioned layers $l$ are theoretically computed as follows:
 
 \noindent\fbox{
     \begin{minipage}{\linewidth}
         \begin{equation}
-            h(\mathbf{x}) \Rightarrow \mathbf{A}_{kl}
+            h(\boldsymbol{x}) \Rightarrow \boldsymbol{A}_{kl}
         \end{equation}
 
         \begin{equation}
-            \boldsymbol{\mu}_{kl} = \frac{1}{N \cdot M} \sum_{i=1}^{N} \sum_{j=1}^{M} \mathbf{A}_{klij}
+            \boldsymbol{\mu}_{kl} = \frac{1}{N \cdot M} \sum_{i=1}^{N} \sum_{j=1}^{M} \boldsymbol{A}_{klij}
         \end{equation}
 
         \begin{equation}
-            var(\mathbf{A}_{klij}) = \boldsymbol{\sigma}_{kl}^2 = \frac{1}{N \cdot M} \sum_{i=1}^{N} \sum_{j=1}^{M} (\mathbf{A}_{klij} - \mu_{kl})^2
+            var(\boldsymbol{A}_{klij}) = \boldsymbol{\sigma}_{kl}^2 = \frac{1}{N \cdot M} \sum_{i=1}^{N} \sum_{j=1}^{M} (\boldsymbol{A}_{klij} - \boldsymbol{\mu}_{kl})^2
         \end{equation}
 
         \begin{tabular}{l @{ $=$ } l}
-            $\mathbf{A}$ & Activation map\\
+            $\boldsymbol{A}$ & Activation map\\
             $h$ & Model\\
             $k$ & Unit\\
             $l$ & Layer\\
@@ -61,40 +61,19 @@ The mean $\boldsymbol{\mu}_{kl}$ and the standard deviation $\boldsymbol{\sigma}
             $N$ & Height of kernel/unit k\\
             $\boldsymbol{\sigma}$ & Standard deviation\\
             $\boldsymbol{\mu}$ & Mean\\
-            $\mathbf{x}$ & Images
+            $\boldsymbol{x}$ & Images
         \end{tabular}
     \end{minipage}
 }
 
-A large training dataset requires to compute the mean $\boldsymbol{\mu}_{kl}$ and the standard deviation $\boldsymbol{\sigma}_{kl}$ in $B$ batches. The formulae above are feasible to compute the mean and the standard deviation within one of the $B$ batches. The mean $\boldsymbol{\mu}_{kl}$ and standard deviation $\boldsymbol{\sigma}_{kl}$ over the whole training dataset is then computed as follows:
-
-\noindent\fbox{
-    \begin{minipage}{\linewidth}
-        \begin{equation}
-            \boldsymbol{\mu}_{kl} = \frac{\sum_{i=1}^{B} \boldsymbol{\mu}_{kli}}{B}
-        \end{equation}
-
-        \begin{equation}
-            \boldsymbol{\sigma}_{kl} = \sqrt{\frac{\sum_{i=1}^{B} \boldsymbol{\sigma}_{kli}^2}{B}}
-        \end{equation}
-
-        \begin{tabular}{l @{ $=$ } l}
-            $B$ & Number of batches\\
-            $k$ & Unit\\
-            $l$ & Layer\\
-            $\boldsymbol{\sigma}$ & Standard deviation\\
-            $\boldsymbol{\mu}$ & Mean
-        \end{tabular}
-    \end{minipage}
-}
-
+<!-- \newpage -->
 \noindent
 **Activation matching**  
-asdf asdf
+Work in progress..
 
 \noindent
 **Swapping layers**  
-asdf asdf
+Work in progress..
 
 ## Inference
 After the network surgery, the caption-based explainable AI model consists of CLIP's original text encoder (Purple) and the modified image encoder (Red/Green striped) as shown in \*@fig:network_surgery_result_unbiased. The hypothesis is that the network surgery process can merge decision-critical properties and preserve the CLIP embedding space at the same time. 

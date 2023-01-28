@@ -12,3 +12,9 @@ What is the next step? What can one do with this new tech?-->
 - Find cosine similarities near 0 and 1 (usual range between 0.1 and 0.35)
 
 <!-- The greatest deception men suffer is from their own opinions. Leonardo da Vinci -->
+
+<!-- Future tasks:
+- Try alternative datasets:
+    - synthetic digits
+    - http://ufldl.stanford.edu/housenumbers/
+-->
