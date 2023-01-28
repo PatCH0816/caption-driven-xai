@@ -42,9 +42,9 @@ In the training, validation and test datasets (Simulating the available data dur
 
 ![All digits with the value 5 are red and all digits with the value 8 are green in the training, validation and test dataset.](source/figures/dataset_train_val_test.png "An example of each of the two digits 5/8 contained in the training, validation and test dataset."){#fig:modified_mnist_development width=90%}
 
-In the real-world dataset (Simulating real-world data after deployment of the model), all digits with the value 5 are green and all digits with the value 8 are red.
+In the real-world dataset (Simulating real-world data after deployment of the model), the colors of the digits are assigned at random.
 
-![All digits with the value 5 are green and all digits with the value 8 are red in the real-world dataset.](source/figures/dataset_real_world.png "An example of each of the two digits 5/8 contained in the real-world dataset."){#fig:modified_mnist_real_world width=90%}
+![The colors of the digits are assigned at random in the real-world dataset.](source/figures/dataset_real_world.png "An example of each of the two digits 5/8 contained in the real-world dataset."){#fig:modified_mnist_real_world width=90%}
 
 ## Theory summary
 The core of the idea is that a model trained on this custom dataset will focus on the undesired correlating feature (Color of the digits) instead of the desired causating feature (Shape of the feature) to classify the digits. This bias leads to high accuracy on the training, validation and test dataset during the development of a new model and terrible accuracy on the real-world dataset. The presented caption based explainable AI method should then be able to reveal the problem!

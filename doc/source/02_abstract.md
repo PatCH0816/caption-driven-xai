@@ -127,3 +127,4 @@ Approach/Technology: (10/12 sentences)
 [] document results
 [] document conclusion
 [] write abstract for documentation (limit to 1 page) and online
+[] convoluation/convolutional kernel/unit or feature map or activation map

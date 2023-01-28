@@ -26,7 +26,8 @@ The network surgery process consists of the following three main steps:
 - Activation matching
 - Swapping layers
 
-Each of these three main steps is explained in detail in the next sections.
+<!-- https://github.com/CSAILVision/gandissect/blob/master/netdissect/nethook.py -->
+The details about these three main steps follow in the next sections. To keep track of all activations during inference of the model, a model wrapped called "InstrumentedModel" is used. This wrapper allows hooking arbitrary layers to monitor or modify their output directly. [@instrumented_model_wrapper]
 
 \noindent
 **Compute statistics**  
@@ -69,7 +70,54 @@ The mean $\boldsymbol{\mu}_{kl}$ and the standard deviation $\boldsymbol{\sigma}
 <!-- \newpage -->
 \noindent
 **Activation matching**  
-Work in progress..
+<!-- 
+- idea of activation matching is to find "similar" activation maps
+- balancing problem of switching enough layers to get capture the characteristics of the standalone model, but limit the number of layers to be switched such that the the CLIP concept space embedding similarities remain consistent with what the text encoder learned. -->
+Incorporating the properties of the standalone model to be explained into the CLIP image encoder is a delicate balancing act. On the one hand, we want to have all the standalone model's properties be explained and integrated into the CLIP image encoder to obtain the most significant explanation. On the other hand, the learned concept space of the CLIP embedding similarities needs to be maintained.
+
+#TODO add image about balancing problem
+
+To address this delicate balancing act, all activations of the standalone model are available for the selection process to be incorporated into the CLIP image encoder. To maintain the CLIP concept space as much as possible, only the last convolution layer of the last four out of the five available stages from the modified CLIP ResNet can be swapped. The last convolution layer of the first stage is skipped because we assume there is little information contained since earlier layers typically learn similar low-level concepts and the deeper layers behave very differently according to the task of the model.
+
+#TODO add image about which activation of which model are changed (highlight in green)
+
+Due to the imbalance in the number of available activation maps between the standalone model to be explained and the CLIP image encoder, there is a need for a suitable selection process. The name of this selection process is "Activation matching". The idea is to find activation maps in the standalone model which are "similar" to the activation maps in the CLIP image encoder. To evaluate which activations maps are similar, the activations of all convolution kernels of both models are normalized using a standard scaler and the previously computed statistics. (Compute mean and standard deviation of all activation maps during inference of both models)
+
+<!-- 
+- normalize standalone activations
+- normalize clip activations
+-->
+\noindent\fbox{
+    \begin{minipage}{\linewidth}
+
+        \begin{equation}
+            \boldsymbol{S}_{kl} = \frac{\boldsymbol{A}_{kl} - \boldsymbol{\mu}_{kl}}{\boldsymbol{\sigma}_{kl}}
+        \end{equation}
+
+        \begin{tabular}{l @{ $=$ } l}
+            $\boldsymbol{A}$ & Activation map\\
+            $k$ & Unit\\
+            $l$ & Layer\\
+            $\boldsymbol{S}$ & Scaled activation map\\
+            $\boldsymbol{\sigma}$ & Standard deviation\\
+            $\boldsymbol{\mu}$ & Mean\\
+        \end{tabular}
+    \end{minipage}
+}
+
+<!-- 
+- upscale activation maps using bilinear interpolation
+- upscale activation maps using bilinear interpolation -->
+Since the activation maps to be compared could be of different sizes, the smaller one of the two activation maps is upscaled using a bilinear transformation to match sizes.
+
+#TODO add image of bilinear transformation
+
+<!-- 
+- compute scores
+scores = torch.einsum('aixy,ajxy->ij', standalone_model_activation_scaled, clip_model_activation_scaled)/(batch_size*map_size**2)   -->
+
+
+
 
 \noindent
 **Swapping layers**  
