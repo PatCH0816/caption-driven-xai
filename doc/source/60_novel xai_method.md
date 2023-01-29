@@ -29,8 +29,7 @@ The network surgery process consists of the following three main steps:
 <!-- https://github.com/CSAILVision/gandissect/blob/master/netdissect/nethook.py -->
 The details about these three main steps follow in the next sections. To keep track of all activations during inference of the model, a model wrapped called "InstrumentedModel" is used. This wrapper allows hooking arbitrary layers to monitor or modify their output directly. [@instrumented_model_wrapper]
 
-\noindent
-**Compute statistics**  
+### Compute statistics 
 Feeding the training dataset with the images $\boldsymbol{x}$, as introduced in \*@sec:dataset, into the model $h$ and retaining the activations $\boldsymbol{A}$ of all kernels/units $k$ allows us to compute the statistics of all activations. Assuming the activations of all units $k$ are gaussians, then the mean and standard deviation are suitable measures to describe these distributions.
 
 As explained in \*@sec:standalone-model, there are 49 convolutional layers, one fully connected layer and two pooling layers in the ResNet-50 standalone model. The file "./3_miscellaneous/model_architectures/standalone_resnet50.txt" describes the exact architecture of the standalone model. Each convolutional layer has a specific number of convolutional kernels/units. The number of kernels/units $k$ available for swapping in the standalone model is 22'720.
@@ -80,9 +79,7 @@ The mean $\boldsymbol{\mu}_{kl}$ and the standard deviation $\boldsymbol{\sigma}
     \end{minipage}
 }
 
-<!-- \newpage -->
-\noindent
-**Activation matching**  
+### Activation matching
 <!-- 
 - idea of activation matching is to find "similar" activation maps
 - balancing problem of switching enough layers to get capture the characteristics of the standalone model, but limit the number of layers to be switched such that the the CLIP concept space embedding similarities remain consistent with what the text encoder learned. -->
@@ -158,8 +155,7 @@ These upscaled activation maps are used to find the most similar activation maps
 
 The dimension of the scores matrix is $dim(\boldsymbol{s}_{ij}) = 22720 \times 3840$ filled with the valid range of values $\boldsymbol{s}_{ij} = [0, 1]$. The value $22720$ describes the number of convolutional kernels in the standalone model available for swapping. The value $3840$ describes the number of convolutional kernels in the CLIP image encoder available for swapping. Each score describes how "similar" the scaled activation maps of the standalone model and the CLIP image encoder are relative to each other. The similarity measurement is a trivial sum of products to limit the computing power needed. Therefore, a large score results from two large factors. A small score results from at least one small factor in the product. Ambiguous scores around 0.5 could occur for a small factor and a large one, two medium-sized factors or a large one and a small one.
 
-\noindent
-**Swapping layers**  
+### Swapping layers
 <!-- 
 - incorporate standalone into clip
 - switch 3840 of 22720 from standalone to clip
@@ -170,8 +166,7 @@ The dimension of the scores matrix is $dim(\boldsymbol{s}_{ij}) = 22720 \times 3
     - second challenge -> Different scales -> apply inverse standard scaler
 -->
 #TODO maybe add an image
-#TODO add reference to previous section
-Scanning the score matrix from the activation matching process for the top 3840 (Number of activations in CLIP image encoder to be swapped) out of 22720 scores (Available activation maps from the standalone model) results in a scheme which activation maps need to be swapped. Swapping two activation maps brings two challenges. First, the activation maps could have different sizes. Therefore, the activation map from the standalone model gets rescaled to the size of the original activation map from the CLIP image encoder using a bilinear transformation. The second challenge is to address the different scales of the activation maps. As explained in the section "Compute statistics", all activation maps have been scaled using a standard scaler, therefore they are mean free and have a variance equal to one. After an activation map has been swapped from the standalone model to the CLIP image encoder, the activation needs to be adjusted to the original CLIP scale using an inverse standard scaler and the original CLIP statistics.
+Scanning the score matrix from the activation matching process for the top 3840 (Number of activations in CLIP image encoder to be swapped) out of 22720 scores (Available activation maps from the standalone model) results in a scheme which activation maps need to be swapped. Swapping two activation maps brings two challenges. First, the activation maps could have different sizes. Therefore, the activation map from the standalone model gets rescaled to the size of the original activation map from the CLIP image encoder using a bilinear transformation. The second challenge is to address the different scales of the activation maps. As explained in \*@sec:activation-matching, all activation maps have been scaled using a standard scaler, therefore they are mean free and have a variance equal to one. After an activation map has been swapped from the standalone model to the CLIP image encoder, the activation needs to be adjusted to the original CLIP scale using an inverse standard scaler and the original CLIP statistics.
 
 \noindent\fbox{
     \begin{minipage}{\linewidth}
