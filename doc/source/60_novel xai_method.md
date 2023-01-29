@@ -29,7 +29,7 @@ The network surgery process consists of the following three main steps:
 <!-- https://github.com/CSAILVision/gandissect/blob/master/netdissect/nethook.py -->
 The details about these three main steps follow in the next sections. To keep track of all activations during inference of the model, a model wrapped called "InstrumentedModel" is used. This wrapper allows hooking arbitrary layers to monitor or modify their output directly. [@instrumented_model_wrapper]
 
-### Compute statistics 
+## Compute statistics 
 Feeding the training dataset with the images $\boldsymbol{x}$, as introduced in \*@sec:dataset, into the model $h$ and retaining the activations $\boldsymbol{A}$ of all kernels/units $k$ allows us to compute the statistics of all activations. Assuming the activations of all units $k$ are gaussians, then the mean and standard deviation are suitable measures to describe these distributions.
 
 As explained in \*@sec:standalone-model, there are 49 convolutional layers, one fully connected layer and two pooling layers in the ResNet-50 standalone model. The file "./3_miscellaneous/model_architectures/standalone_resnet50.txt" describes the exact architecture of the standalone model. Each convolutional layer has a specific number of convolutional kernels/units. The number of kernels/units $k$ available for swapping in the standalone model is 22'720.
@@ -79,7 +79,7 @@ The mean $\boldsymbol{\mu}_{kl}$ and the standard deviation $\boldsymbol{\sigma}
     \end{minipage}
 }
 
-### Activation matching
+## Activation matching
 <!-- 
 - idea of activation matching is to find "similar" activation maps
 - balancing problem of switching enough layers to get capture the characteristics of the standalone model, but limit the number of layers to be switched such that the the CLIP concept space embedding similarities remain consistent with what the text encoder learned. -->
@@ -155,7 +155,7 @@ These upscaled activation maps are used to find the most similar activation maps
 
 The dimension of the scores matrix is $dim(\boldsymbol{s}_{ij}) = 22720 \times 3840$ filled with the valid range of values $\boldsymbol{s}_{ij} = [0, 1]$. The value $22720$ describes the number of convolutional kernels in the standalone model available for swapping. The value $3840$ describes the number of convolutional kernels in the CLIP image encoder available for swapping. Each score describes how "similar" the scaled activation maps of the standalone model and the CLIP image encoder are relative to each other. The similarity measurement is a trivial sum of products to limit the computing power needed. Therefore, a large score results from two large factors. A small score results from at least one small factor in the product. Ambiguous scores around 0.5 could occur for a small factor and a large one, two medium-sized factors or a large one and a small one.
 
-### Swapping layers
+## Swapping layers
 <!-- 
 - incorporate standalone into clip
 - switch 3840 of 22720 from standalone to clip
