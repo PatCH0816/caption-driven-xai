@@ -30,13 +30,15 @@ The network surgery process consists of the following three main steps:
 The details about these three main steps follow in the next sections. To keep track of all activations during inference of the model, a model wrapped called "InstrumentedModel" is used. This wrapper allows hooking arbitrary layers to monitor or modify their output directly. [@instrumented_model_wrapper]
 
 ## Compute statistics 
-Feeding the training dataset with the images $\boldsymbol{x}$, as introduced in \*@sec:dataset, into the model $h$ and retaining the activations $\boldsymbol{A}$ of all kernels/units $k$ allows us to compute the statistics of all activations. Assuming the activations of all units $k$ are gaussians, then the mean and standard deviation are suitable measures to describe these distributions.
+Incorporating the properties of the standalone model to be explained into the CLIP image encoder is a delicate balancing act. On the one hand, we want to have all the standalone model's properties be explained and integrated into the CLIP image encoder to obtain the most significant explanation. On the other hand, the learned concept space of the CLIP embedding similarities needs to be maintained.
 
-As explained in \*@sec:standalone-model, there are 49 convolutional layers, one fully connected layer and two pooling layers in the ResNet-50 standalone model. The file "./3_miscellaneous/model_architectures/standalone_resnet50.txt" describes the exact architecture of the standalone model. Each convolutional layer has a specific number of convolutional kernels/units. The number of kernels/units $k$ available for swapping in the standalone model is 22'720.
+#TODO add image about balancing problem
 
-As explained in \*@sec:contrastive-language-image-pre-training, CLIP's image encoder is a modified ResNet model. There are two additional convolutional layers in the first stage of the model. Therefore, there are 51 convolutional layers, one fully connected layer and two pooling layers in CLIP's image encoder model. The file "./3_miscellaneous/model_architectures/clip_resnet.txt" describes the exact architecture of the CLIP model. Retaining the activations from the last layer of each of the five stages of the CLIP image encoder only allows to limit of the computational power needed to an absolute minimum. Each layer has a specific number of kernels/units. The number of all kernels $k$ available for swapping in the last layer of the four last out of five stages in the CLIP image encoder is 3'840.
+To address this delicate balancing act, all activations of the standalone model are available for the selection process to be incorporated into the CLIP image encoder to transfer as much information as possible. The first out of the five ResNet stages remains untouched to maintain the CLIP concept space. The motivation is that the first stage captures very similar low-level concepts between the standalone and the CLIP model. Switching them could introduce much noise but not much of a helpful signal. Another motivation is that the CLIP captions typically describe high-level concepts rather than low-level concepts. To maintain the concept space of the remaining four out of five ResNet stages, the last convolution layer of each remaining stage is available for the selection process to be switched only.
 
-The mean $\boldsymbol{\mu}_{kl}$ and the standard deviation $\boldsymbol{\sigma}_{kl}$ for each kernel/unit $k$ in the mentioned layers are computed as follows:
+#TODO add image about which activation of which model are changed (highlight in green)
+
+Feeding the training dataset with the images $\boldsymbol{x}$, as introduced in \*@sec:dataset, into the standalone model $S(\boldsymbol{x})$ and the CLIP image encoder $C(\boldsymbol{x})$ and retaining all activation maps $\boldsymbol{A}$ for all images allows us to compute the statistics of for all $k$ activation maps. Assuming the distributions of all $k$ activation maps are gaussians, then the mean and standard deviation are suitable measures to describe these distributions. The mean $\boldsymbol{\mu}_{k}$ and the standard deviation $\boldsymbol{\sigma}_{k}$ for each activation map $k$ is computed as follows:
 
 \noindent\fbox{
     \begin{minipage}{\linewidth}
@@ -79,19 +81,15 @@ The mean $\boldsymbol{\mu}_{kl}$ and the standard deviation $\boldsymbol{\sigma}
     \end{minipage}
 }
 
+As explained in \*@sec:standalone-model, there are 49 convolutional layers, one fully connected layer and two pooling layers in the ResNet-50 standalone model. The file "./3_miscellaneous/model_architectures/standalone_resnet50.txt" describes the exact architecture of the standalone model. Each convolutional layer has a specific number of kernels. Therefore, the number of activation maps available for swapping from the standalone model is 22720.
+
+As explained in \*@sec:contrastive-language-image-pre-training, CLIP's image encoder is a modified ResNet model. There are two additional convolutional layers in the first stage of the model. Therefore, there are 51 convolutional layers, one fully connected layer and two pooling layers in CLIP's image encoder model. The file "./3_miscellaneous/model_architectures/clip_resnet.txt" describes the exact architecture of the CLIP model. Each convolutional layer has a specific number of kernels. The number of all $k$ activation maps available for swapping in the CLIP image encoder is 3840.
+
 ## Activation matching
 <!-- 
 - idea of activation matching is to find "similar" activation maps
 - balancing problem of switching enough layers to get capture the characteristics of the standalone model, but limit the number of layers to be switched such that the the CLIP concept space embedding similarities remain consistent with what the text encoder learned. -->
-Incorporating the properties of the standalone model to be explained into the CLIP image encoder is a delicate balancing act. On the one hand, we want to have all the standalone model's properties be explained and integrated into the CLIP image encoder to obtain the most significant explanation. On the other hand, the learned concept space of the CLIP embedding similarities needs to be maintained.
-
-#TODO add image about balancing problem
-
-To address this delicate balancing act, all activations of the standalone model are available for the selection process to be incorporated into the CLIP image encoder. To maintain the CLIP concept space as much as possible, only the last convolution layer of the last four out of the five available stages from the modified CLIP ResNet can be swapped. The last convolution layer of the first stage is skipped because we assume there is little information contained since earlier layers typically learn similar low-level concepts and the deeper layers behave very differently according to the task of the model.
-
-#TODO add image about which activation of which model are changed (highlight in green)
-
-Due to the imbalance in the number of available activation maps between the standalone model to be explained and the CLIP image encoder, there is a need for a suitable selection process. The name of this selection process is "Activation matching". The idea is to find activation maps in the standalone model which are "similar" to the activation maps in the CLIP image encoder. To evaluate which activations maps are similar, the activations of all convolution kernels of both models are normalized using a standard scaler and the previously computed statistics. (Compute mean and standard deviation of all activation maps of the dataset during inference of both models)
+Due to the imbalance in the number of available activation maps between the standalone model to be explained and the CLIP image encoder, there is a need for a suitable selection process. The name of this selection process is "Activation matching". The idea is to find activation maps in the standalone model which are "similar" to the activation maps in the CLIP image encoder. In order to find similar activations maps, the activations of all convolution kernels of both models are normalized using a standard scaler and the previously computed statistics. (Compute the mean and standard deviation of all activation maps of the dataset during the inference of both models)
 
 <!-- 
 - normalize standalone activations
@@ -122,7 +120,7 @@ Due to the imbalance in the number of available activation maps between the stan
 
 <!-- 
 - upscale activation maps using bilinear interpolation
-- upscale activation maps using bilinear interpolation -->
+-->
 Since the activation maps to be compared could be of different sizes, the smaller one of the two activation maps is upscaled using a bilinear transformation to match sizes.
 
 #TODO add image of bilinear transformation
@@ -165,8 +163,7 @@ The dimension of the scores matrix is $dim(\boldsymbol{s}_{ij}) = 22720 \times 3
     - first challenge -> Different  kernel sizes -> Upscale
     - second challenge -> Different scales -> apply inverse standard scaler
 -->
-#TODO maybe add an image
-Scanning the score matrix from the activation matching process for the top 3840 (Number of activations in CLIP image encoder to be swapped) out of 22720 scores (Available activation maps from the standalone model) results in a scheme which activation maps need to be swapped. Swapping two activation maps brings two challenges. First, the activation maps could have different sizes. Therefore, the activation map from the standalone model gets rescaled to the size of the original activation map from the CLIP image encoder using a bilinear transformation. The second challenge is to address the different scales of the activation maps. As explained in \*@sec:activation-matching, all activation maps have been scaled using a standard scaler, therefore they are mean free and have a variance equal to one. After an activation map has been swapped from the standalone model to the CLIP image encoder, the activation needs to be adjusted to the original CLIP scale using an inverse standard scaler and the original CLIP statistics.
+Scanning the score matrix from the activation matching process for the top 3840 (Number of activations in CLIP image encoder to be swapped) out of 22720 scores (Available activation maps from the standalone model) results in a scheme in which activation maps need to be swapped. Swapping two activation maps brings two challenges. First, the activation maps could have different sizes. Therefore, the activation map from the standalone model gets rescaled to the size of the original activation map from the CLIP image encoder using a bilinear transformation. The second challenge is to address the different scales of the activation maps. As explained in \*@sec:activation-matching, all activation maps have been scaled using a standard scaler. Therefore they are mean-free and have a variance of one. After an activation map has been swapped from the standalone model to the CLIP image encoder, the activation needs to be adjusted to the original CLIP scale using an inverse standard scaler and the original CLIP statistics.
 
 \noindent\fbox{
     \begin{minipage}{\linewidth}
@@ -194,7 +191,7 @@ After the network surgery, the caption-based explainable AI model consists of CL
 
 ![The caption-based explainable AI model consists of the original CLIP text encoder (Purple) and the post-network surgery image encoder (Red/Green striped). The highest score of the embedding similarities indicates which caption describes the image the best from the original standalone model (Red) point of view.](source/figures/network_surgery_result_unbiased.png "Post-network surgery caption-based explainable AI model."){#fig:network_surgery_result_unbiased width=100%}
 
-Feeding all images through the caption-based explainable AI model shown in \*@fig:network_surgery_result_unbiased and keeping track of the most significant similarity scores demonstrates if the model focuses either on the colors or on the shape of the digits to classify the images. Suppose there is a high number of most significant similarity scores for captions describing the colors, like "a photo of a red digit." or "a photo of a green digit.". In that case, the color feature is revealed as the most dominant feature to classify the images. The standalone model should not use this undesired color feature but focus on the shape of the digits instead. Therefore, one approach is to implement a pre-processor, which converts color images to grayscale images and retrain the standalone model with the hyperparameters shown in \*@tbl:unbiased_standalone_hyperparam_table to remove its color bias.
+Feeding all images through the caption-based explainable AI model shown in \*@fig:network_surgery_result_unbiased and keeping track of the most significant similarity scores demonstrates if the model focuses either on the colors or on the shape of the digits to classify the images. Suppose there is a high number of most significant similarity scores for captions describing the colors, like "a photo of a red digit." or "a photo of a green digit.". In that case, the color feature is revealed by the novel caption-based explainable AI model as the most dominant feature to classify the images. The standalone model should not use this undesired color feature but focus on the shape of the digits instead. Therefore, one approach is to implement a pre-processor, which converts color images to grayscale images and retrain the standalone model to address this issue and fix the standalone model with the hyperparameters shown in \*@tbl:unbiased_standalone_hyperparam_table to remove its color bias.
 
 |Hyperparameter     | Value
 |-                  | -           
@@ -208,7 +205,7 @@ The unbiased standalone model trained on the pre-processed grayscale images and 
 
 ![The caption-based explainable AI model detects color bias in this case. Using a color-to-grayscale pre-processor removes the color bias. The unbiased standalone ResNet-50 model (Yellow) consists of an actual image encoder and the fully-connected linear classifier. This model is retrained on the grayscale images. The training, validation and test curves indicate a low bias, low variance model regarding the dataset at hand during development.](source/figures/standalone_grayscale_with_performance.png "Architecture and training, validation and test curves of the unbiased standalone model."){#fig:standalone_grayscale_with_performance width=100%}
 
-Reviewing the biased standalone model may have predicted the correct class for the red five as shown in \*@fig:abstract_3_xai, but the caption-based explainable AI model reveals the color bias contained in the custom dataset, which leads to a biased standalone model. This knowledge can be used to implement a pre-processor to remove the informationless color bias from the dataset. Retraining the standalone model on the unbiased grayscale dataset leads to an unbiased standalone model, which can predict an image with a digit with the numeric value 5. Due to the detected and removed bias, the prediction relies on the digit's shape and not on its color.
+Reviewing the biased standalone model may have predicted the correct class for the red five as shown in \*@fig:abstract_3_xai, but the caption-based explainable AI model reveals the color bias contained in the custom dataset, which classifies the standalone model as a biased standalone model. This knowledge can be used to implement a pre-processor to remove the color bias from the dataset. Retraining the standalone model on the unbiased grayscale dataset leads to a robust, unbiased standalone model, which can predict an image with a digit with the numeric value 5. Due to the detected and removed bias, the prediction relies on the digit's shape, not color.
 
 ![The caption based explainable AI method reveals the color feature as a highly correlating bias in the dataset available during development. Removing the color feature using a pre-processor and retraining the model makes the standalone model more robust. The captions from CLIP's section of the new XAI method reveal that the feature relevant to the decision-making process shifts from the color to the shape feature.](source/figures/abstract/abstract_3_xai.png "Comparison between the standalone model with and without the use of XAI."){#fig:abstract_3_xai width=100%}
 
