@@ -115,6 +115,7 @@ Since the activation maps to be compared could be of different sizes, the smalle
 <!-- 
 - compute scores
 scores = torch.einsum('aixy,ajxy->ij', standalone_model_activation_scaled, clip_model_activation_scaled)/(batch_size*map_size**2)   -->
+These upscaled activation maps are used to find the most similar activation maps between the two models. This process is called "activation matching".
 
 \noindent\fbox{
     \begin{minipage}{\linewidth}
@@ -135,7 +136,7 @@ scores = torch.einsum('aixy,ajxy->ij', standalone_model_activation_scaled, clip_
     \end{minipage}
 }
 
-The range of numbers for the scores is $\boldsymbol{s}_{ij} = [0, 1]$ with $dim(\boldsymbol{s}_{ij}) = ???$. Each score describes how "similar" the scaled activation maps of the standalone model and the CLIP image encoder are compared to each other. To limit the computing power needed, the measurement of similarity is a trivial sum of products. Therefore, a large score results for two large factors. A small score results for at least one small factor in the product. Ambiguous are scores around 0.5, which could occur for a small factor and a large one, two medium sized factors or a large one and a small one.
+The valid range for the scores are $\boldsymbol{s}_{ij} = [0, 1]$ with $dim(\boldsymbol{s}_{ij}) = 22720 \times 3840$. The value $22720$ describes the number of convolutional kernels in the standalone model available for swapping. The value $3840$ describes the number of convolutional kernels in the CLIP image encoder available for swapping. Each score describes how "similar" the scaled activation maps of the standalone model and the CLIP image encoder are relative to each other. The similarity measurement is a trivial sum of products to limit the computing power needed. Therefore, a large score results from two large factors. A small score results from at least one small factor in the product. Ambiguous scores around 0.5 could occur for a small factor and a large one, two medium-sized factors or a large one and a small one.
 
 \noindent
 **Swapping layers**  
