@@ -91,16 +91,24 @@ Due to the imbalance in the number of available activation maps between the stan
     \begin{minipage}{\linewidth}
 
         \begin{equation}
-            \boldsymbol{S}_{kl} = \frac{\boldsymbol{A}_{kl} - \boldsymbol{\mu}_{kl}}{\boldsymbol{\sigma}_{kl}}
+            \boldsymbol{S^C}_{kl} = \frac{\boldsymbol{A^C}_{kl} - \boldsymbol{\mu^C}_{kl}}{\boldsymbol{\sigma^C}_{kl}}
+        \end{equation}
+
+        \begin{equation}
+            \boldsymbol{S^S}_{kl} = \frac{\boldsymbol{A^S}_{kl} - \boldsymbol{\mu^S}_{kl}}{\boldsymbol{\sigma^S}_{kl}}
         \end{equation}
 
         \begin{tabular}{l @{ $=$ } l}
-            $\boldsymbol{A}$ & Activation map\\
+            $\boldsymbol{A^C}$ & Activation map of CLIP\\
+            $\boldsymbol{A^S}$ & Activation map of the standalone image encoder\\
             $k$ & Unit\\
             $l$ & Layer\\
-            $\boldsymbol{S}$ & Scaled activation map\\
-            $\boldsymbol{\sigma}$ & Standard deviation\\
-            $\boldsymbol{\mu}$ & Mean\\
+            $\boldsymbol{S^C}$ & Scaled activation map of CLIP\\
+            $\boldsymbol{S^S}$ & Scaled activation map of the standalone image encoder\\
+            $\boldsymbol{\mu^C}$ & Mean of CLIP\\
+            $\boldsymbol{\mu^S}$ & Mean of the standalone image encoder\\
+            $\boldsymbol{\sigma^C}$ & Standard deviation of CLIP\\
+            $\boldsymbol{\sigma^S}$ & Standard deviation of the standalone image encoder\\
         \end{tabular}
     \end{minipage}
 }
@@ -125,22 +133,51 @@ These upscaled activation maps are used to find the most similar activation maps
         \end{equation}
 
         \begin{tabular}{l @{ $=$ } l}
-            $\boldsymbol{S^S}$ & Scaled standalone image encoder activations\\
-            $\boldsymbol{S^C}$ & Scaled CLIP image encoder activations\\
+            $\boldsymbol{h}$ & Height of convolution kernel\\
             $i$ & Kernel index standalone model\\
             $j$ & Kernel index CLIP image encoder\\
-            $\boldsymbol{w}$ & Width of convolution kernel\\
-            $\boldsymbol{h}$ & Height of convolution kernel\\
             $\boldsymbol{s}$ & Scores\\
+            $\boldsymbol{S^C}$ & Scaled CLIP image encoder activations\\
+            $\boldsymbol{S^S}$ & Scaled standalone image encoder activations\\
+            $\boldsymbol{w}$ & Width of convolution kernel\\
         \end{tabular}
     \end{minipage}
 }
 
-The valid range for the scores are $\boldsymbol{s}_{ij} = [0, 1]$ with $dim(\boldsymbol{s}_{ij}) = 22720 \times 3840$. The value $22720$ describes the number of convolutional kernels in the standalone model available for swapping. The value $3840$ describes the number of convolutional kernels in the CLIP image encoder available for swapping. Each score describes how "similar" the scaled activation maps of the standalone model and the CLIP image encoder are relative to each other. The similarity measurement is a trivial sum of products to limit the computing power needed. Therefore, a large score results from two large factors. A small score results from at least one small factor in the product. Ambiguous scores around 0.5 could occur for a small factor and a large one, two medium-sized factors or a large one and a small one.
+The dimension of the scores matrix is $dim(\boldsymbol{s}_{ij}) = 22720 \times 3840$ filled with the valid range of values $\boldsymbol{s}_{ij} = [0, 1]$. The value $22720$ describes the number of convolutional kernels in the standalone model available for swapping. The value $3840$ describes the number of convolutional kernels in the CLIP image encoder available for swapping. Each score describes how "similar" the scaled activation maps of the standalone model and the CLIP image encoder are relative to each other. The similarity measurement is a trivial sum of products to limit the computing power needed. Therefore, a large score results from two large factors. A small score results from at least one small factor in the product. Ambiguous scores around 0.5 could occur for a small factor and a large one, two medium-sized factors or a large one and a small one.
 
 \noindent
 **Swapping layers**  
-Work in progress..
+<!-- 
+- incorporate standalone into clip
+- switch 3840 of 22720 from standalone to clip
+- rescale activation maps accordingly
+- formula inverse std scaler
+- image layer swapping
+    - first challenge -> Different  kernel sizes -> Upscale
+    - second challenge -> Different scales -> apply inverse standard scaler
+-->
+#TODO maybe add an image
+#TODO add reference to previous section
+Scanning the score matrix from the activation matching process for the top 3840 (Number of activations in CLIP image encoder to be swapped) out of 22720 scores (Available activation maps from the standalone model) results in a scheme which activation maps need to be swapped. Swapping two activation maps brings two challenges. First, the activation maps could have different sizes. Therefore, the activation map from the standalone model gets rescaled to the size of the original activation map from the CLIP image encoder using a bilinear transformation. The second challenge is to address the different scales of the activation maps. As explained in the section "Compute statistics", all activation maps have been scaled using a standard scaler, therefore they are mean free and have a variance equal to one. After an activation map has been swapped from the standalone model to the CLIP image encoder, the activation needs to be adjusted to the original CLIP scale using an inverse standard scaler and the original CLIP statistics.
+
+\noindent\fbox{
+    \begin{minipage}{\linewidth}
+
+        \begin{equation}
+            \boldsymbol{A^{X}}_{kl} = \boldsymbol{S^S}_{kl} \cdot \boldsymbol{\sigma^C}_{kl} + \boldsymbol{\mu^C}_{kl}
+        \end{equation}
+
+        \begin{tabular}{l @{ $=$ } l}
+            $\boldsymbol{A^{X}}$ & Caption-based explainable AI activation maps\\
+            $k$ & Unit\\
+            $l$ & Layer\\
+            $\boldsymbol{S^S}$ & Scaled activation map of the standalone image encoder\\
+            $\boldsymbol{\sigma^C}$ & Standard deviation of CLIP\\
+            $\boldsymbol{\mu^C}$ & Mean of CLIP\\
+        \end{tabular}
+    \end{minipage}
+}
 
 ## Inference
 After the network surgery, the caption-based explainable AI model consists of CLIP's original text encoder (Purple) and the modified image encoder (Red/Green striped) as shown in \*@fig:network_surgery_result_unbiased. The hypothesis is that the network surgery process can merge decision-critical properties and preserve the CLIP embedding space at the same time. 
