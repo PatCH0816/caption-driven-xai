@@ -69,7 +69,7 @@ The mean $\boldsymbol{\mu}_{kl}$ and the standard deviation $\boldsymbol{\sigma}
         \begin{tabular}{l @{ $=$ } l}
             $\boldsymbol{A}$ & Activation maps\\
             $C$ & CLIP image encoder\\
-            $k$ & Unit\\
+            $k$ & Index of activation map\\
             $M$ & Width of activation map\\
             $N$ & Height of activation map\\
             $S$ & Standalone model\\
@@ -115,7 +115,7 @@ Due to the imbalance in the number of available activation maps between the stan
             $\boldsymbol{A}$ & Activation maps\\
             $C$ & CLIP image encoder\\
             $\boldsymbol{N}$ & Normalized activation maps\\
-            $k$ & Unit\\
+            $k$ & Index of activation map\\
             $S$ & Standalone model\\
             $\boldsymbol{\mu}$ & Mean\\
             $\boldsymbol{\sigma}$ & Standard deviation\\
@@ -146,8 +146,8 @@ These upscaled activation maps are used to find the most similar activation maps
             $B$ & Batchsize\\
             $C$ & CLIP model\\
             $H$ & Height of activation map\\
-            $i$ & Activation map index standalone model\\
-            $j$ & Activation map index CLIP image encoder\\
+            $i$ & Activation map index of standalone model\\
+            $j$ & Activation map index of CLIP image encoder\\
             $\boldsymbol{N}$ & Normalized activations\\
             $S$ & Standalone model\\
             $W$ & Width of activation map\\
@@ -183,8 +183,8 @@ Scanning the score matrix from the activation matching process for the top 3840 
         \begin{tabular}{l @{ $=$ } l}
             $\boldsymbol{A}$ & Activation maps\\
             $C$ & CLIP image encoder\\
-            $k$ & Matching standalone unit according to scores Z\\
-            $l$ & Matching CLIP unit according to scores Z\\
+            $k$ & Matching standalone activation map index according to scores $\boldsymbol{Z}$\\
+            $l$ & Matching CLIP activation map index according to scores $\boldsymbol{Z}$\\
             $\boldsymbol{N}$ & Normalized activation maps\\
             $S$ & Standalone model\\
             $X$ & Caption-based explainable AI model\\
