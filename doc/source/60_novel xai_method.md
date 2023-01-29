@@ -116,8 +116,26 @@ Since the activation maps to be compared could be of different sizes, the smalle
 - compute scores
 scores = torch.einsum('aixy,ajxy->ij', standalone_model_activation_scaled, clip_model_activation_scaled)/(batch_size*map_size**2)   -->
 
+\noindent\fbox{
+    \begin{minipage}{\linewidth}
 
+        \begin{equation}
+            \boldsymbol{s}_{ij} = \frac{\sum_{w} \sum_{h} \boldsymbol{S^S}_{iwh} \cdot \boldsymbol{S^C}_{jwh}}{w \cdot h}
+        \end{equation}
 
+        \begin{tabular}{l @{ $=$ } l}
+            $\boldsymbol{S^S}$ & Scaled standalone image encoder activations\\
+            $\boldsymbol{S^C}$ & Scaled CLIP image encoder activations\\
+            $i$ & Kernel index standalone model\\
+            $j$ & Kernel index CLIP image encoder\\
+            $\boldsymbol{w}$ & Width of convolution kernel\\
+            $\boldsymbol{h}$ & Height of convolution kernel\\
+            $\boldsymbol{s}$ & Scores\\
+        \end{tabular}
+    \end{minipage}
+}
+
+The range of numbers for the scores is $\boldsymbol{s}_{ij} = [0, 1]$ with $dim(\boldsymbol{s}_{ij}) = ???$. Each score describes how "similar" the scaled activation maps of the standalone model and the CLIP image encoder are compared to each other. To limit the computing power needed, the measurement of similarity is a trivial sum of products. Therefore, a large score results for two large factors. A small score results for at least one small factor in the product. Ambiguous are scores around 0.5, which could occur for a small factor and a large one, two medium sized factors or a large one and a small one.
 
 \noindent
 **Swapping layers**  
@@ -126,7 +144,7 @@ Work in progress..
 ## Inference
 After the network surgery, the caption-based explainable AI model consists of CLIP's original text encoder (Purple) and the modified image encoder (Red/Green striped) as shown in \*@fig:network_surgery_result_unbiased. The hypothesis is that the network surgery process can merge decision-critical properties and preserve the CLIP embedding space at the same time. 
 
-![The caption-based explainable AI consists of the original CLIP text encoder (Purple) and the post-network surgery image encoder (Red/Green striped). The highest score of the embedding similarities indicates which caption describes the image the best from the original standalone model (Red) point of view.](source/figures/network_surgery_result_unbiased.png "Post-network surgery caption-based explainable AI model."){#fig:network_surgery_result_unbiased width=100%}
+![The caption-based explainable AI model consists of the original CLIP text encoder (Purple) and the post-network surgery image encoder (Red/Green striped). The highest score of the embedding similarities indicates which caption describes the image the best from the original standalone model (Red) point of view.](source/figures/network_surgery_result_unbiased.png "Post-network surgery caption-based explainable AI model."){#fig:network_surgery_result_unbiased width=100%}
 
 Feeding all images through the caption-based explainable AI model shown in \*@fig:network_surgery_result_unbiased and keeping track of the most significant similarity scores demonstrates if the model focuses either on the colors or on the shape of the digits to classify the images. Suppose there is a high number of most significant similarity scores for captions describing the colors, like "a photo of a red digit." or "a photo of a green digit.". In that case, the color feature is revealed as the most dominant feature to classify the images. The standalone model should not use this undesired color feature but focus on the shape of the digits instead. Therefore, one approach is to implement a pre-processor, which converts color images to grayscale images and retrain the standalone model with the hyperparameters shown in \*@tbl:unbiased_standalone_hyperparam_table to remove its color bias.
 

@@ -128,3 +128,4 @@ Approach/Technology: (10/12 sentences)
 [] document conclusion
 [] write abstract for documentation (limit to 1 page) and online
 [] convoluation/convolutional kernel/unit or feature map or activation map
+[] "Smilarity" is now defined as sum of large products. 6*6 + 3*3 is the same as 4*4 + 5*5, but they are definitely not similar.
