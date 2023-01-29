@@ -33,36 +33,49 @@ The details about these three main steps follow in the next sections. To keep tr
 **Compute statistics**  
 Feeding the training dataset with the images $\boldsymbol{x}$, as introduced in \*@sec:dataset, into the model $h$ and retaining the activations $\boldsymbol{A}$ of all kernels/units $k$ allows us to compute the statistics of all activations. Assuming the activations of all units $k$ are gaussians, then the mean and standard deviation are suitable measures to describe these distributions.
 
-As explained in \*@sec:standalone-model, there are 49 convolutional layers $l$, one fully connected layer and two pooling layers in the ResNet-50 standalone model. The file "./3_miscellaneous/model_architectures/standalone_resnet50.txt" describes the exact architecture of the standalone model. Each convolutional layer $l$ has a specific number of convolutional kernels/units $k$. The sum of all kernels/units $k$ over all layers $l$ in the standalone model is 22'720.
+As explained in \*@sec:standalone-model, there are 49 convolutional layers, one fully connected layer and two pooling layers in the ResNet-50 standalone model. The file "./3_miscellaneous/model_architectures/standalone_resnet50.txt" describes the exact architecture of the standalone model. Each convolutional layer has a specific number of convolutional kernels/units. The number of kernels/units $k$ available for swapping in the standalone model is 22'720.
 
-As explained in \*@sec:contrastive-language-image-pre-training, CLIP's image encoder is a modified ResNet model. There are two additional convolutional layers in the first stage of the model. Therefore, there are 51 convolutional layers $l$, one fully connected layer and two pooling layers in CLIP's image encoder model. The file "./3_miscellaneous/model_architectures/clip_resnet.txt" describes the exact architecture of the CLIP model. Retaining the activations from the last layer of each of the five stages of the CLIP image encoder only allows to limit of the computational power needed to an absolute minimum. Each layer $l$ has a specific number of kernels/units $k$. The sum of all kernels $k$ over these last layers $l$ in all five stages in the CLIP image encoder is 3'840.
+As explained in \*@sec:contrastive-language-image-pre-training, CLIP's image encoder is a modified ResNet model. There are two additional convolutional layers in the first stage of the model. Therefore, there are 51 convolutional layers, one fully connected layer and two pooling layers in CLIP's image encoder model. The file "./3_miscellaneous/model_architectures/clip_resnet.txt" describes the exact architecture of the CLIP model. Retaining the activations from the last layer of each of the five stages of the CLIP image encoder only allows to limit of the computational power needed to an absolute minimum. Each layer has a specific number of kernels/units. The number of all kernels $k$ available for swapping in the last layer of the four last out of five stages in the CLIP image encoder is 3'840.
 
-The mean $\boldsymbol{\mu}_{kl}$ and the standard deviation $\boldsymbol{\sigma}_{kl}$ for each kernel/unit $k$ in the mentioned layers $l$ are theoretically computed as follows:
+The mean $\boldsymbol{\mu}_{kl}$ and the standard deviation $\boldsymbol{\sigma}_{kl}$ for each kernel/unit $k$ in the mentioned layers are computed as follows:
 
 \noindent\fbox{
     \begin{minipage}{\linewidth}
+    
         \begin{equation}
-            h(\boldsymbol{x}) \Rightarrow \boldsymbol{A}_{kl}
+            C(\boldsymbol{x}) \Rightarrow \boldsymbol{A}^C_{k}
         \end{equation}
 
         \begin{equation}
-            \boldsymbol{\mu}_{kl} = \frac{1}{N \cdot M} \sum_{i=1}^{N} \sum_{j=1}^{M} \boldsymbol{A}_{klij}
+            S(\boldsymbol{x}) \Rightarrow \boldsymbol{A}^S_{k}
         \end{equation}
 
         \begin{equation}
-            var(\boldsymbol{A}_{klij}) = \boldsymbol{\sigma}_{kl}^2 = \frac{1}{N \cdot M} \sum_{i=1}^{N} \sum_{j=1}^{M} (\boldsymbol{A}_{klij} - \boldsymbol{\mu}_{kl})^2
+            \boldsymbol{\mu}^C_{k} = \frac{1}{N^C_{k} \cdot M^C_{k}} \sum_{i=1}^{N^C_{k}} \sum_{j=1}^{M^C_{k}} \boldsymbol{A}^C_{kij}
+        \end{equation}
+
+        \begin{equation}
+            \boldsymbol{\mu}^S_{k} = \frac{1}{N^S_{k} \cdot M^S_{k}} \sum_{i=1}^{N^S_{k}} \sum_{j=1}^{M^S_{k}} \boldsymbol{A}^S_{kij}
+        \end{equation}
+
+        \begin{equation}
+            \boldsymbol{\sigma}^C_{k} = \sqrt{\frac{1}{N^C_{k} \cdot M^C_{k}} \sum_{i=1}^{N^C_{k}} \sum_{j=1}^{M^C_{k}} (\boldsymbol{A}^C_{kij} - \boldsymbol{\mu}^C_{k})^2}
+        \end{equation}
+
+        \begin{equation}
+            \boldsymbol{\sigma}^S_{k} = \sqrt{\frac{1}{N^S_{k} \cdot M^S_{k}} \sum_{i=1}^{N^S_{k}} \sum_{j=1}^{M^S_{k}} (\boldsymbol{A}^S_{kij} - \boldsymbol{\mu}^S_{k})^2}
         \end{equation}
 
         \begin{tabular}{l @{ $=$ } l}
-            $\boldsymbol{A}$ & Activation map\\
-            $h$ & Model\\
+            $\boldsymbol{A}$ & Activation maps\\
+            $C$ & CLIP image encoder\\
             $k$ & Unit\\
-            $l$ & Layer\\
-            $M$ & Width of kernel/unit k\\
-            $N$ & Height of kernel/unit k\\
-            $\boldsymbol{\sigma}$ & Standard deviation\\
+            $M$ & Width of activation map\\
+            $N$ & Height of activation map\\
+            $S$ & Standalone model\\
             $\boldsymbol{\mu}$ & Mean\\
-            $\boldsymbol{x}$ & Images
+            $\boldsymbol{\sigma}$ & Standard deviation\\
+            $\boldsymbol{x}$ & Image dataset
         \end{tabular}
     \end{minipage}
 }
@@ -81,7 +94,7 @@ To address this delicate balancing act, all activations of the standalone model 
 
 #TODO add image about which activation of which model are changed (highlight in green)
 
-Due to the imbalance in the number of available activation maps between the standalone model to be explained and the CLIP image encoder, there is a need for a suitable selection process. The name of this selection process is "Activation matching". The idea is to find activation maps in the standalone model which are "similar" to the activation maps in the CLIP image encoder. To evaluate which activations maps are similar, the activations of all convolution kernels of both models are normalized using a standard scaler and the previously computed statistics. (Compute mean and standard deviation of all activation maps during inference of both models)
+Due to the imbalance in the number of available activation maps between the standalone model to be explained and the CLIP image encoder, there is a need for a suitable selection process. The name of this selection process is "Activation matching". The idea is to find activation maps in the standalone model which are "similar" to the activation maps in the CLIP image encoder. To evaluate which activations maps are similar, the activations of all convolution kernels of both models are normalized using a standard scaler and the previously computed statistics. (Compute mean and standard deviation of all activation maps of the dataset during inference of both models)
 
 <!-- 
 - normalize standalone activations
@@ -91,24 +104,21 @@ Due to the imbalance in the number of available activation maps between the stan
     \begin{minipage}{\linewidth}
 
         \begin{equation}
-            \boldsymbol{S^C}_{kl} = \frac{\boldsymbol{A^C}_{kl} - \boldsymbol{\mu^C}_{kl}}{\boldsymbol{\sigma^C}_{kl}}
+            \boldsymbol{N}^C_{k} = \frac{\boldsymbol{A}^C_{k} - \boldsymbol{\mu}^C_{k}}{\boldsymbol{\sigma}^C_{k}}
         \end{equation}
 
         \begin{equation}
-            \boldsymbol{S^S}_{kl} = \frac{\boldsymbol{A^S}_{kl} - \boldsymbol{\mu^S}_{kl}}{\boldsymbol{\sigma^S}_{kl}}
+            \boldsymbol{N}^S_{k} = \frac{\boldsymbol{A}^S_{k} - \boldsymbol{\mu}^S_{k}}{\boldsymbol{\sigma}^S_{k}}
         \end{equation}
 
         \begin{tabular}{l @{ $=$ } l}
-            $\boldsymbol{A^C}$ & Activation map of CLIP\\
-            $\boldsymbol{A^S}$ & Activation map of the standalone image encoder\\
+            $\boldsymbol{A}$ & Activation maps\\
+            $C$ & CLIP image encoder\\
+            $\boldsymbol{N}$ & Normalized activation maps\\
             $k$ & Unit\\
-            $l$ & Layer\\
-            $\boldsymbol{S^C}$ & Scaled activation map of CLIP\\
-            $\boldsymbol{S^S}$ & Scaled activation map of the standalone image encoder\\
-            $\boldsymbol{\mu^C}$ & Mean of CLIP\\
-            $\boldsymbol{\mu^S}$ & Mean of the standalone image encoder\\
-            $\boldsymbol{\sigma^C}$ & Standard deviation of CLIP\\
-            $\boldsymbol{\sigma^S}$ & Standard deviation of the standalone image encoder\\
+            $S$ & Standalone model\\
+            $\boldsymbol{\mu}$ & Mean\\
+            $\boldsymbol{\sigma}$ & Standard deviation\\
         \end{tabular}
     \end{minipage}
 }
@@ -129,17 +139,19 @@ These upscaled activation maps are used to find the most similar activation maps
     \begin{minipage}{\linewidth}
 
         \begin{equation}
-            \boldsymbol{s}_{ij} = \frac{\sum_{w} \sum_{h} \boldsymbol{S^S}_{iwh} \cdot \boldsymbol{S^C}_{jwh}}{w \cdot h}
+            \boldsymbol{Z}_{ij} = \frac{\sum_{b=1}^{B} \sum_{w=1}^{W} \sum_{h=1}^{H} \boldsymbol{N}^S_{biwh} \cdot \boldsymbol{N}^C_{bjwh}}{B \cdot W \cdot H}
         \end{equation}
 
         \begin{tabular}{l @{ $=$ } l}
-            $\boldsymbol{h}$ & Height of convolution kernel\\
-            $i$ & Kernel index standalone model\\
-            $j$ & Kernel index CLIP image encoder\\
-            $\boldsymbol{s}$ & Scores\\
-            $\boldsymbol{S^C}$ & Scaled CLIP image encoder activations\\
-            $\boldsymbol{S^S}$ & Scaled standalone image encoder activations\\
-            $\boldsymbol{w}$ & Width of convolution kernel\\
+            $B$ & Batchsize\\
+            $C$ & CLIP model\\
+            $H$ & Height of activation map\\
+            $i$ & Activation map index standalone model\\
+            $j$ & Activation map index CLIP image encoder\\
+            $\boldsymbol{N}$ & Normalized activations\\
+            $S$ & Standalone model\\
+            $W$ & Width of activation map\\
+            $\boldsymbol{Z}$ & Scores\\
         \end{tabular}
     \end{minipage}
 }
@@ -165,16 +177,19 @@ Scanning the score matrix from the activation matching process for the top 3840 
     \begin{minipage}{\linewidth}
 
         \begin{equation}
-            \boldsymbol{A^{X}}_{kl} = \boldsymbol{S^S}_{kl} \cdot \boldsymbol{\sigma^C}_{kl} + \boldsymbol{\mu^C}_{kl}
+            \boldsymbol{A}^X_{l} = \boldsymbol{N}^S_{k} \cdot \boldsymbol{\sigma}^C_{l} + \boldsymbol{\mu}^C_{l}
         \end{equation}
 
         \begin{tabular}{l @{ $=$ } l}
-            $\boldsymbol{A^{X}}$ & Caption-based explainable AI activation maps\\
-            $k$ & Unit\\
-            $l$ & Layer\\
-            $\boldsymbol{S^S}$ & Scaled activation map of the standalone image encoder\\
-            $\boldsymbol{\sigma^C}$ & Standard deviation of CLIP\\
-            $\boldsymbol{\mu^C}$ & Mean of CLIP\\
+            $\boldsymbol{A}$ & Activation maps\\
+            $C$ & CLIP image encoder\\
+            $k$ & Matching standalone unit according to scores Z\\
+            $l$ & Matching CLIP unit according to scores Z\\
+            $\boldsymbol{N}$ & Normalized activation maps\\
+            $S$ & Standalone model\\
+            $X$ & Caption-based explainable AI model\\
+            $\boldsymbol{\mu}$ & Mean\\
+            $\boldsymbol{\sigma}$ & Standard deviation\\
         \end{tabular}
     \end{minipage}
 }
