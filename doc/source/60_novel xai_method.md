@@ -1,4 +1,4 @@
-# Caption based explainable AI
+# Caption-based explainable AI
 Machine learning models learn information from data without relying on pre-determined equations as a model. This property makes it challenging to explain why these models work the way they do. This work presents a new explainable artificial intelligence (XAI) method to support better explanations. The explanation's findings help to improve the machine learning model's robustness. This chapter introduces the initial situation, the network surgery process and the overall objective of this new XAI method.
 
 ## Initial situation
@@ -18,7 +18,7 @@ The architecture of the caption-based explainable AI consists of the standalone 
 - a photo of a red digit
 - a photo of a green digit
 
-![The architecture of the caption based explainable AI method uses the core architecture of CLIP. Using CLIP's text encoder (Purple) and image encoder (Green), the resulting embedding similarities reveal what the CLIP image encoder (Green) is focusing on using captions. The highlighted similarity scores (Blue) are the largest ones. The network surgery process allows integration of any standalone model into CLIP, so CLIP can explain what the image encoder (Red) from a standalone model focuses on.](source/figures/abstract/abstract_2_clip.png "Overview of the caption based explainable AI method."){#fig:abstract_2_clip width=100%}
+![The architecture of the caption-based explainable AI method uses the core architecture of CLIP. Using CLIP's text encoder (Purple) and image encoder (Green), the resulting embedding similarities reveal what the CLIP image encoder (Green) is focusing on using captions. The highlighted similarity scores (Blue) are the largest ones. The network surgery process allows integration of any standalone model into CLIP, so CLIP can explain what the image encoder (Red) from a standalone model focuses on.](source/figures/abstract/abstract_2_clip.png "Overview of the caption-based explainable AI method."){#fig:abstract_2_clip width=100%}
 
 The network surgery process consists of the following three main steps:
 
@@ -32,7 +32,7 @@ The details about these three main steps follow in the next sections. To keep tr
 ## Compute statistics 
 Incorporating the properties of the standalone model to be explained into the CLIP image encoder is a delicate balancing act. On the one hand, we want to have all the standalone model's properties be explained and integrated into the CLIP image encoder to obtain the most significant explanation. On the other hand, the learned concept space of the CLIP embedding similarities needs to be maintained.
 
-![A symbolic representation of the balancing problem of choosing the as many layers as possible to switch from the standalone model without throwing off the CLIP's space of concepts.](source/figures/balancing_problem.png "Symbolic representation of the balancing problem."){#fig:activation_matching width=100%}
+![This figure is a symbolic representation of the balancing problem of choosing as many layers as possible to switch from the standalone model to the CLIP image encoder without throwing off CLIP's concept space.](source/figures/balancing_problem.png "Symbolic representation of the balancing problem."){#fig:activation_matching width=100%}
 
 To address this delicate balancing act, all activations of the standalone model are available for the selection process to be incorporated into the CLIP image encoder to transfer as much information as possible. The first out of the five ResNet stages remains untouched to maintain the CLIP concept space as shown in \*@fig:activation_matching. The motivation is that the first stage captures very similar low-level concepts between the standalone and the CLIP model. Switching them could introduce much noise but not much of a helpful signal. Another motivation is that the CLIP captions typically describe high-level concepts rather than low-level concepts. To maintain the concept space of the remaining four out of five ResNet stages, the last convolution layer of each remaining stage is available for the selection process to be switched only.
 
@@ -123,7 +123,7 @@ Due to the imbalance in the number of available activation maps between the stan
 -->
 Since the activation maps to be compared could be of different sizes, the smaller one of the two activation maps is upscaled using a bilinear transformation to match sizes as shown in \*@fig:bilinear_transformation.
 
-![TThere are two activation maps to be compared on the left side of the figure. One is a 128x128 and the other is a 32x32 activation map. Both activation maps get upscaled to the larger map size using the bilinear transformation. (128x128 in this specific case)](source/figures/bilinear_transformation.png "Bilinear transformation of activation maps."){#fig:bilinear_transformation width=100%}
+![There are two activation maps to be compared on the left side of the figure. One is a 128x128 and the other is a 32x32 activation map. Both activation maps get upscaled to the larger map size using the bilinear transformation. (128x128 in this specific case)](source/figures/bilinear_transformation.png "Bilinear transformation of activation maps."){#fig:bilinear_transformation width=100%}
 
 <!-- 
 - compute scores
@@ -207,7 +207,7 @@ The unbiased standalone model trained on the pre-processed grayscale images and 
 
 Reviewing the biased standalone model may have predicted the correct class for the red five as shown in \*@fig:abstract_3_xai, but the caption-based explainable AI model reveals the color bias contained in the custom dataset, which classifies the standalone model as a biased standalone model. This knowledge can be used to implement a pre-processor to remove the color bias from the dataset. Retraining the standalone model on the unbiased grayscale dataset leads to a robust, unbiased standalone model, which can predict an image with a digit with the numeric value 5. Due to the detected and removed bias, the prediction relies on the digit's shape, not color.
 
-![The caption based explainable AI method reveals the color feature as a highly correlating bias in the dataset available during development. Removing the color feature using a pre-processor and retraining the model makes the standalone model more robust. The captions from CLIP's section of the new XAI method reveal that the feature relevant to the decision-making process shifts from the color to the shape feature.](source/figures/abstract/abstract_3_xai.png "Comparison between the standalone model with and without the use of XAI."){#fig:abstract_3_xai width=100%}
+![The caption-based explainable AI method reveals the color feature as a highly correlating bias in the dataset available during development. Removing the color feature using a pre-processor and retraining the model makes the standalone model more robust. The captions from CLIP's section of the new XAI method reveal that the feature relevant to the decision-making process shifts from the color to the shape feature.](source/figures/abstract/abstract_3_xai.png "Comparison between the standalone model with and without the use of XAI."){#fig:abstract_3_xai width=100%}
 
 ## Theory summary
 The core of the idea is that the caption-based explainable AI should be able to use its network surgery process to merge a standalone model to be explained into CLIP. Using suitable captions, the similarity between the text concepts and image concepts will result in high similarity scores. If these high scores primarily arise for the color descriptions, then the standalone model is color biased. If these high scores primarily arise for the shape descriptions, then the standalone model is focused on the shapes to determine the class of an image.

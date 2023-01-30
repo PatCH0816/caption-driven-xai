@@ -109,8 +109,8 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] List of figures is missing
 [x] document network surgery
 [x] check for correct usage: convolution kernel/convolutional layer/convolutional neural network/activation map
-[] Why are cosine similarities always larger than 0? Because of the log from the loss function used for training?
-[] document results
-[] document conclusion
+[] write results
+[] write conclusion
 [] write abstract for documentation (limit to 1 page) and online
+[] Why are cosine similarities always larger than 0? Because of the log from the loss function used for training?
 -->

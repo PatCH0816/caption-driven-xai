@@ -30,7 +30,8 @@
 \textbf{RN50}       \> \textbf{R}esidual Neural \textbf{N}etwork with \textbf{50} layers \\  
 \textbf{SOTA}       \> \textbf{S}tate \textbf{O}f \textbf{T}he \textbf{A}rt \\
 \textbf{SVM}        \> \textbf{S}upport \textbf{V}ector \textbf{M}achine \\    
-\textbf{VGGNet}     \> \textbf{V}isual \textbf{G}eometry \textbf{G}roup Neural \textbf{Net}work \\  
+\textbf{VGGNet}     \> \textbf{V}isual \textbf{G}eometry \textbf{G}roup Neural \textbf{Net}work \\
+\textbf{VQGAN}      \> \textbf{V}ector \textbf{Q}uantized \textbf{G}enerative \textbf{A}dversarial \textbf{N}etwork \\  
 \textbf{XAI}        \> E\textbf{x}plainable \textbf{A}rtificial \textbf{I}ntelligence \\  
 \end{tabbing}
 
