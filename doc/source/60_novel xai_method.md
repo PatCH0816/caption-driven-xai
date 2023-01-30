@@ -81,9 +81,9 @@ Feeding the training dataset with the images $\boldsymbol{x}$, as introduced in 
     \end{minipage}
 }
 
-As explained in \*@sec:standalone-model, there are 49 convolutional layers, one fully connected layer and two pooling layers in the ResNet-50 standalone model. The file "./3_miscellaneous/model_architectures/standalone_resnet50.txt" describes the exact architecture of the standalone model. Each convolutional layer has a specific number of kernels. Therefore, the number of activation maps available for swapping from the standalone model is 22720.
+As explained in \*@sec:standalone-model, there are 49 convolutional layers, one fully connected layer and two pooling layers in the ResNet-50 standalone model. The file "./3_miscellaneous/model_architectures/standalone_resnet50.txt" describes the exact architecture of the standalone model. Each convolutional layer has a specific number of kernels. In total, the number of activation maps available for swapping from the standalone model is 22720.
 
-As explained in \*@sec:contrastive-language-image-pre-training, CLIP's image encoder is a modified ResNet model. There are two additional convolutional layers in the first stage of the model. Therefore, there are 51 convolutional layers, one fully connected layer and two pooling layers in CLIP's image encoder model. The file "./3_miscellaneous/model_architectures/clip_resnet.txt" describes the exact architecture of the CLIP model. Each convolutional layer has a specific number of kernels. The number of all $k$ activation maps available for swapping in the CLIP image encoder is 3840.
+As explained in \*@sec:contrastive-language-image-pre-training, CLIP's image encoder is a modified ResNet model. There are two additional convolutional layers in the first stage of the model. In total, there are 51 convolutional layers, one fully connected layer and two pooling layers in CLIP's image encoder model. The file "./3_miscellaneous/model_architectures/clip_resnet.txt" describes the exact architecture of the CLIP model. Each convolutional layer has a specific number of kernels. The number of all $k$ activation maps available for swapping in the CLIP image encoder is 3840.
 
 ## Activation matching
 <!-- 
@@ -151,7 +151,7 @@ These upscaled activation maps are used to find the most similar activation maps
     \end{minipage}
 }
 
-The dimension of the scores matrix is $dim(\boldsymbol{s}_{ij}) = 22720 \times 3840$ filled with the valid range of values $\boldsymbol{s}_{ij} = [0, 1]$. The value $22720$ describes the number of convolutional kernels in the standalone model available for swapping. The value $3840$ describes the number of convolutional kernels in the CLIP image encoder available for swapping. Each score describes how "similar" the scaled activation maps of the standalone model and the CLIP image encoder are relative to each other. The similarity measurement is a trivial sum of products to limit the computing power needed. Therefore, a large score results from two large factors. A small score results from at least one small factor in the product. Ambiguous scores around 0.5 could occur for a small factor and a large one, two medium-sized factors or a large one and a small one.
+The dimension of the scores matrix is $dim(\boldsymbol{s}_{ij}) = 22720 \times 3840$ filled with the valid range of values $\boldsymbol{s}_{ij} = [0, 1]$. The value $22720$ describes the number of convolution kernels in the standalone model available for swapping. The value $3840$ describes the number of convolution kernels in the CLIP image encoder available for swapping. Each score describes how "similar" the scaled activation maps of the standalone model and the CLIP image encoder are relative to each other. The similarity measurement is a trivial sum of products to limit the computing power needed. Therefore, a large score results from two large factors. A small score results from at least one small factor in the product. Ambiguous scores around 0.5 could occur for a small factor and a large one, two medium-sized factors or a large one and a small one.
 
 ## Swapping layers
 <!-- 

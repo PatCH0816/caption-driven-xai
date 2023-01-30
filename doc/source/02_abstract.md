@@ -79,7 +79,7 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] add attended courses and seminars to closing words
 [x] chapter results: add unbiased/gray learning curves figures and add accuracy on real-world dataset (~100%)
 [x] retrain models with random color assignments
-[] coding
+[x] coding
     - preparation
         [x] setup dataset
         [x] prepare standalone model
@@ -101,34 +101,16 @@ The resulting explanation provides an opportunity to improve the model on possib
     [x] Add another representation with cosine similarities and probabilities in layer swapping plots
     [x] Transfer learning: Unfreeze all layers and retrain models
     [x] Extend ResNet explanation
-    - Bugs:
-        [] dimensionality problems
-            - swapping works with 6 standalone and 5 clip layers (with table.T)
-            - swapping fails with 5 standalone and 6 clip layers (with table.T)
-                -> index out of bounds
-                -> swap_layers(image, table.T...
-                -> ... = resize_and_stack(i, t...
-                -> clip_act_name = find_act(idx, all_clip_layers)
-                -> RuntimeError: CUDA error: device-side assert triggered
-        [] dimensionality problems
-            - swapping works with 6 standalone and 5 clip layers (with table)
-            - swapping fails with 5 standalone and 6 clip layers (with table)
-                -> index out of bounds
-                -> swap_layers(image, table.T...
-                -> ... = resize_and_stack(i, t...
-                -> clip_act_name = find_act(idx, all_clip_layers)
-                -> RuntimeError: CUDA error: device-side assert triggered
 [x] references: format for double quotes like ""asdf"", etc.
 [x] references: publisher is not displayed! Replace with journal if applicable!
 [x] document hyperparameters for standalone model training
 [x] document size of dataset splits
-[] Why are cosine similarities always larger than 0? Because of the
-   log from the loss function used for training?
+[x] Table of contents is missing
+[x] List of figures is missing
 [x] document network surgery
+[x] check for correct usage: convolution kernel/convolutional layer/convolutional neural network/activation map
+[] Why are cosine similarities always larger than 0? Because of the log from the loss function used for training?
 [] document results
 [] document conclusion
 [] write abstract for documentation (limit to 1 page) and online
-[] convoluation/convolutional kernel/unit or feature map or activation map
-[x] Table of contents is missing
-[x] List of figures is missing
 -->

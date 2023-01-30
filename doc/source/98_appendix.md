@@ -111,7 +111,7 @@ Table: Overview of chronological operations from the preprocessor from CLIP's Re
 As documented in \*@sec:configurations-of-clip, many different configurations for CLIP are available. In this work, a ResNet-50 model is used as the image encoder due to its proven performance and widespread adoption. OpenAi incorporates several modifications to the "base" ResNet-50 model as described below:
 
 - Instead of either increasing the width of the model [@mahajan_limits_weakly_supervised_pretraining] or the depth [@he_deep_residual_learning] only, use the approach of increasing the width, depth and resolution of the model simultaneously. [@tan_efficientnet]
-- ResNet-50-D improves ResNet-B by adding a 2x2 average pooling layer with a stride of 2 before the 1x1 convolutions. This helps not to ignore $\frac{3}{4}$ of feature maps in 1x1 convolutions. [@he_bag_of_tricks]
+- ResNet-50-D improves ResNet-B by adding a 2x2 average pooling layer with a stride of 2 before the 1x1 convolutions. This helps not to ignore $\frac{3}{4}$ of activation maps in 1x1 convolutions. [@he_bag_of_tricks]
 - Add antialiased rect-2 blur pooling to improve the model shift-invariant characteristic. [@zhang_cnn_shift_invariant]
 - Use attention pooling instead of the global average pooling layer. The attention pooling is implemented as a single layer of "transformer-style" multi-head QKV attention where the query is conditioned on the global average-pooled representation of the image. [@clip_paper]
 
