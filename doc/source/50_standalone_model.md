@@ -31,6 +31,9 @@ These innovative residual blocks solved the vanishing gradient problem and enabl
 
 \*@fig:resnet50_configuration denotes the  exact configuration of the ResNet-50 with ~23 million trainable parameters. The number next to the brackets denotes the number of stacked building blocks. Downsampling is not just done by pooling layers but mainly by conv3_1, conv4_1 and conv5_1 with a stride of 2.
 
+<!-- 
+Best resnet explanation:
+https://cv-tricks.com/keras/understand-implement-resnets/#:~:text=Architecture%20of%20ResNet%2D50&text=For%20the%20sake%20of%20explanation,%C3%973%20kernel%20sizes%20respectively. -->
 ![Model architectures of ResNet-18, ResNet-34, ResNet-50, ResNet-101 and ResNet-152. [[@he_deep_residual_learning]](#references)](source/figures/resnet50_configuration.png "."){#fig:resnet50_configuration width=100%}
 
 ## Performance
