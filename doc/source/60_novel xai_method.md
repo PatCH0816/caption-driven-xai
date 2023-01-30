@@ -121,9 +121,9 @@ Due to the imbalance in the number of available activation maps between the stan
 <!-- 
 - upscale activation maps using bilinear interpolation
 -->
-Since the activation maps to be compared could be of different sizes, the smaller one of the two activation maps is upscaled using a bilinear transformation to match sizes.
+Since the activation maps to be compared could be of different sizes, the smaller one of the two activation maps is upscaled using a bilinear transformation to match sizes as shown in \*@fig:bilinear_transformation.
 
-#TODO add image of bilinear transformation
+![TThere are two activation maps to be compared on the left side of the figure. One is a 128x128 and the other is a 32x32 activation map. Both activation maps get upscaled to the larger map size using the bilinear transformation. (128x128 in this specific case)](source/figures/bilinear_transformation.png "Bilinear transformation of activation maps."){#fig:bilinear_transformation width=100%}
 
 <!-- 
 - compute scores
