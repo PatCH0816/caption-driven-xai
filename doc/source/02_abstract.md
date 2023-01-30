@@ -124,12 +124,11 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] document size of dataset splits
 [] Why are cosine similarities always larger than 0? Because of the
    log from the loss function used for training?
-[] document network surgery
+[x] document network surgery
 [] document results
 [] document conclusion
 [] write abstract for documentation (limit to 1 page) and online
 [] convoluation/convolutional kernel/unit or feature map or activation map
-[] "Smilarity" is now defined as sum of large products. 6*6 + 3*3 is the same as 4*4 + 5*5, but they are definitely not similar.
-[] Table of contents is missing
-[] List of figures is missing
+[x] Table of contents is missing
+[x] List of figures is missing
 -->

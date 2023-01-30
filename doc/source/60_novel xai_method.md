@@ -32,7 +32,7 @@ The details about these three main steps follow in the next sections. To keep tr
 ## Compute statistics 
 Incorporating the properties of the standalone model to be explained into the CLIP image encoder is a delicate balancing act. On the one hand, we want to have all the standalone model's properties be explained and integrated into the CLIP image encoder to obtain the most significant explanation. On the other hand, the learned concept space of the CLIP embedding similarities needs to be maintained.
 
-#TODO add image about balancing problem
+![A symbolic representation of the balancing problem of choosing the as many layers as possible to switch from the standalone model without throwing off the CLIP's space of concepts.](source/figures/balancing_problem.png "Symbolic representation of the balancing problem."){#fig:activation_matching width=100%}
 
 To address this delicate balancing act, all activations of the standalone model are available for the selection process to be incorporated into the CLIP image encoder to transfer as much information as possible. The first out of the five ResNet stages remains untouched to maintain the CLIP concept space as shown in \*@fig:activation_matching. The motivation is that the first stage captures very similar low-level concepts between the standalone and the CLIP model. Switching them could introduce much noise but not much of a helpful signal. Another motivation is that the CLIP captions typically describe high-level concepts rather than low-level concepts. To maintain the concept space of the remaining four out of five ResNet stages, the last convolution layer of each remaining stage is available for the selection process to be switched only.
 
