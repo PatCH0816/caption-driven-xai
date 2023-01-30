@@ -113,4 +113,10 @@ The resulting explanation provides an opportunity to improve the model on possib
 [] write conclusion
 [] write abstract for documentation (limit to 1 page) and online
 [] Why are cosine similarities always larger than 0? Because of the log from the loss function used for training?
+[] Preprocessor size of images in chapter dataset
+[] Mention configuration for images in chapter "results"
+    USE_BIASED_STANDALONE_MODEL = True
+    DATASET_SPLIT = 'test'
+    DATASET_COLOR = True
+    DATASET_BATCH_SIZE = 25
 -->
