@@ -126,3 +126,54 @@ As documented in \*@sec:configurations-of-clip, many different configurations fo
 - The start of a text sequence is bracketed with [SOS] and ends with [EOS]. The activations of the highest layer of the transformer at the [EOS] token are treated as the feature representation of the text, which is layer normalized and then linearly projected into the multi-modal embedding space.
 - To preserve the ability to add language modeling or initialize with a pre-trained language model, masked self-attention is used in the text encoder.
 - CLIP's performance is less sensitive to the capacity of the text encoder. Therefore, only the width of the model is scaled to match the width of the ResNet image encoder proportionally. [@clip_paper]
+
+## Layer swapping results
+<!-- 
+We don't care about how CLIP worked before swapping, because this is arbitrarily. The "after swapping" scores are also dependent on the inital CLIP performance. Only the relative differences describe, how the accuracies of the captions changed because of the layer swapping. 
+-->
+All caption-based explainable AI results for each possible combination of biased/unbiased standalone model and the training, test and real-world datasets are collected in the following tables.
+
+| Biased training       | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
+|-                      | -                                         | -                                     | -
+|Correct shape          | 0.00%                                     | 0.00%                                 | 11.83%
+|Correct color          | 49.60%                                    | 51.37%                                | 38.75%
+|Wrong shape            | 0.00%                                     | 0.00%                                 | 12.26%
+|Wrong color            | 50.40%                                    | 48.63%                                | 37.16%
+Table: Results of the caption-based explainable AI model using the biased standalone model and the training dataset. {#tbl:biased_train_results}
+
+| Biased test           | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
+|-                      | -                                         | -                                     | -
+|Correct shape          | 0.00%                                     | 0.00%                                 | 11.05%
+|Correct color          | 48.25%                                    | 49.30%                                | 38.90%
+|Wrong shape            | 0.05%                                     | 0.00%                                 | 10.75%
+|Wrong color            | 51.70%                                    | 50.70%                                | 39.30%
+Table: Results of the caption-based explainable AI model using the biased standalone model and the test dataset. {#tbl:biased_test_results}
+
+| Biased real-world     | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
+|-                      | -                                         | -                                     | -
+|Correct shape          | 0.05%                                     | 0.00%                                 | 10.55%
+|Correct color          | 48.00%                                    | 52.45%                                | 41.10%
+|Wrong shape            | 0.00%                                     | 0.00%                                 | 11.80%
+|Wrong color            | 51.95%                                    | 47.55%                                | 36.55%
+Table: Results of the caption-based explainable AI model using the biased standalone model and the real-world dataset. {#tbl:biased_real_world_results}
+
+| Unbiased training     | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
+|-                      | -                                         | -                                     | -
+|Correct shape          | 36.21%                                    | 37.21%                                | 33.91%
+|Wrong shape            | 37.87%                                    | 34.57%                                | 32.06%
+|Any color              | 25.92%                                    | 28.22%                                | 34.03%
+Table: Results of the caption-based explainable AI model using the unbiased standalone model and the training dataset. {#tbl:unbiased_training_results}
+
+| Unbiased test         | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
+|-                      | -                                         | -                                     | -
+|Correct shape          | 32.70%                                    | 35.10%                                | 34.55%
+|Wrong shape            | 33.40%                                    | 31.70%                                | 31.10%
+|Any color              | 33.90%                                    | 33.20%                                | 34.35%
+Table: Results of the caption-based explainable AI model using the unbiased standalone model and the test dataset. {#tbl:unbiased_test_results}
+
+| Unbiased real-world   | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
+|-                      | -                                         | -                                     | -
+|Correct shape          | 40.35%                                    | 39.55%                                | 35.35%
+|Wrong shape            | 38.50%                                    | 36.10%                                | 34.20%
+|Any color              | 21.15%                                    | 24.35%                                | 30.45%
+Table: Results of the caption-based explainable AI model using the unbiased standalone model and the real-world dataset. {#tbl:unbiased_real_world_results}
