@@ -1,5 +1,15 @@
 # Abstract {.unnumbered}
-Work in progress..
+An increasing number of new and exciting machine learning (ML) applications disrupt our lives almost daily. Speech recognition, autonomous driving and recommender systems are just a few large-scale projects to be mentioned in this context. There is no evidence that this trend will stop any time soon. Every day we find exciting and complex applications that require advanced ML models, but with great power comes
+great responsibility. The fundamental property of ML models is that they are not explicitly programmed but learn from data instead. This attribute makes them very powerful but challenging to interpret. The situation gets worse e.g. in medical environments where a patient could suffer from wrong predictions made by a machine learning model. Therefore, it is mission-critical to deploy robust ML models only. The science of interpreting ML models in order to understand their behavior and improve their robustness is called explainable artificial intelligence (XAI). One of the state-of-the-art XAI methods for computer vision problems is to generate beneficial saliency maps. A saliency map highlights the pixel space on which the model focuses the most. However, this property could be misleading if decision-critical and correlating features are present in overlapping pixel spaces.
+
+Introducing a modified version of the MNIST dataset with a color-encoded covariate shift between the training/validation/test datasets available during the development phase and a simulated real-world situation allows us to demonstrate the novel caption-based explainable AI method. The covariate shift is caused by a highly correlating feature (Color of the digit) in the same pixel space as the decision-critical feature (Shape of the digit). A ML model learns the more accessible correlating color feature instead of the decision-critical shape feature. In a real-world situation, the color assignments of the digits are random. Therefore, the ML model fails in a real-world situation. A saliency XAI approach would fail to explain this troubling situation since it would highlight the colored digit. A novel network surgery approach fuses the ML model to be explained with the contrastive language-image pre-training (CLIP) model. The resulting caption-based explainable AI model uses a set of captions to find the most descriptive text for a given image. This property enables the caption-based explainable AI method to express which concept the ML model focuses on instead of which pixel space.
+
+Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in progress... Work in prog
+
+
+
+
+
 <!-- \hypertarget{abstract}{%
 \chapter*{\vspace*{-4cm} Abstract}\label{abstract}}
 \addcontentsline{toc}{chapter}{Abstract} -->
@@ -114,7 +124,7 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] move shape/color figures to appendix  
 [x] leave test figures in results and move others to the appendix
 [x] evtl. create new figures showing all four values and put them in front of the bundled figure
-[] document results
+[x] document results
 [] document conclusion
 [] write abstract for documentation (limit to 1 page) and online
 
