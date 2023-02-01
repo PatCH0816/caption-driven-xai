@@ -109,14 +109,16 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] List of figures is missing
 [x] document network surgery
 [x] check for correct usage: convolution kernel/convolutional layer/convolutional neural network/activation map
-[] write results
-[] write conclusion
+[x] Mention configuration for images in chapter "results"
+[x] describe tables in appendix
+[x] move shape/color figures to appendix  
+[x] leave test figures in results and move others to the appendix
+[x] evtl. create new figures showing all four values and put them in front of the bundled figure
+[] document results
+[] document conclusion
 [] write abstract for documentation (limit to 1 page) and online
+
+# Bonus:
 [] Why are cosine similarities always larger than 0? Because of the log from the loss function used for training?
 [] Preprocessor size of images in chapter dataset
-[] Mention configuration for images in chapter "results"
-    USE_BIASED_STANDALONE_MODEL = True
-    DATASET_SPLIT = 'test'
-    DATASET_COLOR = True
-    DATASET_BATCH_SIZE = 25
 -->

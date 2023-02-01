@@ -127,29 +127,29 @@ As documented in \*@sec:configurations-of-clip, many different configurations fo
 - To preserve the ability to add language modeling or initialize with a pre-trained language model, masked self-attention is used in the text encoder.
 - CLIP's performance is less sensitive to the capacity of the text encoder. Therefore, only the width of the model is scaled to match the width of the ResNet image encoder proportionally. [@clip_paper]
 
-## Layer swapping results
+## Additional layer swapping results standalone model
 <!-- 
 We don't care about how CLIP worked before swapping, because this is arbitrarily. The "after swapping" scores are also dependent on the inital CLIP performance. Only the relative differences describe, how the accuracies of the captions changed because of the layer swapping. 
 -->
-All caption-based explainable AI results for each possible combination of biased/unbiased standalone model and the training, test and real-world datasets are collected in the following tables.
+\*@tbl:biased_training_results shows the caption-based explainable AI model's results incorporating the standalone model. The caption-based explainable AI model successfully reveals the color as the dominant concept of the standalone model evaluated on the training dataset as shown in \*@fig:dominant_concept_training_1. \*@fig:dominant_concept_training_2 shows a different representation of the same observation with grouped results by their concept of color and shape.
 
-| Biased training       | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
+<!-- | Biased training  | Normalize(cos_sim(No layer swapped))      | Normalize(cos_sim(four layer swapped))| Normalize(cos_sim(four layer swapped - No layer swapped)) -->
+<!-- | Biased training  | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference) -->
+| Biased training       | Zero layers swapped                       | Four layers swapped                   | Influence network surgery
 |-                      | -                                         | -                                     | -
 |Correct shape          | 0.00%                                     | 0.00%                                 | 11.83%
 |Correct color          | 49.60%                                    | 51.37%                                | 38.75%
 |Wrong shape            | 0.00%                                     | 0.00%                                 | 12.26%
 |Wrong color            | 50.40%                                    | 48.63%                                | 37.16%
-Table: Results of the caption-based explainable AI model using the biased standalone model and the training dataset. {#tbl:biased_train_results}
+Table: Results of the caption-based explainable AI model using the biased standalone model and the training dataset. {#tbl:biased_training_results}
 
-| Biased test           | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
-|-                      | -                                         | -                                     | -
-|Correct shape          | 0.00%                                     | 0.00%                                 | 11.05%
-|Correct color          | 48.25%                                    | 49.30%                                | 38.90%
-|Wrong shape            | 0.05%                                     | 0.00%                                 | 10.75%
-|Wrong color            | 51.70%                                    | 50.70%                                | 39.30%
-Table: Results of the caption-based explainable AI model using the biased standalone model and the test dataset. {#tbl:biased_test_results}
+![The color is the dominant concept for the standalone model evaluated on the training dataset, as revealed by the caption-based explainable AI model. The results display the relative number of corrects/wrongs per concept.](source/figures/dominant_concept_training_1.png "The color is the dominant concept for the standalone model evaluated on the training dataset as revealed by the caption-based explainable AI model."){#fig:dominant_concept_training_1 width=75%}
 
-| Biased real-world     | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
+![The color is the dominant concept for the standalone model evaluated on the training dataset, as revealed by the caption-based explainable AI model. The results display the relative number of predictions per concept.](source/figures/dominant_concept_training_2.png "The color is the dominant concept for the standalone model evaluated on the training dataset as revealed by the caption-based explainable AI model."){#fig:dominant_concept_training_2 width=75%}
+
+The caption-based explainable AI model's results incorporating the standalone model can be found in the \*@tbl:biased_real_world_results. The caption-based explainable AI model successfully reveals the color as the dominant concept of the standalone model evaluated on the real-world dataset as shown in \*@fig:dominant_concept_real_world_1. \*@fig:dominant_concept_real_world_2 shows a different representation of the same observation with grouped results by their concept of color and shape.
+
+| Biased real-world     | Zero layers swapped                       | Four layers swapped                   | Influence network surgery
 |-                      | -                                         | -                                     | -
 |Correct shape          | 0.05%                                     | 0.00%                                 | 10.55%
 |Correct color          | 48.00%                                    | 52.45%                                | 41.10%
@@ -157,23 +157,33 @@ Table: Results of the caption-based explainable AI model using the biased standa
 |Wrong color            | 51.95%                                    | 47.55%                                | 36.55%
 Table: Results of the caption-based explainable AI model using the biased standalone model and the real-world dataset. {#tbl:biased_real_world_results}
 
-| Unbiased training     | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
+![The color is the dominant concept for the standalone model evaluated on the real-world dataset, as revealed by the caption-based explainable AI model. The results display the relative number of corrects/wrongs per concept.](source/figures/dominant_concept_real_world_1.png "The color is the dominant concept for the standalone model evaluated on the real-world dataset as revealed by the caption-based explainable AI model."){#fig:dominant_concept_real_world_1 width=75%}
+
+![The color is the dominant concept for the standalone model evaluated on the real-world dataset, as revealed by the caption-based explainable AI model. The results display the relative number of predictions per concept.](source/figures/dominant_concept_real_world_2.png "The color is the dominant concept for the standalone model evaluated on the real-world dataset as revealed by the caption-based explainable AI model."){#fig:dominant_concept_real_world_2 width=75%}
+
+## Additional layer swapping results unbiased standalone model
+\*@tbl:unbiased_training_results shows the caption-based explainable AI model's results incorporating the unbiased standalone model. The caption-based explainable AI model successfully reveals the shape as the dominant concept of the unbiased standalone model evaluated on the training dataset as shown in \*@fig:dominant_concept_training_3. \*@fig:dominant_concept_training_4 shows a different representation of the same observation with grouped results by their concept of color and shape.
+
+| Unbiased training     | Zero layers swapped                       | Four layers swapped                   | Influence network surgery
 |-                      | -                                         | -                                     | -
 |Correct shape          | 36.21%                                    | 37.21%                                | 33.91%
 |Wrong shape            | 37.87%                                    | 34.57%                                | 32.06%
 |Any color              | 25.92%                                    | 28.22%                                | 34.03%
 Table: Results of the caption-based explainable AI model using the unbiased standalone model and the training dataset. {#tbl:unbiased_training_results}
 
-| Unbiased test         | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
-|-                      | -                                         | -                                     | -
-|Correct shape          | 32.70%                                    | 35.10%                                | 34.55%
-|Wrong shape            | 33.40%                                    | 31.70%                                | 31.10%
-|Any color              | 33.90%                                    | 33.20%                                | 34.35%
-Table: Results of the caption-based explainable AI model using the unbiased standalone model and the test dataset. {#tbl:unbiased_test_results}
+![The shape is the dominant concept for the unbiased standalone model evaluated on the training dataset, as revealed by the caption-based explainable AI model. The results display the relative number of corrects/wrongs per concept.](source/figures/dominant_concept_training_3.png "The color is the dominant concept for the unbiased standalone model evaluated on the training dataset as revealed by the caption-based explainable AI model."){#fig:dominant_concept_training_3 width=75%}
 
-| Unbiased real-world   | Before swapping (Original CLIP accuracy)  | After swapping (Absolute difference)  | After swapping (Relative difference)
+![The shape is the dominant concept for the unbiased standalone model evaluated on the training dataset, as revealed by the caption-based explainable AI model. The results display the relative number of predictions per concept.](source/figures/dominant_concept_training_4.png "The color is the dominant concept for the unbiased standalone model evaluated on the training dataset as revealed by the caption-based explainable AI model."){#fig:dominant_concept_training_4 width=75%}
+
+\*@tbl:unbiased_real_world_results shows the caption-based explainable AI model's results incorporating the unbiased standalone model. The caption-based explainable AI model successfully reveals the shape as the dominant concept of the unbiased standalone model evaluated on the real-world dataset as shown in \*@fig:dominant_concept_real_world_3. \*@fig:dominant_concept_real_world_4 shows a different representation of the same observation with grouped results by their concept of color and shape.
+
+| Unbiased real-world   | Zero layers swapped                       | Four layers swapped                   | Influence network surgery
 |-                      | -                                         | -                                     | -
 |Correct shape          | 40.35%                                    | 39.55%                                | 35.35%
 |Wrong shape            | 38.50%                                    | 36.10%                                | 34.20%
 |Any color              | 21.15%                                    | 24.35%                                | 30.45%
 Table: Results of the caption-based explainable AI model using the unbiased standalone model and the real-world dataset. {#tbl:unbiased_real_world_results}
+
+![The shape is the dominant concept for the unbiased standalone model evaluated on the training dataset, as revealed by the caption-based explainable AI model. The results display the relative number of corrects/wrongs per concept.](source/figures/dominant_concept_real_world_3.png "The color is the dominant concept for the unbiased standalone model evaluated on the training dataset as revealed by the caption-based explainable AI model."){#fig:dominant_concept_real_world_3 width=75%}
+
+![The shape is the dominant concept for the unbiased standalone model evaluated on the training dataset, as revealed by the caption-based explainable AI model. The results display the relative number of predictions per concept.](source/figures/dominant_concept_real_world_4.png "The color is the dominant concept for the unbiased standalone model evaluated on the training dataset as revealed by the caption-based explainable AI model."){#fig:dominant_concept_real_world_4 width=75%}

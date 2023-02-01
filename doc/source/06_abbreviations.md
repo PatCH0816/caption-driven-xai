@@ -27,6 +27,7 @@
 \textbf{PMLR}       \> \textbf{P}roceedings of \textbf{M}achine \textbf{L}earning \textbf{R}esearch \\  
 \textbf{ReLU}       \> \textbf{Re}ctified \textbf{L}inear \textbf{U}nit \\  
 \textbf{ResNet}     \> \textbf{Res}idual neural \textbf{Net}work \\  
+\textbf{RGB}       \> \textbf{R}ed, \textbf{G}reen and \textbf{B}lue color channels \\  
 \textbf{RN50}       \> \textbf{R}esidual Neural \textbf{N}etwork with \textbf{50} layers \\  
 \textbf{SOTA}       \> \textbf{S}tate \textbf{O}f \textbf{T}he \textbf{A}rt \\
 \textbf{SVM}        \> \textbf{S}upport \textbf{V}ector \textbf{M}achine \\    
