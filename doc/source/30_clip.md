@@ -120,4 +120,4 @@ Transfer learning requires a pre-trained model, which needs to be finetuned on a
 
 \noindent
 **Poor real-world performance**  
-Deep learning models perform very well on benchmark tasks like the ImageNet challenge. Once deployed into the real world, the performance is often not as good as expected because the models are optimized for the benchmark. This effect is due to a covariate shift between the benchmark and real-world data. CLIP's performance on the benchmark dataset is typically much more representative because CLIP is not finetuned on the benchmark dataset. [@clip_blog]
+Deep learning models perform very well on benchmark tasks like the ImageNet challenge. Once deployed into the real-world, the performance is often not as good as expected because the models are optimized for the benchmark. This effect is due to a covariate shift between the benchmark and real-world data. CLIP's performance on the benchmark dataset is typically much more representative because CLIP is not finetuned on the benchmark dataset. [@clip_blog]

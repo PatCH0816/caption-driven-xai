@@ -3,7 +3,7 @@
 ResNet architecture: https://towardsdatascience.com/understanding-and-visualizing-resnets-442284831be8
 ResNet expects input images of size: 224x224
 -->
-In order to demonstrate a caption-based explainable AI method, a model to be explained is needed. This chapter introduces the trade-off between the interpretability and the accuracy of different machine-learning models, the final choice for the architecture of the biased standalone model and assesses its performance on the custom dataset.
+In order to demonstrate a caption-based explainable AI method, a model to be explained is needed. This chapter introduces the trade-off between the interpretability and the accuracy of different machine learning models, the final choice for the architecture of the biased standalone model and assesses its performance on the custom dataset.
 
 ## Interpretability vs. accuracy
 <!-- Which models are available to choose from? -->
@@ -38,7 +38,7 @@ https://cv-tricks.com/keras/understand-implement-resnets/#:~:text=Architecture%2
 
 ## Performance
 <!-- accuracy on train/validation (good) and test (biased) -->
-A working explainable artificial intelligence (XAI) method should be able to reveal problematic models. A ResNet-50 model is used to create such a biased standalone model. A ResNet-50 model offers a good tradeoff between its performance on a large number of tasks and its complexity. Additionally, a ResNet-50 model is more interpretable than its predecessors, as described in \*@sec:network-dissection.
+A working explainable artificial intelligence (XAI) method should be able to identify problematic models. A ResNet-50 model is used to create such a biased standalone model. A ResNet-50 model offers a good tradeoff between its performance on a large number of tasks and its complexity. Additionally, a ResNet-50 model is more interpretable than its predecessors, as described in \*@sec:network-dissection.
 
 Using a pre-trained ResNet-50 model accelerates the training progress. The model in use is pre-trained on the ImageNet dataset (ILSVRC 2012) with 1000 classes, ~1.2 Mio training images and 50 thousand validation images. [@imagenet] The process of replacing and training the final classification layers is called transfer learning. The hyperparameters used are shown in \*@tbl:biased_standalone_hyperparam_table.
 
@@ -59,4 +59,4 @@ Simulating the deployment of this standalone model by exposing it to the real-wo
 ![This figure illustrates the low bias, low variance learning progress of the transfer learned ResNet-50 model on the biased color MNIST training, validation and test datasets during the model development process. Additionally, the real-world curve demonstrates the poor performance simulated in the real-world environment.](source/figures/performance_biased_with_test_fool.png "Training, validation, test and real-world learning curves from standalone ResNet-50 on custom MNIST dataset for binary classification."){#fig:performance_biased_with_test_fool width=50%}
 
 ## Theory summary
-The core of the idea is that the standalone ResNet model trained on this custom dataset will focus on the undesired correlating feature (Color of the digits) instead of the desired causating feature (Shape of the feature) to classify the digits. This bias leads to high accuracy on the training, validation and test datasets while developing a new model and terrible accuracy on the real-world dataset. The presented XAI method should then be able to reveal the problem using the training, validation and test datasets only!
+The core of the idea is that the standalone ResNet model trained on this custom dataset will focus on the undesired correlating feature (Color of the digits) instead of the desired causating feature (Shape of the feature) to classify the digits. This bias leads to high accuracy on the training, validation and test datasets while developing a new model and terrible accuracy on the real-world dataset. The presented XAI method should then be able to identify the problem using the training, validation and test datasets only!
