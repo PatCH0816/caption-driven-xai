@@ -128,9 +128,12 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] write abstract for documentation (limit to 1 page) and online
 [x] Documentation: Use term finetuning instead of transfer learning
 [x] Documentation: Specify "Smilarity", which is defined as sum of large products.
-[] document conclusion
+[] Extend chapter "results" with a summery. Novel XAI better than saliency. Outlook social bias.
+[] Add image of apple with note "ipad" to zero-shot capability chapter -> ambiguity
+[x] document conclusion
 
 # Bonus:
 [] Why are cosine similarities always larger than 0? Because of the log from the loss function used for training?
 [] Preprocessor size of images in chapter dataset
+[] Check hyperparams in tables
 -->
