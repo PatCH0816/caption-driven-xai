@@ -31,7 +31,7 @@ The black swan is a metaphor for the unknown and unexpected. In the old world, m
 As for most real-world projects, there is almost no finishing line. This section includes an ordered list of tasks in terms of complexity, which provides a good starting point for interested researchers to keep researching the caption-based explainable AI method.
 
 - Find cosine similarities near 0 and 1 (Usually, the observed range during this work was $cos(\theta) = [0.05, 0.35]$.
-- This work demonstrates the novel XAI method's feasibility in detecting highly correlated biases. How about detecting biases with low correlation? Is it possible to prove that the model is bias-free?
+- This work demonstrates the novel XAI method's feasibility in detecting spurious features. How about detecting biases with low correlation? Is it possible to prove that the model is bias-free?
 - Apply the novel XAI method to more challenging datasets like the Stanford street view house numbers, synthetic digits and non-digit related datasets.
 - Replace the trivial binary classification task with a more challenging multiclass classification task.
 - Add a moving window over the image to identify concepts in different locations of the image with linear boundaries.

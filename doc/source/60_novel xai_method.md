@@ -187,7 +187,7 @@ Scanning the score matrix from the activation matching process for the top 3840 
 }
 
 ## Inference
-After the network surgery, the caption-based explainable AI model consists of CLIP's original text encoder (Purple) and the modified image encoder (Red/Green striped) as shown in \*@fig:network_surgery_result_unbiased. The hypothesis is that the network surgery process can merge decision-critical properties and preserve the CLIP embedding space at the same time. 
+After the network surgery, the caption-based explainable AI model consists of CLIP's original text encoder (Purple) and the modified image encoder (Red/Green striped) as shown in \*@fig:network_surgery_result_unbiased. The hypothesis is that the network surgery process can merge salient properties and preserve the CLIP embedding space at the same time. 
 
 ![The caption-based explainable AI model consists of the original CLIP text encoder (Purple) and the post-network surgery image encoder (Red/Green striped). The highest score of the embedding similarities indicates which caption describes the image the best from the original standalone model (Red) point of view.](source/figures/network_surgery_result_unbiased.png "Post-network surgery caption-based explainable AI model."){#fig:network_surgery_result_unbiased width=100%}
 
