@@ -36,7 +36,8 @@ As for most real-world projects, there is almost no finishing line. This section
 - Replace the trivial binary classification task of the standalone model with a more challenging multiclass classification task.
 - Add a moving window over the image to identify concepts in different locations with linear boundaries.
 - Segment the image before identifying concepts in different locations with non-linear boundaries.
-- Define the concepts a standalone model should focus on using captions. Treat the cosine similarities as the loss function value for a minimization problem, which trains the standalone model.
+- Find a better loss function than the symetric cross entropy loss function to use the whole space of concepts, not just a fraction of the unit sphere. Due to the resulting larger space between concepts, the danger of running into numerical problems is reduced.
+- Define the concepts a standalone model should focus on using captions. Treat the cosine similarities as the loss function value for a minimization problem, which trains the standalone model using the set of captions.
 
 ## Outlook
 <!-- The greatest deception men suffer is from their own opinions. Leonardo da Vinci -->
