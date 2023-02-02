@@ -132,9 +132,10 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] Extend chapter "results" with a summery. Novel XAI better than saliency. Outlook social bias.
 
 # Bonus:
-[] Add image of apple with note "ipad" to zero-shot capability chapter -> ambiguity
-[] Add image of MNIST saliency maps
+[x] Check hyperparams in tables
+[x] Preprocessor size of images in chapter dataset
+[x] Add image of apple with note "ipad" to zero-shot capability chapter -> ambiguity
+[] Check sentence: In the usual transfer learning process, a model is trained on a large dataset (This is called pre-training) and finetuned (Called training) in a new domain on a smaller downstream-task-specific dataset.
 [] Why are cosine similarities always larger than 0? Because of the log from the loss function used for training?
-[] Preprocessor size of images in chapter dataset
-[] Check hyperparams in tables
+[] Add image of MNIST saliency maps
 -->

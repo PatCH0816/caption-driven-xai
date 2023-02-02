@@ -53,7 +53,7 @@ The cosine similarity is the inner/scalar product of the two normalized text and
     \end{minipage}
 }
 
-From a mathematical standpoint of view, the theoretical range of numbers for the cosine similarity is $cos(\theta) = [-1, 1]$, for which $cos(\theta) = -1$ denotes opposite concepts, $cos(\theta) = 0$ denotes orthogonal/unrelated concepts and $cos(\theta) = 1$ denotes the same concept. As in most non-theoretical physics, there is no concept of negative weight as illustrated in \*@fig:cosine_similarity. The same is true for the text and image embeddings of CLIP. There is either an absence of a concept (There is no tree) or a presence of a concept of a varying degree (There are one or more trees), but there are no negative concepts. (There are no -5 trees) Therefore, all text and image embedding entries are real numbers equal to or larger than 0. This observation leads to a valid range for the cosine similarity of $cos(\theta) = [0, 1]$.
+From a mathematical standpoint of view, the theoretical range of numbers for the cosine similarity is $cos(\theta) = [-1, 1]$, for which $cos(\theta) = -1$ denotes opposite concepts, $cos(\theta) = 0$ denotes orthogonal/unrelated concepts and $cos(\theta) = 1$ denotes the same concept. As in most non-theoretical physics, there is no concept of negative mass as illustrated in \*@fig:cosine_similarity. The same is true for the text and image embeddings of CLIP. There is either an absence of a concept (There is no tree) or a presence of a concept of a varying degree (There are one or more trees), but there are no negative concepts. (There are no -5 trees) Therefore, all text and image embedding entries are real numbers equal to or larger than 0. This observation leads to a valid range for the cosine similarity of $cos(\theta) = [0, 1]$.
 
 ![This illustration shows a hypothetical low-dimensional embedding space to gain a geometrical understanding of the shared embedding space of CLIP. There are three persons Joe, Nancy and Kai of whom we know about their height, weight and length of their hair. All data points are located on a unit sphere in euclidean space using normalized vectors. The angle between them denotes the similarity with respect to the units of the axes. Note: There are no negative values for height, weight or length of hair. Therefore the valid range of theta is between 0° (Same concept) and 90° (Unrelated concepts). [[@cosine_similarity]](#references)](source/figures/cosine_similarity.png "Cosine similarity"){#fig:cosine_similarity width=50%}
 
@@ -79,6 +79,10 @@ In the usual transfer learning process, a model is trained on a large dataset (T
 Using a set of caption-image-pairs as in \*@fig:clip_matrix, the resulting text-embeddings and image-embeddings form an embedding similarities matrix. Such an embedding similarities matrix supports assessing the performance of CLIP and it could help to discover a broad set of problems, like ambiguous captions. Captions with the word "plane" in them could be ambiguous. Depending on the context, a plane could be a flat surface or an aircraft.
 
 ![In this embedding similarities matrix of CLIP, each score indicates how well a caption matches the context of an image. (Low scores have a dark color while high scores have a lighter color)](source/figures/clip_matrix.png "Clip embedding similarities"){#fig:clip_matrix width=100%}
+
+It is important to note that CLIP always assesses all captions describing the whole image. Selecting the most dominant concept/caption for a classification task could result in unexpected predictions. This behavior can also be exploited for adversarial attacks as shown in \*@fig:clip_adversarial_attack.
+
+![Demonstration of an adversarial attack on CLIP.](source/figures/clip_adversarial_attack.png "Demonstration of an adversarial attack on CLIP."){#fig:clip_matrix width=100%}
 
 ## Opensource movement
 <!-- Explain open-CLIP and LAION datasets -->

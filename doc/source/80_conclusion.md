@@ -21,7 +21,7 @@ The universal no-free-lunch theorem also applies to the caption-based explainabl
 - Engineering suitable captions is a science in itself. Regarding captions, since CLIP is the core component of the caption-based explainable AI method, only concepts known to CLIP should be used in the captions. Captions describing concepts not present in CLIP's space of concepts will not result in the expected performance. This disadvantage is particularly concerning since the custom dataset CLIP has been trained on remains proprietary. Thankfully, the open-CLIP open-source implementation trained on the LAION dataset addresses this problem.
 - While the caption-based explainable AI method can detect the highly correlated color bias used in the modified MNIST dataset, the cosine similarities did not change as much as expected. Part of the explanation is that only $\frac{3840}{22720} = 16.9\%$ of all activation maps from the standalone model were integrated into the caption-based explainable AI model using network surgery to maintain CLIP's concept space. This raises the question if it is possible to identify biases with a low correlation to the ground truth labels.
 - CLIP would need to be finetuned for specific problems like recognizing diseases on x-rays.
-- The caption-based explainable AI method is continuously focusing on the whole image. For images with several concepts combined, like a note with the text "iPad" stuck to an apple placed on a table, the results could be ambiguous depending on the dominant feature.
+- The caption-based explainable AI method is continuously focusing on the whole image. For busy images with several concepts, like a note with the text "iPad" stuck to an apple, the results could be ambiguous depending on the dominant feature.
 
 \noindent
 **Black swan**  
@@ -30,7 +30,7 @@ The black swan is a metaphor for the unknown and unexpected. In the old world, m
 ## Future work
 As for most real-world projects, there is almost no finishing line. This section includes an ordered list of tasks in terms of complexity, which provides a good starting point for interested researchers.
 
-- Find cosine similarities near 0 and 1 (Usually, the observed range during this work was $cos(\theta) = [0.1, 0.35]$).
+- Find cosine similarities near 0 and 1 (Usually, the observed range during this work was $cos(\theta) = [0.1, 0.35]$, which translates to surprisingly large angles $theta = [84°, 70°]$).
 - This work demonstrated the novel XAI method's feasibility detecting highly correlated biases. How about detecting biases with low correlation? Is it possible to prove that the model is bias-free?
 - Apply the novel XAI method to more challenging datasets like the Stanford street view house numbers or the synthetic digits dataset. [@stanford_housenumbers] [@synthetic_digits]
 - Replace the trivial binary classification task of the standalone model with a more challenging multiclass classification task.
