@@ -127,8 +127,8 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] correct introduction
 [x] write abstract for documentation (limit to 1 page) and online
 [x] Documentation: Use term finetuning instead of transfer learning
+[x] Documentation: Specify "Smilarity", which is defined as sum of large products.
 [] document conclusion
-[] "Smilarity" is now defined as sum of large products. 6*6 + 3*3 is the same as 4*4 + 5*5, but they are definitely not similar.
 
 # Bonus:
 [] Why are cosine similarities always larger than 0? Because of the log from the loss function used for training?
