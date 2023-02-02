@@ -138,6 +138,6 @@ The resulting explanation provides an opportunity to improve the model on possib
 [x] Why are cosine similarities always larger than 0? Because of the log from the loss function used for training?
 [x] Check sentence: In the usual transfer learning process, a model is trained on a large dataset (This is called pre-training) and finetuned (Called training) in a new domain on a smaller downstream-task-specific dataset.
 [x] Move cosine angles from conclusion to chapter
-[] Future work: Add link to improve selecting matching acivation with units in XAI chapter
+[x] Future work: Add link to improve selecting matching acivation with units in XAI chapter
 [] Add image of MNIST saliency maps
 -->

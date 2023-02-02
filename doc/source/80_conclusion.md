@@ -28,7 +28,7 @@ The universal no-free-lunch theorem also applies to the caption-based explainabl
 The black swan is a metaphor for the unknown and unexpected. In the old world, most European people believed that all swans were white. Every swan they have ever seen has been white. Therefore, they were convinced that their theory was true. Not until the Europeans found Australia they realized that there were black swans too. Trying hard to disprove a theory is essential to the scientific method. It is when the theories cannot be disproven that there is something genuine about our reality. This analogy also applies to machine learning scientists who face low bias and low variance models, which could still suffer from a covariate shift despite their excellent training, validation and test learning curves.
 
 ## Future work
-As for most real-world projects, there is almost no finishing line. This section includes an ordered list of tasks in terms of complexity, which provides a good starting point for interested researchers.
+As for most real-world projects, there is almost no finishing line. This section includes an ordered list of tasks in terms of complexity, which provides a good starting point for interested researchers to keep on researching on the caption-based explainable AI method.
 
 - Find cosine similarities near 0 and 1 (Usually, the observed range during this work was $cos(\theta) = [0.05, 0.35]$.
 - This work demonstrated the novel XAI method's feasibility detecting highly correlated biases. How about detecting biases with low correlation? Is it possible to prove that the model is bias-free?
@@ -38,6 +38,7 @@ As for most real-world projects, there is almost no finishing line. This section
 - Segment the image before identifying concepts in different locations with non-linear boundaries.
 - Find a better loss function than the symetric cross entropy loss function to use the whole space of concepts, not just a fraction of the unit sphere. Due to the resulting larger space between concepts, the danger of running into numerical problems is reduced.
 - Define the concepts a standalone model should focus on using captions. Treat the cosine similarities as the loss function value for a minimization problem, which trains the standalone model using the set of captions.
+- Try to improve the activation matching process by introducing a threshold hyperparameter to obtain binarized activation maps, which can be compared and matched using an intersection over union score as in network dissection.
 
 ## Outlook
 <!-- The greatest deception men suffer is from their own opinions. Leonardo da Vinci -->
