@@ -40,6 +40,7 @@ As for most real-world projects, there is almost no finishing line. This section
 - Define the concepts a standalone model should focus on using captions. Treat the cosine similarities as the loss function value for a minimization problem, which trains the standalone model using the set of captions.
 - Try to improve the activation matching process by introducing a threshold hyperparameter to obtain binarized activation maps, which can be compared and matched using an intersection over union score as in network dissection.
 
+\newpage
 ## Outlook
 <!-- The greatest deception men suffer is from their own opinions. Leonardo da Vinci -->
 <!-- Make the last 1/2 sentences memorable. -->
