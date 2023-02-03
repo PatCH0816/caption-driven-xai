@@ -22,8 +22,8 @@ The development of the caption-based explainable AI method requires many differe
 - \*@sec:explainable-ai is focused on existing explainable AI methods and the discussion around their advantages and disadvantages.
 - \*@sec:contrastive-language-image-pre-training explains the contrastive language-image pre-training (CLIP) model, a core component of the caption-based explainable AI method.
 - \*@sec:dataset introduces the dataset to train, validate and test the standalone model. Furthermore, the purposely introduced bias in the dataset is explained in detail.
-- \*@sec:standalone-model presents the selection process for a suitable biased machine learning model. The training, validation and test split performance demonstrate a biased standalone model, which is a perfect candidate to demonstrate the caption-based explainable AI method.
+- \*@sec:standalone-model presents the selection process for a suitable biased machine learning model. The training, validation and test datasets are used to train a biased standalone model, which is a perfect candidate to demonstrate the caption-based explainable AI method.
 - \*@sec:caption-based-explainable-ai provides an overview of how the caption-based explainable AI method works. All involved components are explained in detail.
-- \*@sec:results evaluates the performance, which allows for a discussion on the suitability of the caption-based explainable AI method for a given situation.
+- \*@sec:results evaluates the performance of the caption-based explainable AI method, which allows for a discussion on the suitability for given situations.
 - \*@sec:conclusion consolidates all ideas from the previous chapters, summarizes the gained knowledge from this project, discusses open questions and shares some advice on future approaches on this topic.
 - \*@sec:closing-words contains a personal reflection of this work.
