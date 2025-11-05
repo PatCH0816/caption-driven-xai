@@ -1,15 +1,21 @@
-
 # 🧠 Caption-Driven Explainability: Probing CNNs for Bias via CLIP
 
+[![arXiv](https://img.shields.io/badge/arXiv-2510.22035-red)](https://arxiv.org/abs/2510.22035)
 [![Conference](https://img.shields.io/badge/ICIP-2025-blue)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![arXiv](https://img.shields.io/badge/arXiv-2510.22035-red)](https://arxiv.org/abs/2510.22035)
+[![Google Scholar](https://img.shields.io/badge/Google%20Scholar-view-blue?logo=googlescholar&logoColor=white)](https://scholar.google.com/citations?user=w1QXiQkAAAAJ)
+
+> Multimodal explainable AI framework combining CLIP and CNNs to reveal concept-level bias and interpretability in deep vision models.
 
 > **Official Implementation of “Caption-Driven Explainability: Probing CNNs for Bias via CLIP”**  
-> *Patrick Koller¹, Amil V. Dravid², Guido M. Schuster³, Aggelos K. Katsaggelos¹*  
+> [Patrick Koller](https://scholar.google.com/citations?user=w1QXiQkAAAAJ)¹,  
+> [Amil V. Dravid](https://scholar.google.com/citations?hl=de&user=YZ8Y-sUAAAAJ)²,  
+> [Guido M. Schuster](https://scholar.google.com/citations?user=_A1-3vMAAAAJ&hl=de&oi=ao)³,  
+> [Aggelos K. Katsaggelos](https://scholar.google.com/citations?user=aucB85kAAAAJ&hl=en)¹  
 > ¹Northwestern University | ²UC Berkeley | ³Eastern Switzerland University of Applied Sciences  
 > 🏔️ Presented at **IEEE ICIP 2025**, Anchorage (Alaska)
 
+---
 
 ## 🚀 Overview
 
@@ -28,6 +34,7 @@ Through a process called **network surgery**, it reveals the semantic concepts d
   <em>Conceptual overview: bridging CLIP and a standalone model to uncover the semantics behind decisions.</em>
 </p>
 
+---
 
 ## 🧩 Core Idea
 
@@ -44,6 +51,7 @@ CLIP’s text encoder then serves as a semantic probe, describing *what* the mod
   <em>Activation matching aligns internal feature spaces for interpretable concept fusion.</em>
 </p>
 
+---
 
 ## ⚖️ Grad-CAM vs. Caption-Driven XAI
 
@@ -57,6 +65,7 @@ Both **Grad-CAM** and **Caption-Driven XAI** offer valuable insights, but they a
 Grad-CAM highlights the *region* of attention, while Caption-Driven XAI uncovers the *reason*, bridging visual focus with linguistic meaning.  
 *Quantitative concept analysis refers to measuring how strongly each linguistic concept (e.g. “red”, “round”) influences a model’s prediction, based on similarity in CLIP’s multimodal embedding space.*
 
+---
 
 ## 📚 Citation
 
@@ -76,7 +85,8 @@ If you use this repository, please cite:
 ## 🌐 Links
 
 - 📄 Read the full paper (arXiv preprint): https://arxiv.org/abs/2510.22035  
-- 🧠 Project Page / Demos: https://patch0816.github.io/  
+- 🧠 Personal website: https://patch0816.github.io/  
+- 🧾 Google Scholar: https://scholar.google.com/citations?user=w1QXiQkAAAAJ  
 - 💬 Contact the author: mailto:patrickkoller2028@u.northwestern.edu  
 
 
@@ -84,3 +94,7 @@ If you use this repository, please cite:
 
 This research was conducted at the [AIM-IVPL Lab](https://sites.northwestern.edu/ivpl/) (Northwestern University),  
 in collaboration with [UC Berkeley](https://www.berkeley.edu/) and [OST/ICAI Switzerland](https://www.ost.ch/de/forschung-und-dienstleistungen/interdisziplinaere-themen/icai-interdisciplinary-center-for-artificial-intelligence).
+
+---
+*Keywords:* Explainable AI, CLIP, Computer Vision, Bias, Robustness, Interpretability, Multimodal Learning, Northwestern University, ICIP 2025
+---
