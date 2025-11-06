@@ -9,11 +9,12 @@
 
 > **Official Implementation of “Caption-Driven Explainability: Probing CNNs for Bias via CLIP”**  
 > [Patrick Koller](https://scholar.google.com/citations?user=w1QXiQkAAAAJ)¹,  
-> [Amil V. Dravid](https://scholar.google.com/citations?hl=de&user=YZ8Y-sUAAAAJ)²,  
+> [Amil Dravid](https://scholar.google.com/citations?hl=de&user=YZ8Y-sUAAAAJ)² *(also published as Amil V. Dravid)*,  
 > [Guido M. Schuster](https://scholar.google.com/citations?user=_A1-3vMAAAAJ&hl=de&oi=ao)³,  
 > [Aggelos K. Katsaggelos](https://scholar.google.com/citations?user=aucB85kAAAAJ&hl=en)¹  
 > ¹Northwestern University | ²UC Berkeley | ³Eastern Switzerland University of Applied Sciences  
 > 🏔️ Presented at **IEEE ICIP 2025**, Anchorage (Alaska)
+<!-- Alternate author naming: Amil Dravid (Google Scholar), Amil V. Dravid (arXiv/IEEE) -->
 
 ---
 
