@@ -1,17 +1,20 @@
 # 🧠 Caption-Driven Explainability: Probing CNNs for Bias via CLIP
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17546054.svg)](https://doi.org/10.5281/zenodo.17546054)
 [![arXiv](https://img.shields.io/badge/arXiv-2510.22035-red)](https://arxiv.org/abs/2510.22035)
 [![Conference](https://img.shields.io/badge/ICIP-2025-blue)](https://2025.ieeeicip.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Google Scholar](https://img.shields.io/badge/Google%20Scholar-view-blue?logo=googlescholar&logoColor=white)](https://scholar.google.com/citations?user=w1QXiQkAAAAJ)
+[![Scholar](https://img.shields.io/badge/Google%20Scholar-Profile-blue?logo=google-scholar)](https://scholar.google.com/citations?user=w1QXiQkAAAAJ)
+[![Zenodo](https://zenodo.org/badge/584917595.svg)](https://zenodo.org/doi/10.5281/zenodo.17546054)
 
 > Multimodal explainable AI framework combining CLIP and CNNs to reveal concept-level bias and interpretability in deep vision models.
 
 > **Official Implementation of “Caption-Driven Explainability: Probing CNNs for Bias via CLIP”**  
-> [Patrick Koller](https://scholar.google.com/citations?user=w1QXiQkAAAAJ)¹,  
-> [Amil Dravid](https://scholar.google.com/citations?hl=de&user=YZ8Y-sUAAAAJ)² *(also published as Amil V. Dravid)*,  
-> [Guido M. Schuster](https://scholar.google.com/citations?user=_A1-3vMAAAAJ&hl=de&oi=ao)³,  
+> [Patrick Koller](https://scholar.google.com/citations?user=w1QXiQkAAAAJ)¹  
+> [Amil Dravid](https://scholar.google.com/citations?user=YZ8Y-sUAAAAJ)² *(also published as Amil V. Dravid)*  
+> [Guido M. Schuster](https://scholar.google.com/citations?user=_A1-3vMAAAAJ&hl=de&oi=ao)³  
 > [Aggelos K. Katsaggelos](https://scholar.google.com/citations?user=aucB85kAAAAJ&hl=en)¹  
+>
 > ¹Northwestern University | ²UC Berkeley | ³Eastern Switzerland University of Applied Sciences  
 > 🏔️ Presented at **IEEE ICIP 2025**, Anchorage (Alaska)
 <!-- Alternate author naming: Amil Dravid (Google Scholar), Amil V. Dravid (arXiv/IEEE) -->
@@ -34,6 +37,14 @@ Through a process called **network surgery**, it reveals the semantic concepts d
   <img src="doc/source/figures/abstract/abstract_3_xai.png" width="700"><br>
   <em>Conceptual overview: bridging CLIP and a standalone model to uncover the semantics behind decisions.</em>
 </p>
+
+**This repository contains:**
+- ✅ Full inference pipeline for caption-driven XAI
+- ✅ CLIP-based probing utilities
+- ✅ Network surgery implementation
+- ✅ Bias visualization assets
+- ✅ Example datasets & scripts
+
 
 ---
 
@@ -76,19 +87,20 @@ If you use this repository, please cite:
 @inproceedings{koller2025captionxai,
   title={Caption-Driven Explainability: Probing CNNs for Bias via CLIP},
   author={Koller, Patrick and Dravid, Amil V. and Schuster, Guido M. and Katsaggelos, Aggelos K.},
-  booktitle={IEEE International Conference on Image Processing (ICIP)},
+  booktitle={IEEE International Conference on Image Processing (ICIP) – Satellite Workshop on Generative AI for World Simulations and Communications},
   year={2025},
-  organization={IEEE}
+  note={Preprint available at arXiv:2510.22035}
 }
 ```
 
 
 ## 🌐 Links
 
-- 📄 Read the full paper (arXiv preprint): https://arxiv.org/abs/2510.22035  
-- 🧠 Personal website: https://patch0816.github.io/  
-- 🧾 Google Scholar: https://scholar.google.com/citations?user=w1QXiQkAAAAJ  
-- 💬 Contact the author: mailto:patrickkoller2028@u.northwestern.edu  
+- 📄 **arXiv preprint:** https://arxiv.org/abs/2510.22035  
+- 🧪 **Zenodo archive (v1.0.0):** https://doi.org/10.5281/zenodo.17546054  
+- 👤 **Personal website:** https://patch0816.github.io  
+- 🎓 **Google Scholar:** https://scholar.google.com/citations?user=w1QXiQkAAAAJ
+
 
 
 ## ❤️ Acknowledgments
