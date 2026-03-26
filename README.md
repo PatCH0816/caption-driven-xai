@@ -1,16 +1,15 @@
 # 🧠 Caption-Driven Explainability: Probing CNNs for Bias via CLIP
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17546054.svg)](https://doi.org/10.5281/zenodo.17546054)
-[![arXiv](https://img.shields.io/badge/arXiv-2510.22035-red)](https://arxiv.org/abs/2510.22035)
-[![Conference](https://img.shields.io/badge/ICIP-2025-blue)](https://2025.ieeeicip.org/)
+[![arXiv](https://img.shields.io/badge/arXiv-2510.22035-b31b1b)](https://arxiv.org/abs/2510.22035)
+[![ICIP 2025](https://img.shields.io/badge/ICIP-2025-blue)](https://ieeexplore.ieee.org/document/11386015)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Scholar](https://img.shields.io/badge/Google%20Scholar-Profile-blue?logo=google-scholar)](https://scholar.google.com/citations?user=w1QXiQkAAAAJ)
-[![Zenodo](https://zenodo.org/badge/584917595.svg)](https://zenodo.org/doi/10.5281/zenodo.17546054)
+[![Google Scholar](https://img.shields.io/badge/Google%20Scholar-Publications-blue?logo=google-scholar)](https://scholar.google.com/citations?user=jMiy9HQAAAAJ&hl=en)
 
 > Multimodal explainable AI framework combining CLIP and CNNs to reveal concept-level bias and interpretability in deep vision models.
 
-> **Official Implementation of “Caption-Driven Explainability: Probing CNNs for Bias via CLIP”**  
-> [Patrick Koller](https://scholar.google.com/citations?user=w1QXiQkAAAAJ)¹  
+> **Official implementation of the paper:**  
+> [Patrick Koller](https://scholar.google.com/citations?user=jMiy9HQAAAAJ&hl=en)¹  
 > [Amil Dravid](https://scholar.google.com/citations?user=YZ8Y-sUAAAAJ)² *(also published as Amil V. Dravid)*  
 > [Guido M. Schuster](https://scholar.google.com/citations?user=_A1-3vMAAAAJ&hl=de&oi=ao)³  
 > [Aggelos K. Katsaggelos](https://scholar.google.com/citations?user=aucB85kAAAAJ&hl=en)¹  
@@ -99,7 +98,7 @@ If you use this repository, please cite:
 - 📄 **arXiv preprint:** https://arxiv.org/abs/2510.22035  
 - 🧪 **Zenodo archive (v1.0.0):** https://doi.org/10.5281/zenodo.17546054  
 - 👤 **Personal website:** https://patch0816.github.io  
-- 🎓 **Google Scholar:** https://scholar.google.com/citations?user=w1QXiQkAAAAJ
+- 🎓 **Google Scholar:** https://scholar.google.com/citations?user=jMiy9HQAAAAJ&hl=en
 
 
 
