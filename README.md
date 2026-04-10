@@ -1,6 +1,6 @@
 # 🧠 Caption-Driven Explainability: Probing CNNs for Bias via CLIP
 
-[![DOI](https://zenodo.org/badge/541802929.svg)](https://zenodo.org/badge/latestdoi/541802929)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17546054.svg)](https://doi.org/10.5281/zenodo.17546054)
 [![arXiv](https://img.shields.io/badge/arXiv-2510.22035-b31b1b)](https://arxiv.org/abs/2510.22035)
 [![ICIP 2025](https://img.shields.io/badge/ICIP-2025-blue)](https://ieeexplore.ieee.org/document/11386015)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
